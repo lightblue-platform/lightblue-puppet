@@ -18,7 +18,6 @@ class lightblue::awsnode {
     log_dir         => '/usr/share/jbossas/standalone/log',
     enable_logging  => true,
     deploy_apps     => true,
-    require         => [ File['/etc/redhat/lightblue'] ],
   }
 
 }
