@@ -8,7 +8,7 @@ class lightblue::awsnode {
     owner    => 'jboss',
     group    => 'jboss',
     mode     => '0755',
-    requires => [ User['jboss'] ]
+    require  => [ User['jboss'] ]
   }
 
   class { 'lightblue::jcliff':
@@ -18,7 +18,7 @@ class lightblue::awsnode {
     log_dir         => '/usr/share/jbossas/standalone/log',
     enable_logging  => true,
     deploy_apps     => true,
-    requires        => [ File['/etc/redhat/lightblue'] ],
+    require         => [ File['/etc/redhat/lightblue'] ],
   }
 
 }
