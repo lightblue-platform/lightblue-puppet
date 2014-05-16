@@ -49,6 +49,6 @@ class lightblue::openjdk ($java_version = '1.7.0') {
 
   file { '/etc/profile.d/java-env.sh':
     mode    => '0755',
-    content => inline_template("export JAVA_HOME=<%= java_home %>"),
+    content => inline_template('export JAVA_HOME=<%= java_home %>'),
   }
 }
