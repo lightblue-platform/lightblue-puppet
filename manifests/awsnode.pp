@@ -11,7 +11,7 @@ class lightblue::awsnode {
         requires => [ User['jboss'] ]
   }
 
-  class lightblue::jcliff {
+  class { 'lightblue::jcliff':
      config_dir      => '/etc/redhat/lightblue',
      management_host => 'localhost',
      management_port => 9999,
