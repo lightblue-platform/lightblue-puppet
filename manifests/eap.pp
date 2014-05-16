@@ -1,4 +1,4 @@
-# Installs EAP6 
+# Installs EAP6
 class lightblue::eap ($eap_version = '1.6.0') {
 
   include lightblue::initrepos

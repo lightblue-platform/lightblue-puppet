@@ -1,9 +1,9 @@
 node default {
   case $::osfamily {
     RedHat  : { $supported = true }
-    default : { 
+    default : {
       notice("The ${module_name} module is not supported on ${::osfamily} based systems")
-      fail("The ${module_name} module is not supported on ${::osfamily} based systems") 
+      fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }
   }
 
