@@ -1,0 +1,44 @@
+{
+  "security" => {
+    "security-domain" => {
+      "lightblue-cert" => {
+        "authentication" => {
+          "classic" => {
+            "login-module" => {
+              "CertLdapLoginModule" => {
+                "code" => "com.redhat.lightblue.rest.auth.jboss.CertLdapLoginModule",
+                "flag" => "required",
+                "module-options" => {
+                  "password-stacking" => "useFirstPass",
+                  "securityDomain" => "lightblue-cert",
+                  "verifier" => "org.jboss.security.auth.certs.AnyCertVerifier",
+                  "rolesProperties" => expression "file://${jboss.server.config.dir}/roles.properties",
+                  "authRoleName" => "authenticated",
+                  "ldapAdServer" => "<%= option_ldapAdServer %>",
+                  "ldapSearchBase" => "<%= option_ldapSearchBase %>",
+                  "ldapUsername" => "<%= option_ldapUsername %>",
+                  "ldapPassword" => "<%= option_ldapPassword %>"
+                }
+              }
+            }
+          }
+        },
+        "jsse" => {
+          "classic" => {
+             "client-auth" => true,
+             "keystore" => {
+                        "password" => "<%= option_keystorePassword %>",
+                        "url" => "<%= option_keystoreUrl %>"
+                    },
+             "truststore" => {
+                        "password" => "<%= option_truststorePassword %>",
+                        "url" => "<%= option_truststoreUrl %>"
+                    }
+            }
+         }
+      }
+    }
+  }
+}
+
+  

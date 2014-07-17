@@ -1,0 +1,35 @@
+{
+ "logging" =>  {
+    "size-rotating-file-handler" => {
+       "rh_file_handler" => {
+           "rotate-size" => "10m",
+           "max-backup-index" => 50,
+           "file" => {
+               "relative-to" => "jboss.server.log.dir",
+               "path" => "server.log",
+            },
+           "formatter" => "<%= logging_format %>"
+       }
+    },
+    "periodic-rotating-file-handler" => {
+        "FILE" => "deleted"
+    },
+    "async-handler" => {
+       "rh_async" => {
+         "subhandlers" => ["rh_file_handler"],
+         "queue-length" => 1000
+       }
+   },
+    "logger" => {
+       "com.redhat" => {
+         "level" => "<%= com_redhat_log_level %>",
+       }
+   },
+    "root-logger" => {
+       "ROOT" => {
+         "handlers" => [ "rh_file_handler" ],
+         "level" => "<%= root_log_level %>"
+       }
+    }
+  }
+}
