@@ -26,6 +26,13 @@ class lightblue::jcliff (
   $deploy_apps=true
   ) {
 
+    $package_name = hiera('lightblue::jcliff::package::name', 'jcliff')
+    $package_ensure = hiera('lightblue::jcliff::package::ensure', latest)
+
+    package { $package_name :
+        ensure  => $package_ensure,
+    }
+
     $jcliff_config_dir=$config_dir
 
     if $enable_logging {
@@ -33,13 +40,6 @@ class lightblue::jcliff (
     }
     else {
         $jcliff_log_dir_option = ''
-    }
-
-    $package_name = hiera('lightblue::package::jcliff::name', 'jcliff')
-    $package_ensure = hiera('lightblue::package::jcliff::ensure', latest)
-
-    package { $package_name :
-        ensure  => $package_ensure,
     }
 
     exec { 'configure-eap6' :

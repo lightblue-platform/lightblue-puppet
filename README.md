@@ -1,14 +1,19 @@
 This puppet module is a self contained puppet module to configure a
-node running Lightblue on EAP6. It has bits to install a JDK and EAP6
+node running lightblue on EAP6. It has bits to install a JDK and EAP6
 on the node. If these are not necessary, it must be edited and
 customized for the local setting.
 
-Public classes:
+## Public classes
 
 lightblue::service::metadata : Installs the metadata service
 lightblue::service::data : Installs the data service
 
-Operation:
+## Hiera
+This puppet module makes use of hiera to manage data that can change 
+depending on where lightblue is deployed or might need tuning over time.
+All hiera keys begin with the class in which they are used.
+
+## Operation
 
 Both lightblue::service::data and lightblue::service::metadata classes
 use the lightblue::base class. These classes:

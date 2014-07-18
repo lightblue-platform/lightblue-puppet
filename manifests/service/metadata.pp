@@ -2,8 +2,8 @@
 class lightblue::service::metadata {
     include lightblue::base
 
-    $package_name = hiera('lightblue::package::rest_metadata::name', 'lightblue-rest-metadata')
-    $package_ensure = hiera('lightblue::package::rest_metadata::ensure', latest)
+    $package_name = hiera('lightblue::service::metadata::package::name', 'lightblue-rest-metadata')
+    $package_ensure = hiera('lightblue::service::metadata::package::ensure', latest)
 
     package { $package_name :
         ensure  => $package_ensure,

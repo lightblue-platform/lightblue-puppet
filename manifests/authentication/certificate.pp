@@ -4,14 +4,14 @@ class lightblue::authentication::certificate {
     include lightblue::base
 
     # get variables out of hiera
-    $option_ldapAdServer = hiera('lightblue::auth::cert::ldapAdServer')
-    $option_ldapSearchBase = hiera('lightblue::auth::cert::ldapSearchBase')
-    $option_ldapUsername = hiera('lightblue::auth::cert::ldapUsername')
-    $option_ldapPassword = hiera('lightblue::auth::cert::ldapPassword')
-    $option_keystorePassword = hiera('lightblue::auth::cert::keystorePassword')
-    $option_keystoreUrl = hiera('lightblue::auth::cert::keystoreUrl')
-    $option_truststorePassword = hiera('lightblue::auth::cert::truststorePassword')
-    $option_truststoreUrl = hiera('lightblue::auth::cert::truststoreUrl')
+    $option_ldapAdServer = hiera('lightblue::authentication::certificate::ldapAdServer')
+    $option_ldapSearchBase = hiera('lightblue::authentication::certificate::ldapSearchBase')
+    $option_ldapUsername = hiera('lightblue::authentication::certificate::ldapUsername')
+    $option_ldapPassword = hiera('lightblue::authentication::certificate::ldapPassword')
+    $option_keystorePassword = hiera('lightblue::authentication::certificate::keystorePassword')
+    $option_keystoreUrl = hiera('lightblue::authentication::certificate::keystoreUrl')
+    $option_truststorePassword = hiera('lightblue::authentication::certificate::truststorePassword')
+    $option_truststoreUrl = hiera('lightblue::authentication::certificate::truststoreUrl')
 
     lightblue::jcliffconfig { 'lightblue-security-domain.conf':
         content => template('lightblue/lightblue-security-domain.conf.erb'),
