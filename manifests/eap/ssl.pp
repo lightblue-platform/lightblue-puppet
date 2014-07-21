@@ -23,10 +23,6 @@
 # [*certificate_file*]
 #   Name of the certificate file.
 #
-# [*enabled*]
-#   Boolean to indicate if the logic in this class should be executed.
-#   Default value: true
-#
 # === Variables
 #
 # Module requires no global variables.
@@ -37,47 +33,59 @@ class lightblue::eap::ssl (
     $keystore_password,
     $ca_location,
     $certificate_source,
-    $certificate_file,
-    $enabled = true
+    $certificate_file
 ) {
-    if $enabled {
-        # pull certificate from the source
-        file { $certificate_file:
-            owner   => 'root',
-            group   => 'root',
-            mode    => '0600',
-            links   => 'follow',
-            source  => $certificate_source,
-        }
-        #This will create the keystore at the target location, with the alias eap6 to the cert
-        java_ks { "${keystore_alias}:keystore":
-            ensure       => latest,
-            certificate  => $certificate_file,
-            private_key  => $certificate_file,
-            target       => "${keystore_location}/eap6.keystore",
-            password     => $keystore_password,
-            trustcacerts => true,
-            require      => File[$certificate_file],
-        }
-        java_ks { "${keystore_alias}:truststore":
-            ensure       => latest,
-            certificate  => "${ca_location}/cacert.pem",
-            target       => "${keystore_location}/eap6trust.keystore",
-            password     => $keystore_password,
-            trustcacerts => true,
-            require      => File[$certificate_file],
-        }
-        file {"${keystore_location}/eap6.keystore":
-            owner   => 'jboss',
-            group   => 'jboss',
-            mode    => '0600',
-            require => Java_ks["${keystore_alias}:keystore"],
-        }
-        file {"${keystore_location}/eap6trust.keystore":
-            owner   => 'jboss',
-            group   => 'jboss',
-            mode    => '0600',
-            require => Java_ks["${keystore_alias}:truststore"],
-        }
+    # pull certificate from the source
+    file { $certificate_file:
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0600',
+        links   => 'follow',
+        source  => $certificate_source,
+    }
+    #This will create the keystore at the target location, with the alias eap6 to the cert
+    java_ks { "${keystore_alias}:keystore":
+        ensure       => latest,
+        certificate  => $certificate_file,
+        private_key  => $certificate_file,
+        target       => "${keystore_location}/eap6.keystore",
+        password     => $keystore_password,
+        trustcacerts => true,
+        require      => File[$certificate_file],
+    }
+    java_ks { "${keystore_alias}:truststore":
+        ensure       => latest,
+        certificate  => "${ca_location}/cacert.pem",
+        target       => "${keystore_location}/eap6trust.keystore",
+        password     => $keystore_password,
+        trustcacerts => true,
+        require      => File[$certificate_file],
+    }
+    file {"${keystore_location}/eap6.keystore":
+        owner   => 'jboss',
+        group   => 'jboss',
+        mode    => '0600',
+        require => Java_ks["${keystore_alias}:keystore"],
+    }
+    file {"${keystore_location}/eap6trust.keystore":
+        owner   => 'jboss',
+        group   => 'jboss',
+        mode    => '0600',
+        require => Java_ks["${keystore_alias}:truststore"],
+    }
+
+    # setup thread_pool
+    # use same name as webconnector executor
+    lightblue::eap::thread_pool { 'https_executor' :
+    }
+
+    # setup webconnector
+    # all params not set here are expected from hiera
+    lightblue::eap::webconnector { 'https' :
+        executor                => 'https_executor',
+        ca_certificate_file     => "${keystore_location}/eap6trust.keystore",
+        certificate_key_file    => "${keystore_location}/eap6.keystore",
+        key_alias               => $keystore_alias,
+        password                => $keystore_password,
     }
 }
