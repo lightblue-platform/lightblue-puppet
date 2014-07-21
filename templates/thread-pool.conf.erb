@@ -6,8 +6,20 @@
               "core-threads" => <%= core_thread_count %>,
               "allow-core-timeout" => false,
           <% end -%>
+          <% if $handoff_executor %>
+              "$handoff-executor" => <%= handoff_executor %>,
+          <% end -%>
           <% if @handoff_executor %>
-              "handoff-executor" => <%= handoff_executor %>,
+              "@handoff-executor" => <%= handoff_executor %>,
+          <% end -%>
+          <% if defined? @handoff_executor %>
+              "defined @handoff-executor" => <%= handoff_executor %>,
+          <% end -%>
+          <% if defined? $handoff_executor %>
+              "defined $handoff-executor" => <%= handoff_executor %>,
+          <% end -%>
+          <% if defined? handoff_executor %>
+              "defined handoff-executor" => <%= handoff_executor %>,
           <% end -%>
           <% if @keepalive_time  %>
               "keepalive-time" => <%= keepalive_time %>,
@@ -21,6 +33,9 @@
           <% end -%>
           <% if defined? @queue_length %>
               "defined @queue-length" => <%= queue_length %>,
+          <% end -%>
+          <% if defined? $queue_length %>
+              "defined $queue-length" => <%= queue_length %>,
           <% end -%>
           <% if defined? queue_length %>
               "defined queue-length" => <%= queue_length %>,
