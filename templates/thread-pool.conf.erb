@@ -9,7 +9,7 @@
           <% if $handoff_executor %>
               "$handoff-executor" => <%= handoff_executor %>,
           <% end -%>
-          <% if @handoff_executor %>
+          <% if @handoff_executor && @handoff_executor != undef %>
               "@handoff-executor" => <%= handoff_executor %>,
           <% end -%>
           <% if defined? @handoff_executor %>
@@ -28,7 +28,7 @@
           <% if $queue_length %>
               "$queue-length" => <%= queue_length %>,
           <% end -%>
-          <% if @queue_length %>
+          <% if @queue_length && @queue_length != undef %>
               "@queue-length" => <%= queue_length %>,
           <% end -%>
           <% if defined? @queue_length %>
