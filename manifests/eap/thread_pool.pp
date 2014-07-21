@@ -26,6 +26,7 @@
 #  }
 #
 class lightblue::eap::thread_pool (
+  $pool_name,
   $pool_type,
   $core_thread_count,
   $handoff_executor,
@@ -35,7 +36,7 @@ class lightblue::eap::thread_pool (
   $thread_factory,
 )
 {
-  lightblue::jcliff::config { "thread-pool-${name}.conf":
+  lightblue::jcliff::config { "thread-pool-${pool_name}.conf":
     content => template('lightblue/thread-pool.conf.erb'),
   }
 }

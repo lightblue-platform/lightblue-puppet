@@ -60,6 +60,7 @@
 #  }
 #
 class lightblue::eap::webconnector (
+  $connector_name,
   $enable_lookups,
   $enabled,
   $executor,
@@ -82,7 +83,7 @@ class lightblue::eap::webconnector (
   $ca_certificate_password,
 )
 {
-  lightblue::jcliff::config { "web-connector-${name}.conf":
+  lightblue::jcliff::config { "web-connector-${connector_name}.conf":
     content => template('lightblue/web-connector.conf.erb'),
   }
 }

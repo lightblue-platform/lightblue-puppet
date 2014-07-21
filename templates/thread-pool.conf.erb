@@ -1,7 +1,7 @@
 { "threads" =>
   {
     "<%= pool_type %>" => 
-	  { "<%= name %>" => {
+	  { "<%= pool_name %>" => {
           <% if defined? core_thread_count %>
               "core-threads" => <%= core_thread_count %>,
               "allow-core-timeout" => false,
