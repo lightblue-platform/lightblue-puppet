@@ -34,7 +34,7 @@ class lightblue::eap::ssl (
     $ca_location,
     $certificate_source,
     $certificate_file
-) 
+)
 {
     # pull certificate from the source
     file { $certificate_file:
