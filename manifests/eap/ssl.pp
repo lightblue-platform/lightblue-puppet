@@ -1,20 +1,37 @@
-# == Class: lightbluerh::eap::ssl
+# == Class: lightblue::eap::ssl
 #
-# Create keystores needed for jboss ssl.
+# Full description of class example_class here.
 #
 # === Parameters
 #
-# Module requires no parameters when including.
+# [*keystore_alias*]
+#   alias to the keystore
+#
+# [*keystore_location*]
+#   Directory where keystore (and truststore) are saved.
+#
+# [*keystore_password*]
+#   Password to keystore (and truststore).
+#
+# [*ca_location*]
+#   Location for CA files.
+#
+# [*certificate_source*]
+#   Location for certificate.  Is used as 'source' in a 'file' entry.
+#   Recommend referencing a file in a separate (and secure) puppet module for managing certs.
+#
+# [*certificate_file*]
+#   Name of the certificate file.
+#
+# [*enabled*]
+#   Boolean to indicate if the logic in this class should be executed.
+#   Default value: true
 #
 # === Variables
 #
 # Module requires no global variables.
 #
-# === Examples
-#
-#  include lightbluerh::eap::ssl
-#
-class lightbluerh::eap::ssl (
+class lightblue::eap::ssl (
     $keystore_alias,
     $keystore_location,
     $keystore_password,
