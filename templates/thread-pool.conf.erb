@@ -7,14 +7,14 @@
               "allow-core-timeout" => false,
           <% end -%>
           <% if @handoff_executor && @handoff_executor != '' %>
-              "@handoff-executor" => <%= handoff_executor %>,
+              "handoff-executor" => <%= handoff_executor %>,
           <% end -%>
           <% if @keepalive_time && @keepalive_time != '' %>
               "keepalive-time" => <%= keepalive_time %>,
           <% end -%>
               "max-threads" => <%= max_thread_count %> ,
           <% if @queue_length && @queue_length != '' %>
-              "@queue-length" => <%= queue_length %>,
+              "queue-length" => <%= queue_length %>,
           <% end -%>
 		  <% if @thread_factory && @thread_factory != '' %>
               "thread-factory" => "<%= thread_factory %>",
