@@ -1,4 +1,4 @@
-class lightblue::eap::module 
+class lightblue::eap::module
     inherits lightblue::eap
 {
     # get all hystrix config variables
