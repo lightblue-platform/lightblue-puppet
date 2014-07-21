@@ -92,3 +92,7 @@ For full documentation on each of these, see the RDocs included in the source.
 * [lightblue::authentication::certificate](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/authentication/certificate.pp)
 * [lightblue::eap::ssl](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/eap/ssl.pp)
 
+# Gotyas
+
+## Use of default empty string
+Puppet is pretty bad when handling undefined variables.  Especially when passing to an ERB template.  The rule of thumb has become to set all params to default to '' and check for that in the ERB.  Do not pass nil or undef to anything or it will break.
