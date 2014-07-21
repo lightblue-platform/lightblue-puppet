@@ -72,7 +72,18 @@ Simply add the following to your host manifest, however that is done in your env
 * lightblue::service::data : Installs the data service
 
 
-# Operation
+# Structure
+Bits of the puppet module are broken out into sub-sections to make managing them easier:
+* authentication - setup of client certificate
+* eap - configuration of JBoss EAP
+* jcliff - setup of and define for jcliff, tool for configuring jboss via cli in puppet
+* service - bucket for deploying RESTful services
+* yumrepo - bucket for deploying yum repositories
+
+
+
+
+
 
 Both `lightblue::service::data` and `lightblue::service::metadata` classes
 use the `lightblue::base` class. These classes:

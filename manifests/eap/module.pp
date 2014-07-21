@@ -1,4 +1,6 @@
-class lightblue::eap::module {
+class lightblue::eap::module 
+    inherits lightblue::eap
+{
     # get all hystrix config variables
     $hystrix_command_default_execution_isolation_strategy = hiera('lightblue::eap::module::hystrix::command::default::execution_isolation_strategy::default', 'THREAD')
     $hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds = hiera('lightblue::eap::module::hystrix::command::default::execution_isolation_thread_timeoutInMilliseconds', 60000)
@@ -25,7 +27,7 @@ class lightblue::eap::module {
         owner    => 'jboss',
         group    => 'jboss',
         mode     => '0755',
-        require  => Package['jbossas-standalone'],
+        require  => Package[$lightblue::eap::package_name],
       }
 
     # Property files

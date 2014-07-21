@@ -1,13 +1,14 @@
 # Sets up a base node with ligthblue metadata service deployed
 class lightblue::service::metadata {
     include lightblue::base
+    include lightblue::yumrepo::lightblue
 
     $package_name = hiera('lightblue::service::metadata::package::name', 'lightblue-rest-metadata')
     $package_ensure = hiera('lightblue::service::metadata::package::ensure', latest)
 
     package { $package_name :
         ensure  => $package_ensure,
-        require => [ Class['lightblue::yumrepo'], Class['lightblue::eap'] ],
+        require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-metadata.json':

@@ -24,7 +24,8 @@ class lightblue::jcliff (
   $enable_logging=false,
   $log_dir=undef,
   $deploy_apps=true
-  ) {
+) {
+    include lightblue::eap
 
     $package_name = hiera('lightblue::jcliff::package::name', 'jcliff')
     $package_ensure = hiera('lightblue::jcliff::package::ensure', latest)

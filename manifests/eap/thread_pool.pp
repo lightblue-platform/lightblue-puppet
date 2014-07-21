@@ -33,7 +33,8 @@ class lightblue::eap::thread_pool (
   $max_thread_count,
   $queue_length,
   $thread_factory,
-) {
+) 
+{
   lightblue::jcliff::config { "thread-pool-${name}.conf":
     content => template('lightblue/thread-pool.conf.erb'),
   }

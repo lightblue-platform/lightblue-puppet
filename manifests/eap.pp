@@ -1,7 +1,9 @@
 # Installs EAP6 from internal repos
 # Declares a service to control eap6 instance
 class lightblue::eap ($eap_version = '6.1.0') {
-  include lightblue::yumrepo
+  include lightblue::yumrepo::jbeap
+  include lightblue::yumrepo::jbeaptools
+  include lightblue::java
 
   $package_name = hiera('lightblue::eap::package::name', 'jbossas-standalone')
   $package_ensure = hiera('lightblue::eap::package::ensure', latest)
@@ -9,6 +11,16 @@ class lightblue::eap ($eap_version = '6.1.0') {
   package { $package_name :
     ensure  => $package_ensure,
     require => [Class['lightblue::yumrepo'], Class['lightblue::java']],
+  }
+
+  $config_dir = '/etc/redhat/lightblue'
+
+  file { [ '/etc/redhat', $config_dir ] :
+    ensure   => 'directory',
+    owner    => 'jboss',
+    group    => 'jboss',
+    mode     => '0755',
+    require  => Package[$package_name],
   }
 
   $jboss_java_opts_Xms = hiera('lightblue::eap::java::Xms', '786m')
@@ -20,7 +32,7 @@ class lightblue::eap ($eap_version = '6.1.0') {
     owner   => 'jboss',
     group   => 'jboss',
     mode    => '0644',
-    require => Package['jbossas-standalone'],
+    require => Package[$package_name],
     notify  => Service['jbossas'],
   }
 
@@ -32,7 +44,7 @@ class lightblue::eap ($eap_version = '6.1.0') {
     group   => 'jboss',
     mode    => '0755',
     target  => '/var/log/jbossas/standalone/',
-    require => Package['jbossas-standalone'],
+    require => Package[$package_name],
     before  => Service['jbossas'],
   }
 
@@ -43,6 +55,11 @@ class lightblue::eap ($eap_version = '6.1.0') {
     hasrestart => true,
     hasstatus  => true,
     status     => '/sbin/service jbossas status | /bin/grep running',
-    require    => Package['jbossas-standalone'],
+    require    => Package[$package_name],
+  }
+
+  #socket bindings
+  lightblue::jcliff::config { 'socketbinding.conf':
+    content => template('lightblue/socketbinding.conf.erb')
   }
 }

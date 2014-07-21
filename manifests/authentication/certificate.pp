@@ -9,9 +9,6 @@ class lightblue::authentication::certificate (
     $truststore_password,
     $truststore_url,
 ) {
-    # jcliff is setup in base, explicit include keeps things sane
-    include lightblue::base
-
     lightblue::jcliff::config { 'lightblue-security-domain.conf':
         content => template('lightblue/lightblue-security-domain.conf.erb'),
     }

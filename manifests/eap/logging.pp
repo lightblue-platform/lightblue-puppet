@@ -1,4 +1,5 @@
-class lightblue::eap::logging {
+class lightblue::eap::logging 
+{
     # setup eap6 logging
     $logging_format = hiera('lightblue::eap::logging::format', '%d [%t] %-5p [%c] %m%n')
     $root_log_level = hiera('lightblue::eap::logging::level::root', WARN)

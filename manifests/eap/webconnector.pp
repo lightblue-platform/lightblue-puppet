@@ -80,8 +80,8 @@ class lightblue::eap::webconnector (
   $key_alias,
   $ca_certificate_file,
   $ca_certificate_password,
-) {
-
+) 
+{
   lightblue::jcliff::config { "web-connector-${name}.conf":
     content => template('lightblue/web-connector.conf.erb'),
   }
