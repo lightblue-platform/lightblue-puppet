@@ -2,7 +2,7 @@
 # name gives the name of the file, without directory
 define lightblue::jcliff::config($content) {
   class { 'lightblue::jcliff':
-    config_dir      => $config_dir,
+    config_dir      => $lightblue::eap::config_dir,
     management_host => $::ipaddress,
     management_port => 9999,
     log_dir         => '/var/lib/jbossas/standalone/log',
