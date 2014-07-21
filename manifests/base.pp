@@ -1,7 +1,7 @@
 # Sets up a base node with java, EAP6, jcliff, and lightblue module
 class lightblue::base {
 
-  include lightblue::yumrepos
+  include lightblue::yumrepo
   include lightblue::java
   include lightblue::eap
   include lightblue::eap::logging

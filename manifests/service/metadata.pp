@@ -7,7 +7,7 @@ class lightblue::service::metadata {
 
     package { $package_name :
         ensure  => $package_ensure,
-        require => [ Class['lightblue::yumrepos'], Class['lightblue::eap'] ],
+        require => [ Class['lightblue::yumrepo'], Class['lightblue::eap'] ],
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-metadata.json':
