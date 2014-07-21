@@ -75,20 +75,9 @@ class lightblue::eap::ssl (
         require => Java_ks["${keystore_alias}:truststore"],
     }
 
-    # setup thread_pool
-    # use same name as webconnector executor
-    class { 'lightblue::eap::thread_pool':
-        name                    => 'https_executor',
-    }
+    # setup thread_pool (params loaded from hiera)
+    include lightblue::eap::thread_pool
 
-    # setup webconnector
-    # all params not set here are expected from hiera
-    class { 'lightblue::eap::webconnector':
-        name                    => 'https',
-        executor                => 'https_executor',
-        ca_certificate_file     => "${keystore_location}/eap6trust.keystore",
-        certificate_key_file    => "${keystore_location}/eap6.keystore",
-        key_alias               => $keystore_alias,
-        password                => $keystore_password,
-    }
+    # setup webconnector (params loaded from hiera)
+    include lightblue::eap::webconnector
 }
