@@ -1,8 +1,8 @@
 # Installs EAP6 from internal repos
 # Declares a service to control eap6 instance
 class lightblue::eap (
-    $eap_version = '6.1.0',
     $config_dir,
+    $eap_version = '6.1.0',
 ) {
   include lightblue::yumrepo::jbeap
   include lightblue::yumrepo::jbeaptools
