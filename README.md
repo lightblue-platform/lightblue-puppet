@@ -80,68 +80,15 @@ Bits of the puppet module are broken out into sub-sections to make managing them
 * service - bucket for deploying RESTful services
 * yumrepo - bucket for deploying yum repositories
 
+![Dependencies](https://raw.githubusercontent.com/lightblue-platform/lightblue-puppet/master/docs/lightblue.png)
 
+The classes with no other dependencies at the top of the image are those that can be directly included in your module.  In addition to `lightblue::service::data` and `lightblue::service::metadata` used in the quick start there are:
+* `lightblue::authentication::certificate` - enable client certificates
+* `lightblue::eap::ssl` - enable ssl termination in EAP
 
+For full documentation on each of these, see the RDocs included in the source.
+* [lightblue::service::metadata](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/service/metadata.pp)
+* [lightblue::service::data](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/service/data.pp)
+* [lightblue::authentication::certificate](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/authentication/certificate.pp)
+* [lightblue::eap::ssl](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/eap/ssl.pp)
 
-
-
-Both `lightblue::service::data` and `lightblue::service::metadata` classes
-use the `lightblue::base` class. These classes:
-  - install the latest release of the application,
-  - install the configuration file to the EAP6 module directory
-
-The lightblue::base class 
-  - creates jcliff configuration directory:
-  /etc/redhat/lightblue. Configuration file fragments used by jcliff
-  are installed under this directory.
-  - installs and initialized jcliff
-  - sets up properties module under EAP6 
-   (/usr/share/jbossas/modules/com/redhat/lightblue/main)
-  - installs basic property files
-  - configures EAP6
-
-This class depends on packages installed by eap6 and java classes.
-
-lightblue::initrepos class: This is a hack to configure repositories
-from the node manifest. Any RPM repositories required to setup the
-node should be defined in the node manifest using parameter yum_repos.
-
-Node manifest:
-
-The classes should include one or both of:
-    - lightblue::service::data
-    - lightblue::service::metadata
-
-The parameters should include:
-
-    yum_repos:
-      -
-        name: <repo name>
-        description: <repo description>
-        baseurl: <repo url>
-      - 
-        ...
-
-Optional hystrix configuration:
-
-    hystrix_command_default_execution_isolation_strategy: THREAD
-    hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds: 10000
-    hystrix_command_default_circuitBreaker_enabled: false
-
-Hystrix configuration is in
-templates/properties/config.properties.erb. Default values for
-properties are initialized in hiera and loaded in lightblue::base class.
-
-MongoDB configuration:
-
-Either:
-    mongo_server_host: cosmongodb01.cos.redhat.com
-    mongo_server_port: 27017
-
-or
-    mongo_servers:
-      - host: localhost
-        port: 27017
-      - host: otherhost
-        port: 27017
-      ...
