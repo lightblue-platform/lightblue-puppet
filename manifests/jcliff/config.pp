@@ -1,15 +1,9 @@
 # Lay down a jcliff config file, and schedule execution of config update
 # name gives the name of the file, without directory
-define lightblue::jcliff::config($content) {
-  class { 'lightblue::jcliff':
-    config_dir      => $lightblue::eap::config_dir,
-    management_host => $::ipaddress,
-    management_port => 9999,
-    log_dir         => '/var/lib/jbossas/standalone/log',
-    enable_logging  => true,
-    deploy_apps     => true,
-    require         => Class['lightblue::eap'],
-  }
+define lightblue::jcliff::config (
+    $content
+) {
+  include lightblue::jcliff
 
   file{ "${lightblue::jcliff::jcliff_config_dir}/$name":
     mode   => '0644',
