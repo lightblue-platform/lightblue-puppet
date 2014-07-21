@@ -1,6 +1,6 @@
 # Lay down a jcliff config file, and schedule execution of config update
 # name gives the name of the file, without directory
-define lightblue::jcliffconfig($content) {
+define lightblue::jcliff::config($content) {
   file{ "${lightblue::jcliff::jcliff_config_dir}/$name":
     mode   => '0644',
     owner  => 'jboss',

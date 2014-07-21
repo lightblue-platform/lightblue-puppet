@@ -28,7 +28,7 @@ class lightblue::base {
   }
 
   #socket bindings
-  lightblue::jcliffconfig { 'socketbinding.conf':
+  lightblue::jcliff::config { 'socketbinding.conf':
     content => template('lightblue/socketbinding.conf.erb')
   }
 }

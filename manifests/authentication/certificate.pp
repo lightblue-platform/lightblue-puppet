@@ -13,7 +13,7 @@ class lightblue::authentication::certificate {
     $option_truststorePassword = hiera('lightblue::authentication::certificate::truststorePassword')
     $option_truststoreUrl = hiera('lightblue::authentication::certificate::truststoreUrl')
 
-    lightblue::jcliffconfig { 'lightblue-security-domain.conf':
+    lightblue::jcliff::config { 'lightblue-security-domain.conf':
         content => template('lightblue/lightblue-security-domain.conf.erb'),
     }
 }

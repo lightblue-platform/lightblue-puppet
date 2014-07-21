@@ -4,7 +4,7 @@ class lightblue::eap::logging {
     $root_log_level = hiera('lightblue::eap::logging::level::root', WARN)
     $com_redhat_log_level = hiera('lightblue::eap::logging::level::lightblue', $root_log_level)
 
-    lightblue::jcliffconfig { 'logging.conf':
+    lightblue::jcliff::config { 'logging.conf':
         content => template('lightblue/logging.conf.erb'),
     }
 }
