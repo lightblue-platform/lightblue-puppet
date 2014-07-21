@@ -2,24 +2,24 @@
   {
     "<%= pool_type %>" => 
 	  { "<%= pool_name %>" => {
-          <% if defined? core_thread_count %>
+          <% if @core_thread_count %>
               "core-threads" => <%= core_thread_count %>,
               "allow-core-timeout" => false,
           <% end -%>
-          <% if defined? handoff_executor %>
+          <% if @handoff_executor %>
               "handoff-executor" => <%= handoff_executor %>,
           <% end -%>
-          <% if defined? keepalive_time  %>
+          <% if @keepalive_time  %>
               "keepalive-time" => <%= keepalive_time %>,
           <% end -%>
               "max-threads" => <%= max_thread_count %> ,
-          <% if defined? queue_length %>
+          <% if @queue_length %>
               "queue-length" => <%= queue_length %>,
           <% end -%>
-		  <% if defined? thread_factory %>
+		  <% if @thread_factory %>
               "thread-factory" => "<%= thread_factory %>",
 		  <% end -%>
-          <% if defined? keepalive_time %>
+          <% if @keepalive_time %>
               "keepalive-time" => {
                   "time" => "<%= keepalive_time %>",
                   "unit" => "SECONDS"
