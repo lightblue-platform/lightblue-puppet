@@ -13,8 +13,8 @@
               "keepalive-time" => <%= keepalive_time %>,
           <% end -%>
               "max-threads" => <%= max_thread_count %> ,
-          <% if @queue_length %>
-              "queue-length" => <%= queue_length %>,
+          <% if defined? $queue_length %>
+              "queue-length" => <%= $queue_length %>,
           <% end -%>
 		  <% if @thread_factory %>
               "thread-factory" => "<%= thread_factory %>",
