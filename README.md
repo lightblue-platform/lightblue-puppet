@@ -80,9 +80,19 @@ Bits of the puppet module are broken out into sub-sections to make managing them
 * service - bucket for deploying RESTful services
 * yumrepo - bucket for deploying yum repositories
 
+![Dependencies](https://raw.githubusercontent.com/lightblue-platform/lightblue-puppet/master/docs/lightblue.png)
 
+The classes with no other dependencies at the top of the image are those that can be directly included in your module.  In addition to `lightblue::service::data` and `lightblue::service::metadata` used in the quick start there are:
+* `lightblue::authentication::certificate` - enable client certificates
+* `lightblue::eap::ssl` - enable ssl termination in EAP
 
+For full documentation on each of these, see the RDocs included in the source.
+* [lightblue::service::metadata](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/service/metadata.pp)
+* [lightblue::service::data](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/service/data.pp)
+* [lightblue::authentication::certificate](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/authentication/certificate.pp)
+* [lightblue::eap::ssl](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/eap/ssl.pp)
 
+### old docs..
 
 
 Both `lightblue::service::data` and `lightblue::service::metadata` classes
