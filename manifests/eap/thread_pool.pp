@@ -26,14 +26,14 @@
 #  }
 #
 class lightblue::eap::thread_pool (
-  $pool_name,
-  $pool_type,
-  $core_thread_count,
-  $handoff_executor,
-  $keepalive_time,
-  $max_thread_count,
-  $queue_length,
-  $thread_factory,
+  $pool_name='',
+  $pool_type='',
+  $core_thread_count='',
+  $handoff_executor='',
+  $keepalive_time='',
+  $max_thread_count='',
+  $queue_length='',
+  $thread_factory='',
 )
 {
   lightblue::jcliff::config { "thread-pool-${pool_name}.conf":
