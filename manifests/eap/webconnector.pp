@@ -59,30 +59,30 @@
 #    password                => $ks_password,
 #  }
 #
-define lightblue::eap::webconnector (
-  $enable_lookups='',
-  $enabled='',
-  $executor='',
-  $max_connections='',
-  $max_post_size='',
-  $max_save_post_size='',
-  $protocol='',
-  $proxy_name='',
-  $proxy_port='',
-  $redirect_port='',
-  $scheme='',
-  $secure='',
-  $socket_binding='',
-  $ssl='',
-  $virtual_server='',
-  $password='',
-  $certificate_key_file='',
-  $key_alias='',
-  $ca_certificate_file='',
-  $ca_certificate_password=''
+class lightblue::eap::webconnector (
+  $enable_lookups,
+  $enabled,
+  $executor,
+  $max_connections,
+  $max_post_size,
+  $max_save_post_size,
+  $protocol,
+  $proxy_name,
+  $proxy_port,
+  $redirect_port,
+  $scheme,
+  $secure,
+  $socket_binding,
+  $ssl,
+  $virtual_server,
+  $password,
+  $certificate_key_file,
+  $key_alias,
+  $ca_certificate_file,
+  $ca_certificate_password,
 ) {
 
   lightblue::jcliff::config { "web-connector-${name}.conf":
-    content => template('libeap6/web-connector.conf.erb'),
+    content => template('lightblue/web-connector.conf.erb'),
   }
 }

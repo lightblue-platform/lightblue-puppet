@@ -76,12 +76,14 @@ class lightblue::eap::ssl (
 
     # setup thread_pool
     # use same name as webconnector executor
-    lightblue::eap::thread_pool { 'https_executor' :
+    class { 'lightblue::eap::thread_pool':
+        name                    => 'https_executor',
     }
 
     # setup webconnector
     # all params not set here are expected from hiera
-    lightblue::eap::webconnector { 'https' :
+    class { 'lightblue::eap::webconnector':
+        name                    => 'https',
         executor                => 'https_executor',
         ca_certificate_file     => "${keystore_location}/eap6trust.keystore",
         certificate_key_file    => "${keystore_location}/eap6.keystore",

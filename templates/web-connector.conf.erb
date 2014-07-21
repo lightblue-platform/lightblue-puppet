@@ -3,68 +3,68 @@
     "connector" => {
        "<%=name%>" => {
 
-<% if ssl and ssl != '' %>
+<% if defined? ssl %>
 	"configuration" => { "<%=ssl%>" => { 
-	  <% if password and password != '' %>
+	  <% if defined? password %>
 	     "password" => "<%=password%>",
 	  <% end %>
-	   <% if certificate_key_file and certificate_key_file != '' %>
+	   <% if defined? certificate_key_file %>
 	     "certificate-key-file" => "<%=certificate_key_file%>",
 	  <% end %>
-	   <% if key_alias and key_alias != '' %>
+	   <% if defined? key_alias %>
 	     "key-alias" => "<%=key_alias%>",
 	  <% end %>
-	  <% if ca_certificate_file and ca_certificate_file != '' %>
+	  <% if defined? ca_certificate_file %>
 	     "ca-certificate-file" => "<%=ca_certificate_file%>",
 	  <% end %>
-	  <% if ca_certificate_password and ca_certificate_password != '' %>
+	  <% if defined? ca_certificate_password %>
 	     "ca-certificate-password" => "<%=ca_certificate_password%>",
 	  <% end %>
 	}},
 	
 <% end %>
 
-<% if enable_lookups and enable_lookups != '' %>
+<% if defined? enable_lookups %>
                 "enable-lookups" => "<%=enable_lookups%>",
 <% end %>
-<% if enabled and enabled != '' %>
-                "enabled" => <%=enabled%>,
+<% if enabled %>
+                "enabled" => true,
 <% end %>
-<% if executor and executor != '' %>
+<% if defined? executor %>
                 "executor" => "<%=executor%>",
 <% end %>
-<% if max_connections and max_connections != '' %>
+<% if defined? max_connections %>
                 "max-connections" => <%=max_connections%>,
 <% end %>
-<% if max_post_size and max_post_size != '' %>
+<% if defined? max_post_size %>
                 "max-post-size" => <%=max_post_size%>,
 <% end %>
-<% if max_save_post_size and max_save_post_size != '' %>
+<% if defined? max_save_post_size %>
                 "max-save-post-size" => <%=max_save_post_size%>,
 <% end %>
-<% if protocol and protocol != '' %>
+<% if defined? protocol %>
                 "protocol" => "<%=protocol%>",
 <% end %>
-<% if proxy_name and proxy_name != '' %>
+<% if defined? proxy_name %>
                 "proxy-name" => "<%=proxy_name%>",
 <% end %>
-<% if proxy_port and proxy_port != '' %>
+<% if defined? proxy_port %>
                 "proxy-port" => <%=proxy_port%>,
 <% end %>
-<% if redirect_port and redirect_port != '' %>
+<% if defined? redirect_port %>
                 "redirect-port" => <%=redirect_port%>,
 <% end %>
-<% if scheme and scheme != '' %>
+<% if defined? scheme %>
                 "scheme" => "<%=scheme%>",
 <% end %>
-<% if secure and secure != '' %>
-                "secure" => <%=secure%>,
+<% if secure %>
+                "secure" => true,
 <% end %>
-<% if socket_binding and socket_binding != '' %>
+<% if defined? socket_binding %>
                 "socket-binding" => "<%=socket_binding%>",
 <% end %>
 
-<% if virtual_server and virtual_server != '' %>
+<% if defined? virtual_server %>
                 "virtual-server" => "<%=virtual_server%>",
 <% end %>
 
