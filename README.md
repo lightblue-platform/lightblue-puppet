@@ -1,22 +1,79 @@
 This puppet module is a self contained puppet module to configure a
 node running lightblue on EAP6. It has bits to install a JDK and EAP6
-on the node. If these are not necessary, it must be edited and
-customized for the local setting.
+on the node. Changes that could be done easily:
+* update to deploy with WildFly
+* change version or distribution of java
 
-## Public classes
+The puppet classes also use parameters and assumes use of hiera.  The
+simplest way to use this puppet module is to use hiera and puppet 3+.
+See [Using Hiera with Puppet](http://docs.puppetlabs.com/hiera/1/puppet.html#puppet-variables-passed-to-hiera).
 
-lightblue::service::metadata : Installs the metadata service
-lightblue::service::data : Installs the data service
+# Quick Start
+
+Two things are required to get started.  This quick start assumes you are not terminating SSL.
+1. Setup hiera data
+2. Include the desired top level classes
 
 ## Hiera
-This puppet module makes use of hiera to manage data that can change 
-depending on where lightblue is deployed or might need tuning over time.
-All hiera keys begin with the class in which they are used.
+This is broken into two sections:
+1. stuff you can copy and paste as-is
+2. stuff you'll have to supply your own values for
 
-## Operation
+The following are reasonable defaults for many parameters.
+```
+lightblue::eap::module::hystrix::command::default::execution_isolation_strategy: THREAD
+lightblue::eap::module::hystrix::command::default::execution_isolation_thread_timeoutInMilliseconds: 60000
+lightblue::eap::module::hystrix::command::default::circuitBreaker_enabled: false
+lightblue::eap::module::hystrix::command::mongodb::execution_isolation_timeoutInMilliseconds: 50000
+lightblue::eap::module::hystrix::threadpool::mongodb::coreSize: 30
 
-Both lightblue::service::data and lightblue::service::metadata classes
-use the lightblue::base class. These classes:
+lightblue::eap::module::datastore::mongo::noCertValidation: true
+lightblue::eap::module::datastore::mongo::auth::mechanism: MONGODB_CR_MECHANISM
+lightblue::eap::module::datastore::mongo::auth::source: admin
+
+lightblue::eap::logging::format: %d [%t] %-5p [%c] %m%n
+lightblue::eap::logging::level::root: WARN
+lightblue::eap::logging::level::lightblue: WARN
+
+lightblue::eap::java::Xms: 786m
+lightblue::eap::java::Xmx: 1572m
+
+# package stuff
+lightblue::jcliff::package::name: jcliff
+lightblue::jcliff::package::ensure: latest
+lightblue::service::data::package::name: lightblue-rest-crud
+lightblue::service::data::package::ensure: latest
+lightblue::service::metadata::package::name: lightblue-rest-metadata
+lightblue::service::metadata::package::ensure: latest
+lightblue::eap::package::name: jbossas-standalone
+lightblue::eap::package::ensure: 7.2.0-8.Final_redhat_8.ep6.el6
+
+# using single server configuration, set the array version to undef so hiera is happy
+lightblue::mongo::servers: undef
+```
+
+And the following will require you to setup for your environment:
+```
+lightblue::yumrepo::jbeap::baseurl: <baseurl for JBEAP>
+lightblue::yumrepo::jbeaptools::baseurl: <baseurl for JBEAP-TOOLS>
+lightblue::yumrepo::lightblue::baseurl: <baseurl for lightblue>
+
+lightblue::eap::module::datastore::mongo::auth::username: <mongo username>
+lightblue::eap::module::datastore::mongo::auth::password: <mongo password>
+lightblue::mongo::server_host: <mongo server fqdn or ip address>
+lightblue::mongo::server_port: 27017
+```
+
+## Classes
+Simply add the following to your host manifest, however that is done in your environment:
+* lightblue::service::metadata : Installs the metadata service
+* lightblue::service::data : Installs the data service
+
+
+# Operation
+
+Both `lightblue::service::data` and `lightblue::service::metadata` classes
+use the `lightblue::base` class. These classes:
   - install the latest release of the application,
   - install the configuration file to the EAP6 module directory
 
