@@ -11,11 +11,13 @@ See [Using Hiera with Puppet](http://docs.puppetlabs.com/hiera/1/puppet.html#pup
 # Quick Start
 
 Two things are required to get started.  This quick start assumes you are not terminating SSL.
+
 1. Setup hiera data
 2. Include the desired top level classes
 
 ## Hiera
 This is broken into two sections:
+
 1. stuff you can copy and paste as-is
 2. stuff you'll have to supply your own values for
 
