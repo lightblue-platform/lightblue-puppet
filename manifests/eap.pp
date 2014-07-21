@@ -13,7 +13,7 @@ class lightblue::eap (
 
   package { $package_name :
     ensure  => $package_ensure,
-    require => [Class['lightblue::yumrepo'], Class['lightblue::java']],
+    require => [Class['lightblue::yumrepo::jbeap'], Class['lightblue::yumrepo::jbeaptools'], Class['lightblue::java']],
   }
 
   file { [ '/etc/redhat', $config_dir ] :
