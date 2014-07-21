@@ -7,66 +7,66 @@
 	"configuration" => { "<%=ssl%>" => { 
 	  <% if defined? password %>
 	     "password" => "<%=password%>",
-	  <% end %>
+	  <% end -%>
 	   <% if defined? certificate_key_file %>
 	     "certificate-key-file" => "<%=certificate_key_file%>",
-	  <% end %>
+	  <% end -%>
 	   <% if defined? key_alias %>
 	     "key-alias" => "<%=key_alias%>",
-	  <% end %>
+	  <% end -%>
 	  <% if defined? ca_certificate_file %>
 	     "ca-certificate-file" => "<%=ca_certificate_file%>",
-	  <% end %>
+	  <% end -%>
 	  <% if defined? ca_certificate_password %>
 	     "ca-certificate-password" => "<%=ca_certificate_password%>",
-	  <% end %>
+	  <% end -%>
 	}},
 	
-<% end %>
+<% end -%>
 
 <% if defined? enable_lookups %>
                 "enable-lookups" => "<%=enable_lookups%>",
-<% end %>
+<% end -%>
 <% if enabled %>
                 "enabled" => true,
-<% end %>
+<% end -%>
 <% if defined? executor %>
                 "executor" => "<%=executor%>",
-<% end %>
+<% end -%>
 <% if defined? max_connections %>
                 "max-connections" => <%=max_connections%>,
-<% end %>
+<% end -%>
 <% if defined? max_post_size %>
                 "max-post-size" => <%=max_post_size%>,
-<% end %>
+<% end -%>
 <% if defined? max_save_post_size %>
                 "max-save-post-size" => <%=max_save_post_size%>,
-<% end %>
+<% end -%>
 <% if defined? protocol %>
                 "protocol" => "<%=protocol%>",
-<% end %>
+<% end -%>
 <% if defined? proxy_name %>
                 "proxy-name" => "<%=proxy_name%>",
-<% end %>
+<% end -%>
 <% if defined? proxy_port %>
                 "proxy-port" => <%=proxy_port%>,
-<% end %>
+<% end -%>
 <% if defined? redirect_port %>
                 "redirect-port" => <%=redirect_port%>,
-<% end %>
+<% end -%>
 <% if defined? scheme %>
                 "scheme" => "<%=scheme%>",
-<% end %>
+<% end -%>
 <% if secure %>
                 "secure" => true,
-<% end %>
+<% end -%>
 <% if defined? socket_binding %>
                 "socket-binding" => "<%=socket_binding%>",
-<% end %>
+<% end -%>
 
 <% if defined? virtual_server %>
                 "virtual-server" => "<%=virtual_server%>",
-<% end %>
+<% end -%>
 
        }
     }
