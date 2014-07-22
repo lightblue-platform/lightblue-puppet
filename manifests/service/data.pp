@@ -1,4 +1,19 @@
-# Sets up a base node with ligthblue data service deployed
+# == Class: lightblue::service::data
+#
+# Deploys lightblue data (crud) RESTful service.
+#
+# === Parameters
+#
+# No parameters.
+#
+# === Variables
+#
+# Module requires no global variables.
+#
+# === Example
+# 
+# include lightblue::service::data
+#
 class lightblue::service::data {
     include lightblue::base
     include lightblue::yumrepo::lightblue

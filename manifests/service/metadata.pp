@@ -1,4 +1,19 @@
-# Sets up a base node with ligthblue metadata service deployed
+# == Class: lightblue::service::metadata
+#
+# Deploys lightblue metadata RESTful service.
+#
+# === Parameters
+#
+# No parameters.
+#
+# === Variables
+#
+# Module requires no global variables.
+#
+# === Example
+# 
+# include lightblue::service::metadata
+#
 class lightblue::service::metadata {
     include lightblue::base
     include lightblue::yumrepo::lightblue
