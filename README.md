@@ -23,8 +23,8 @@ Example hiera configurations are broken into two sections.
 
 ## Classes
 Simply add the following to your host manifest, however that is done in your environment:
-* lightblue::service::metadata : Installs the metadata service
-* lightblue::service::data : Installs the data service
+* `lightblue::service::metadata` - Installs the metadata service
+* `lightblue::service::data` - Installs the data service
 
 
 # Structure
