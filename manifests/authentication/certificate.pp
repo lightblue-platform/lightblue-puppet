@@ -3,6 +3,9 @@
 # Setup security domain for client certificates.
 #
 # === Parameters
+# [*config_dir*]
+#   EAP configuration directory
+#   i.e. /usr/share/jbossas/standalone/configuration
 #
 # [*ldap_ad_server*]
 #   ldap active directory server
@@ -37,6 +40,7 @@
 #
 # Setup certificate base authentication.
 class lightblue::authentication::certificate (
+    $config_dir,
     $ldap_ad_server,
     $ldap_search_base,
     $ldap_username,
