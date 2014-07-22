@@ -16,55 +16,10 @@ Two things are required to get started.  This quick start assumes you are not te
 2. Include the desired top level classes
 
 ## Hiera
-This is broken into two sections:
+Example hiera configurations are broken into two sections.
 
-1. stuff you can copy and paste as-is
-2. stuff you'll have to supply your own values for
-
-The following are reasonable defaults for many parameters.
-```
-lightblue::eap::module::hystrix::command::default::execution_isolation_strategy: THREAD
-lightblue::eap::module::hystrix::command::default::execution_isolation_thread_timeoutInMilliseconds: 60000
-lightblue::eap::module::hystrix::command::default::circuitBreaker_enabled: false
-lightblue::eap::module::hystrix::command::mongodb::execution_isolation_timeoutInMilliseconds: 50000
-lightblue::eap::module::hystrix::threadpool::mongodb::coreSize: 30
-
-lightblue::eap::module::datastore::mongo::noCertValidation: true
-lightblue::eap::module::datastore::mongo::auth::mechanism: MONGODB_CR_MECHANISM
-lightblue::eap::module::datastore::mongo::auth::source: admin
-
-lightblue::eap::logging::format: %d [%t] %-5p [%c] %m%n
-lightblue::eap::logging::level::root: WARN
-lightblue::eap::logging::level::lightblue: WARN
-
-lightblue::eap::java::Xms: 786m
-lightblue::eap::java::Xmx: 1572m
-
-# package stuff
-lightblue::jcliff::package::name: jcliff
-lightblue::jcliff::package::ensure: latest
-lightblue::service::data::package::name: lightblue-rest-crud
-lightblue::service::data::package::ensure: latest
-lightblue::service::metadata::package::name: lightblue-rest-metadata
-lightblue::service::metadata::package::ensure: latest
-lightblue::eap::package::name: jbossas-standalone
-lightblue::eap::package::ensure: 7.2.0-8.Final_redhat_8.ep6.el6
-
-# using single server configuration, set the array version to undef so hiera is happy
-lightblue::mongo::servers: undef
-```
-
-And the following will require you to setup for your environment:
-```
-lightblue::yumrepo::jbeap::baseurl: <baseurl for JBEAP>
-lightblue::yumrepo::jbeaptools::baseurl: <baseurl for JBEAP-TOOLS>
-lightblue::yumrepo::lightblue::baseurl: <baseurl for lightblue>
-
-lightblue::eap::module::datastore::mongo::auth::username: <mongo username>
-lightblue::eap::module::datastore::mongo::auth::password: <mongo password>
-lightblue::mongo::server_host: <mongo server fqdn or ip address>
-lightblue::mongo::server_port: 27017
-```
+1. [lightblue.yaml](https://raw.githubusercontent.com/lightblue-platform/lightblue-puppet/master/docs/hiera/lightblue.yaml) - stuff you can copy and paste as-is
+2. [env.yaml](https://raw.githubusercontent.com/lightblue-platform/lightblue-puppet/master/docs/hiera/env.yaml) - stuff you'll have to supply your own values for
 
 ## Classes
 Simply add the following to your host manifest, however that is done in your environment:
