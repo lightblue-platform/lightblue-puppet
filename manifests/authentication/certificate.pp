@@ -1,3 +1,40 @@
+# == Class: lightblue::authentication::certificate
+#
+# Setup security domain for client certificates.
+#
+# === Parameters
+#
+# [*ldap_ad_server*]
+#   ldap active directory server
+#   i.e. ldap://ldap.mycompany.com
+#
+# [*ldap_search_base*]
+#   base query for getting at lightblue group data
+#   i.e. uid=lightblueapp,ou=serviceusers,ou=lightblue,dc=mycompany,dc=com
+#
+# [*ldap_username*]
+#   user for accessing lightblue group data
+#
+# [*ldap_password*]
+#   password for the user
+#
+# [*keystore_password*]
+#   keystore password
+#
+# [*keystore_url*]
+#   keystore url
+#
+# [*truststore_password*]
+#   Password to truststore.  Should be same as keystore password.
+#   TBD reference to why keystore and truststore passwords must be same.
+#
+# [*truststore_url*]
+#   URL to truststore.
+#
+# === Variables
+#
+# Module requires no global variables.
+#
 # Setup certificate base authentication.
 class lightblue::authentication::certificate (
     $ldap_ad_server,

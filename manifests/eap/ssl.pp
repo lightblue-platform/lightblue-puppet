@@ -1,6 +1,7 @@
 # == Class: lightblue::eap::ssl
 #
-# Full description of class example_class here.
+# Deploys ssl certificate and setups java keystore for use by jboss.  Also configures
+# webconnector and thread_pool to support terminating ssl traffic.
 #
 # === Parameters
 #
