@@ -50,8 +50,10 @@ class lightblue::authentication::certificate (
     $truststore_password,
     $truststore_url,
 ) {
+    include lightblue::eap
+
     # create empty roles.properties file required for login module to work
-    file {"${lightblue::eap::config_dir}/roles.properties":
+    file {"${config_dir}/roles.properties":
         ensure  => present,
         content => '',
         owner   => 'jboss',
@@ -62,6 +64,6 @@ class lightblue::authentication::certificate (
 
     lightblue::jcliff::config { 'lightblue-security-domain.conf':
         content => template('lightblue/lightblue-security-domain.conf.erb'),
-        require => File["${lightblue::eap::config_dir}/roles.properties"],
+        require => File["${config_dir}/roles.properties"],
     }
 }
