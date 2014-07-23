@@ -15,7 +15,10 @@
 #   Password to keystore (and truststore).
 #
 # [*ca_location*]
-#   Location for CA files.
+#   Location (local directory) for CA files.
+#
+# [*ca_source*]
+#   Location for CA identiy.  Is used as 'source' in a 'file' entry.
 #
 # [*certificate_source*]
 #   Location for certificate.  Is used as 'source' in a 'file' entry.
@@ -32,11 +35,20 @@ class lightblue::eap::ssl (
     $keystore_alias,
     $keystore_location,
     $keystore_password,
-    $ca_location,
+    $ca_source,
+    $ca_file,
     $certificate_source,
     $certificate_file
 )
 {
+    # pull CA from the source
+    file { $ca_file:
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0600',
+        links   => 'follow',
+        source  => $ca_source,
+    }
     # pull certificate from the source
     file { $certificate_file:
         owner   => 'root',
@@ -57,11 +69,11 @@ class lightblue::eap::ssl (
     }
     java_ks { "${keystore_alias}:truststore":
         ensure       => latest,
-        certificate  => "${ca_location}/cacert.pem",
+        certificate  => $ca_file,
         target       => "${keystore_location}/eap6trust.keystore",
         password     => $keystore_password,
         trustcacerts => true,
-        require      => File[$certificate_file],
+        require      => [ File[$certificate_file], File[$ca_file] ],
     }
     file {"${keystore_location}/eap6.keystore":
         owner   => 'jboss',
