@@ -25,7 +25,7 @@
 #   Recommend referencing a file in a separate (and secure) puppet module for managing certs.
 #
 # [*certificate_file*]
-#   Name of the certificate file.
+#   Full path and filename for the certificate.
 #
 # === Variables
 #
@@ -36,18 +36,24 @@ class lightblue::eap::ssl (
     $keystore_location,
     $keystore_password,
     $ca_source,
-    $ca_file,
+    $ca_location,
     $certificate_source,
     $certificate_file
 )
 {
     # pull CA from the source
-    file { $ca_file:
+    file { $ca_location:
+        owner   => 'root',
+        group   => 'root',
+        ensure  => directory,
+    }
+    file { "${ca_location}/cacert.pem":
         owner   => 'root',
         group   => 'root',
         mode    => '0600',
         links   => 'follow',
         source  => $ca_source,
+        require => File[$ca_location],
     }
     # pull certificate from the source
     file { $certificate_file:
@@ -69,11 +75,11 @@ class lightblue::eap::ssl (
     }
     java_ks { "${keystore_alias}:truststore":
         ensure       => latest,
-        certificate  => $ca_file,
+        certificate  => "${ca_location}/cacert.pem",
         target       => "${keystore_location}/eap6trust.keystore",
         password     => $keystore_password,
         trustcacerts => true,
-        require      => [ File[$certificate_file], File[$ca_file] ],
+        require      => [ File[$certificate_file], File["${ca_location}/cacert.pem"] ],
     }
     file {"${keystore_location}/eap6.keystore":
         owner   => 'jboss',
