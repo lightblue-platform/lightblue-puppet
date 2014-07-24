@@ -23,9 +23,9 @@ class lightblue::cacert (
     $ca_file,
 ) {
     file { $ca_location:
+        ensure  => directory,
         owner   => 'root',
         group   => 'root',
-        ensure  => directory,
     }
     file { "$ca_location/$ca_file":
         owner   => 'root',
