@@ -12,7 +12,7 @@ class lightblue::eap::module
     $mongo_server_port = hiera('lightblue::eap::module::datastore::mongo::server_port', undef)
     $mongo_servers_cfg = hiera('lightblue::eap::module::datastore::mongo::servers', undef)
     $mongo_ssl = hiera('lightblue::eap::module::datastore::mongo::ssl', true)
-    $mongo_noCertValidation = hiera('lightblue::eap::module::datastore::mongo::noCertValidation', false)
+    $mongo_noCertValidation = hiera('lightblue::eap::module::datastore::mongo::disableCertValidation', false)
     $mongo_auth_mechanism = hiera('lightblue::eap::module::datastore::mongo::auth::mechanism')
     $mongo_auth_username = hiera('lightblue::eap::module::datastore::mongo::auth::username')
     $mongo_auth_password = hiera('lightblue::eap::module::datastore::mongo::auth::password')
