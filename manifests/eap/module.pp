@@ -49,6 +49,11 @@ class lightblue::eap::module
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
 
+    if !$mongo_noCertValidation {
+        # deploy cacert
+        include lightblue::cacert
+    }
+
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/datasources.json':
         mode    => '0644',
         owner   => 'jboss',
