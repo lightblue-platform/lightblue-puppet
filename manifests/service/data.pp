@@ -14,7 +14,7 @@
 #
 # include lightblue::service::data
 #
-class lightblue::service::data {
+class lightblue::service::data inherits lightblue::service {
     include lightblue::base
     include lightblue::yumrepo::lightblue
 
@@ -24,14 +24,5 @@ class lightblue::service::data {
     package { $package_name :
         ensure  => $package_ensure,
         require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
-    }
-
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-crud.json':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        content => template('lightblue/properties/lightblue-crud.json.erb'),
-        notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
 }

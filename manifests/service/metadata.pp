@@ -14,7 +14,7 @@
 #
 # include lightblue::service::metadata
 #
-class lightblue::service::metadata {
+class lightblue::service::metadata inherits lightblue::service {
     include lightblue::base
     include lightblue::yumrepo::lightblue
 
@@ -24,14 +24,5 @@ class lightblue::service::metadata {
     package { $package_name :
         ensure  => $package_ensure,
         require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
-    }
-
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-metadata.json':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        content => template('lightblue/properties/lightblue-metadata.json.erb'),
-        notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
 }
