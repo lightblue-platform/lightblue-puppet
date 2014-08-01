@@ -1,11 +1,13 @@
 class lightblue::yumrepo::jbeaptools (
-    $baseurl,
     $descr='JBEAP-TOOLS repo',
     $enabled=1,
     $gpgcheck=0,
     $gpgkey=absent,
     $metadata_expire=absent,
 ) {
+
+  $baseurl = hiera('lightblue::yumrepo::lightblue::baseurl', 'http://pulp-gca03.util.phx1.redhat.com/pulp/repos/re/JBEAP6-TOOLS')
+
   yumrepo { 'JBEAP-TOOLS':
     baseurl         => $baseurl,
     descr           => $descr,
