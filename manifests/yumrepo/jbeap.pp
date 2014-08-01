@@ -6,7 +6,7 @@ class lightblue::yumrepo::jbeap (
     $metadata_expire=absent,
 ) {
 
-  $baseurl = hiera('lightblue::yumrepo::lightblue::baseurl', 'http://pulp-gca03.util.phx1.redhat.com/pulp/repos/re/JBEAP-610')
+  $baseurl = hiera('lightblue::yumrepo::jbeap::baseurl', 'http://pulp-gca03.util.phx1.redhat.com/pulp/repos/re/JBEAP-610')
 
   yumrepo { 'JBEAP':
     baseurl         => $baseurl,
