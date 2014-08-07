@@ -1,12 +1,11 @@
 class lightblue::yumrepo::lightblue (
+    $baseurl,
     $descr='lightblue repo',
     $enabled=1,
     $gpgcheck=0,
     $gpgkey=absent,
     $metadata_expire=absent,
 ) {
-
-  $baseurl = hiera('lightblue::yumrepo::lightblue::baseurl', 'http://pulp-gca03.util.phx1.redhat.com/pulp/repos/re/cos-lightblue-snapshot')
 
   yumrepo { 'lightblue':
     baseurl         => $baseurl,

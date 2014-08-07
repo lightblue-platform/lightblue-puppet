@@ -1,13 +1,13 @@
 # Installs EAP6 from internal repos
 # Declares a service to control eap6 instance
 class lightblue::eap (
+    $config_dir = '/etc/redhat/lightblue',
     $eap_version = '6.1.0',
 ) {
   include lightblue::yumrepo::jbeap
   include lightblue::yumrepo::jbeaptools
   include lightblue::java
 
-  $config_dir = hiera('lightblue::eap::config_dir', '/etc/redhat/lightblue')
   $package_name = hiera('lightblue::eap::package::name', 'jbossas-standalone')
   $package_ensure = hiera('lightblue::eap::package::ensure', latest)
 
