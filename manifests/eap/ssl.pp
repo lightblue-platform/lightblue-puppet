@@ -78,5 +78,5 @@ class lightblue::eap::ssl (
     include lightblue::eap::thread_pool
 
     # setup webconnector (params loaded from hiera)
-    include lightblue::eap::webconnector
+#    include lightblue::eap::webconnector
 }
