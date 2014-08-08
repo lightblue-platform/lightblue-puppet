@@ -1,7 +1,6 @@
-# Copied from libeap6, and modified
 # == Class: lightblue::jcliff
 #
-# Configure jcliff so we can configure jboss!
+# Configure jcliff (https://github.com/bserdar/jcliff) so we can configure jboss!
 #
 # === Parameters
 #
@@ -25,7 +24,17 @@ class lightblue::jcliff (
   $enable_logging=false,
   $log_dir=undef,
   $deploy_apps=true
-  ) {
+) {
+    include lightblue::eap
+
+    $package_name = hiera('lightblue::jcliff::package::name', 'jcliff')
+    $package_ensure = hiera('lightblue::jcliff::package::ensure', latest)
+
+    package { $package_name :
+        ensure  => $package_ensure,
+    }
+
+    $jcliff_config_dir=$config_dir
 
     if $enable_logging {
         $jcliff_log_dir_option = "-v --output=${log_dir}/jbosscfg.log"
@@ -34,16 +43,13 @@ class lightblue::jcliff (
         $jcliff_log_dir_option = ''
     }
 
-    package { 'jcliff':
-        ensure  => latest,
-    }
-
     exec { 'configure-eap6' :
         command      => "/usr/bin/jcliff --cli=${jboss_home}/bin/jboss-cli.sh --controller=${management_host}:${management_port} ${jcliff_log_dir_option} ${config_dir}/*.conf",
         logoutput    => true,
         timeout      => 0,
+        onlyif       => "ls ${config_dir}/*.conf",
         require      => [ Class['lightblue::eap'], Service['jbossas'], Package['jcliff'], File[$log_dir] ],
-        notify       => Exec['deploy-apps'],
+        notify       => [ Exec['deploy-apps'], Exec['reload-check'] ],
     }
 
     if $deploy_apps {

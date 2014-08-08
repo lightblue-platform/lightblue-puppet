@@ -1,0 +1,153 @@
+## -*- shell-script -*- ######################################################
+##                                                                          ##
+##  JBoss Bootstrap Script Configuration                                    ##
+##                                                                          ##
+##############################################################################
+
+#
+# This file is optional; it may be removed if not needed.
+#
+
+#
+# Specify the maximum file descriptor limit, use "max" or "maximum" to use
+# the default, as queried by the system.
+#
+# Defaults to "maximum"
+#
+#MAX_FD="maximum"
+
+#
+# Specify the profiler configuration file to load.
+#
+# Default is to not load profiler configuration file.
+#
+#PROFILER=""
+
+#
+# Specify the location of the Java home directory.  If set then $JAVA will
+# be defined to $JAVA_HOME/bin/java, else $JAVA will be "java".
+#
+#JAVA_HOME="/opt/java/jdk"
+
+#
+# Specify the exact Java VM executable to use.
+#
+#JAVA=""
+
+if [ "x$JBOSS_MODULES_SYSTEM_PKGS" = "x" ]; then
+   JBOSS_MODULES_SYSTEM_PKGS="org.jboss.byteman"
+fi
+
+# Uncomment the following line to prevent manipulation of JVM options
+# by shell scripts.
+#
+#PRESERVE_JAVA_OPTS=true
+
+#
+# Specify options to pass to the Java VM.
+#
+PROCESSED_JAVA_OPTS="false"
+if [ "x$JAVA_OPTS" = "x" ]; then
+   PROCESSED_JAVA_OPTS="true"
+   JAVA_OPTS="-Xms<%= @jboss_java_opts_Xms -%>
+ -Xmx<%= @jboss_java_opts_Xmx -%>
+<%- if @jboss_disable_explicit_gc !=true -%>
+ -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000<%- -%>
+<%- else -%>
+ -XX:+DisableExplicitGC<%- -%>
+<%- end -%>"
+
+<%- if @heap_dump_on_oom != false -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError"
+<%- if @heap_dump_path -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:HeapDumpPath=<%= @heap_dump_path %>"
+<%- end -%>
+<%- end -%>
+<%- if @jboss_java_opts_PermSize -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:PermSize=<%= @jboss_java_opts_PermSize %>"
+<%- end -%>
+<%- if @jboss_java_opts_MaxPermSize -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:MaxPermSize=<%= @jboss_java_opts_MaxPermSize %>"
+<%- end -%>
+<%- if @concurrent_garbage_collection != false -%>
+<%- if @class_unloading != false or @perm_gen_sweeping != false -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:+CMSClassUnloadingEnabled"
+<%- end -%>
+<%- if @cms_init_occupancy -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:CMSInitiatingOccupancyFraction=<%= @cms_init_occupancy %>"
+<%- end -%>
+   # GC options
+   JAVA_OPTS="$JAVA_OPTS -XX:+UseConcMarkSweepGC"
+<%- else -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:+UseParallelOldGC"
+<%- end -%>
+<%- if @gc_log == true -%>
+   JAVA_OPTS="$JAVA_OPTS -verbose:gc -Xloggc:<%= @log_dir %>/gc.`date +"%Y-%m-%d-%T"`.log -XX:+PrintGCDateStamps"
+<%- end -%>
+
+<%- if @default_multicast_address -%>
+   JAVA_OPTS="$JAVA_OPTS -Djboss.default.multicast.address=<%= @default_multicast_address %>"
+<%- end -%>
+
+<%- if @messaging_multicast_address -%>
+   JAVA_OPTS="$JAVA_OPTS -Djboss.messaging.group.address=<%= @messaging_multicast_address %>"
+<%- end -%>
+<%- if @messaging_cluster_password -%>
+   JAVA_OPTS="$JAVA_OPTS -Djboss.messaging.cluster.password=<%= @messaging_cluster_password %>"
+<%- end -%>
+
+   # Sample JPDA settings for shared memory debugging
+   #JAVA_OPTS="$JAVA_OPTS -Xrunjdwp:transport=dt_shmem,server=y,suspend=n,address=jboss"
+<%- if @expose_management_interface != false -%>
+  JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address.management=<%= @ipaddress %>"
+<%- end -%>
+
+   # Set the interface to listen on, this is only for the public interface
+   JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address=<%= @ipaddress %>"
+
+<%- if @port_offset -%>
+  JAVA_OPTS="$JAVA_OPTS -Djboss.socket.binding.port-offset=<%= @port_offset %>"
+<%- end -%>
+
+<%- if @remote_debugging == true and @eap6repo == 'JBEAP-601' -%>
+  JAVA_OPTS="$JAVA_OPTS -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n"
+<%- end -%>
+<%- if @remote_debugging == true and @eap6repo == 'JBEAP-610' -%>
+  JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"
+<%- end -%>
+fi
+
+<%- if classes.include?('tracelytics::java') -%>
+# AppNeta PoC
+  JAVA_OPTS="$JAVA_OPTS -javaagent:/usr/local/tracelytics/tracelyticsagent.jar"
+<%- end -%>
+
+<%- if @nagios_restart_file -%>
+  rm <%= @nagios_restart_file %>
+<%- end -%>
+
+# Sample JPDA settings for remote socket debugging
+#JAVA_OPTS="$JAVA_OPTS -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n" 6.0.x
+#JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n" 6.1.x
+
+# Sample JPDA settings for shared memory debugging
+#JAVA_OPTS="$JAVA_OPTS -Xrunjdwp:transport=dt_shmem,server=y,suspend=n,address=jboss" 6.0.x
+#JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_shmem,server=y,suspend=n,address=jboss" 6.1.x
+
+# Uncomment to not use JBoss Modules lockless mode
+#JAVA_OPTS="$JAVA_OPTS -Djboss.modules.lockless=false"
+
+# Uncomment to gather JBoss Modules metrics
+#JAVA_OPTS="$JAVA_OPTS -Djboss.modules.metrics=true"
+
+JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDetails"
+
+<%- if @jvm_args -%>
+   JAVA_OPTS="$JAVA_OPTS <%= @jvm_args %>"
+<%- end -%>
+
+if [[ -d /usr/share/jbossas/bin/standalone.conf.d ]] ; then
+    for opt in `find /usr/share/jbossas/bin/standalone.conf.d -type f` ; do
+        source $opt
+    done
+fi

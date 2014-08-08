@@ -1,0 +1,43 @@
+# set default isolation strategy for tests to SEMAPHORE else breakpoints in IDE
+# when debugging unit tests will timeout with default strategy (THREAD).
+hystrix.command.default.execution.isolation.strategy=<%=hystrix_command_default_execution_isolation_strategy%>
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds%>
+# disable the circuit breaker, we deal with the errors
+hystrix.command.default.circuitBreaker.enabled=<%=hystrix_command_default_circuitBreaker_enabled%>
+
+# Mongodb command settings
+hystrix.threadpool.mongodb.coreSize=<%=hystrix_threadpool_mongodb_coreSize%>
+
+hystrix.command.mongodb:DistinctCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:DistinctCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:DistinctCommand.execution.isolation.thread.interruptOnTimeout=false
+
+hystrix.command.mongodb:FindAndModifyCommandCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:FindAndModifyCommandCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:FindAndModifyCommandCommand.execution.isolation.thread.interruptOnTimeout=false
+
+hystrix.command.mongodb:FindCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:FindCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:FindCommand.execution.isolation.thread.interruptOnTimeout=false
+
+hystrix.command.mongodb:FindOneCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:FindOneCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:FindOneCommand.execution.isolation.thread.interruptOnTimeout=false
+
+hystrix.command.mongodb:InsertCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:InsertCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:InsertCommand.execution.isolation.thread.interruptOnTimeout=false
+
+hystrix.command.mongodb:RemoveCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:RemoveCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:RemoveCommand.execution.isolation.thread.interruptOnTimeout=false
+
+hystrix.command.mongodb:SaveCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:SaveCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:SaveCommand.execution.isolation.thread.interruptOnTimeout=false
+
+hystrix.command.mongodb:UpdateCommand.isolation.strategy=THREAD
+hystrix.command.mongodb:UpdateCommand.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds%>
+hystrix.command.mongodb:UpdateCommand.execution.isolation.thread.interruptOnTimeout=false
+
+

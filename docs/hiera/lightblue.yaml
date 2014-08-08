@@ -1,0 +1,40 @@
+# vim:ts=4:sw=4:ai:si:syntax=yaml:nowrap:expandtab
+---
+# Set location that all config files (jcliff) are deployed.
+lightblue::eap::config_dir: /etc/redhat/lightblue
+
+# General jcliff configuration.
+lightblue::jcliff::config_dir: "%{hiera('lightblue::eap::config_dir')}"
+lightblue::jcliff::management_host: %{::ipaddress}
+lightblue::jcliff::management_port: 9999
+lightblue::jcliff::log_dir: /var/lib/jbossas/standalone/log
+lightblue::jcliff::enable_logging: true
+lightblue::jcliff::deploy_apps: true
+lightblue::jcliff::require: Class['lightblue::eap']
+
+# Hystrix defaults.
+lightblue::eap::module::hystrix::command::default::execution_isolation_strategy: THREAD
+lightblue::eap::module::hystrix::command::default::execution_isolation_thread_timeoutInMilliseconds: 60000
+lightblue::eap::module::hystrix::command::default::circuitBreaker_enabled: false
+lightblue::eap::module::hystrix::command::mongodb::execution_isolation_timeoutInMilliseconds: 50000
+lightblue::eap::module::hystrix::threadpool::mongodb::coreSize: 30
+
+# eap logging
+lightblue::eap::logging::format: %d [%t] %-5p [%c] %m%n
+lightblue::eap::logging::level::root: WARN
+lightblue::eap::logging::level::lightblue: WARN
+
+# java opts
+lightblue::eap::java::Xms: 786m
+lightblue::eap::java::Xmx: 1572m
+
+# package name and ensure (can be used to set version: http://docs.puppetlabs.com/references/latest/type.html#package-attribute-ensure)
+lightblue::jcliff::package::name: jcliff
+lightblue::jcliff::package::ensure: latest
+lightblue::service::data::package::name: lightblue-rest-crud
+lightblue::service::data::package::ensure: latest
+lightblue::service::metadata::package::name: lightblue-rest-metadata
+lightblue::service::metadata::package::ensure: latest
+lightblue::eap::package::name: jbossas-standalone
+lightblue::eap::package::ensure: 7.2.0-8.Final_redhat_8.ep6.el6
+

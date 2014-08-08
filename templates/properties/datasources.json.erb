@@ -1,0 +1,122 @@
+{
+   "metadata" : {
+     "documentation" : [
+       "MongoDB makes a distinction between servers (a list) and ",
+       "server (a single address), even if servers contains a",
+       "single address. So, if servers field exists in this file,",
+       "then it assumes it is talking to a replica set, and will",
+       "want access to all the nodes. If instead server field ",
+       "exists, it only talks to that server.",
+       "WARNING: noCertValidation: this turns off all SSL certificate ",
+       "validations. It should be set to true only for development."
+     ],
+     "type" : "com.redhat.lightblue.mongo.config.MongoConfiguration",
+     "metadataDataStoreParser" : "com.redhat.lightblue.metadata.mongo.MongoDataStoreParser",
+<% if mongo_ssl -%>
+     "ssl" : <%=mongo_ssl%>,
+<% end -%>
+<% if mongo_noCertValidation -%>
+     "noCertValidation" : <%=mongo_noCertValidation%>,
+<% end -%>
+     "database" : "metadata",
+<% if defined? @mongo_auth_mechanism -%>
+     "credentials" : {
+       "mechanism": "<%=@mongo_auth_mechanism%>", 
+       "userName" : "<%=@mongo_auth_username%>"
+<% if defined? @mongo_auth_password -%>
+       ,
+       "password": "<%=@mongo_auth_password%>"
+<% end %>
+<% if defined? @mongo_auth_source -%>
+       ,
+       "source" : "<%=@mongo_auth_source%>"
+<% end %>
+     },
+<% end %>
+<% if defined? mongo_server_host -%>
+     "server" : 
+        { 
+<% if defined? mongo_server_port -%>
+           "host" : "<%=mongo_server_host%>",
+           "port" : "<%=mongo_server_port%>"
+<% else -%>
+           "host" : "<%=mongo_server_host%>"
+<% end -%>
+        }
+<% end -%>
+<% if mongo_servers_cfg.kind_of?(Array) -%>
+     "servers" : [
+        <%
+        i = mongo_servers_cfg.length
+        mongo_servers_cfg.each do |server|
+        -%>
+        {
+           "host" : "<%=server['host']%>",
+           "port" : "<%=server['port']%>"
+        }
+        <% if i > 1 then -%>
+        ,
+        <%
+          end 
+          i = i - 1
+        -%>
+<% end -%>
+     ]
+<% end -%>
+   },
+   "mongodata" : {
+     "type" : "com.redhat.lightblue.mongo.config.MongoConfiguration",
+     "metadataDataStoreParser" : "com.redhat.lightblue.metadata.mongo.MongoDataStoreParser",
+<% if mongo_ssl -%>
+     "ssl" : <%=mongo_ssl%>,
+<% end -%>
+<% if mongo_noCertValidation -%>
+     "noCertValidation" : <%=mongo_noCertValidation%>,
+<% end -%>
+     "database" : "data",
+<% if defined? @mongo_auth_mechanism -%>
+     "credentials" : {
+       "mechanism": "<%=@mongo_auth_mechanism%>", 
+       "userName" : "<%=@mongo_auth_username%>"
+<% if defined? @mongo_auth_password -%>
+       ,
+       "password": "<%=@mongo_auth_password%>"
+<% end %>
+<% if defined? @mongo_auth_source -%>
+       ,
+       "source" : "<%=@mongo_auth_source%>"
+<% end %>
+     },
+<% end %>
+<% if defined? mongo_server_host -%>
+     "server" : 
+        { 
+<% if defined? mongo_server_port -%>
+           "host" : "<%=mongo_server_host%>",
+           "port" : "<%=mongo_server_port%>"
+<% else -%>
+           "host" : "<%=mongo_server_host%>"
+<% end -%>
+        }
+<% end -%>
+<% if mongo_servers_cfg.kind_of?(Array) -%>
+     "servers" : [
+        <%
+        i = mongo_servers_cfg.length
+        mongo_servers_cfg.each do |server|
+        -%>
+        {
+           "host" : "<%=server['host']%>",
+           "port" : "<%=server['port']%>"
+        }
+        <% if i > 1 then -%>
+        ,
+        <%
+          end 
+          i = i - 1
+        -%>
+<% end -%>
+     ]
+<% end -%>
+   }
+}
