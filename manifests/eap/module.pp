@@ -66,9 +66,10 @@ class lightblue::eap::module
     file { '/etc/ssl/mongodb.pem':
         ensure      => file,
         content     => hiera('lightblue::mongodb::certificate'),
-        owner       => 'mongod',
-        group       => 'mongod',
+        owner       => 'jboss',
+        group       => 'jboss',
         mode        => '0600',
+        require     => Package[$lightblue::eap::package_name],
     }
 
     java_ks { "mongossl:keystore":
