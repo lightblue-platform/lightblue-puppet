@@ -76,6 +76,6 @@ class lightblue::eap::module
         certificate  => '/etc/ssl/mongodb.pem',
         password     => 'changeit',
         trustcacerts => true,
-        require      => File['etc/ssl/mongodb.pem'],
+        require      => File['/etc/ssl/mongodb.pem'],
     }
 }
