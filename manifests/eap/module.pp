@@ -62,4 +62,20 @@ class lightblue::eap::module
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
+
+    file { '/etc/ssl/mongodb.pem':
+        ensure      => file,
+        content     => hiera('lightblue::mongodb::certificate'),
+        owner       => 'mongod',
+        group       => 'mongod',
+        mode        => '0600',
+    }
+
+    java_ks { "mongossl:keystore":
+        ensure       => latest,
+        certificate  => '/etc/ssl/mongodb.pem',
+        password     => 'changeit',
+        trustcacerts => true,
+        require      => File['etc/ssl/mongodb.pem'],
+    }
 }
