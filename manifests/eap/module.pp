@@ -72,10 +72,11 @@ class lightblue::eap::module
         require     => Package[$lightblue::eap::package_name],
     }
 
-    java_ks { "mongossl:keystore":
+    java_ks { "mongossl:${lightblue::java::java_home}/jre/lib/security/cacerts":
         ensure       => latest,
         certificate  => '/etc/ssl/mongodb.pem',
         password     => 'changeit',
+        target       => "${lightblue::java::java_home}/jre/lib/security/cacerts",
         trustcacerts => true,
         require      => File['/etc/ssl/mongodb.pem'],
     }
