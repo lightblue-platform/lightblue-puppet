@@ -51,3 +51,7 @@ For full documentation on each of these, see the RDocs included in the source.
 
 ## Use of default empty string
 Puppet is pretty bad when handling undefined variables.  Especially when passing to an ERB template.  The rule of thumb has become to set all params to default to '' and check for that in the ERB.  Do not pass nil or undef to anything or it will break.
+
+# License
+
+The license of lightblue-puppet is [GPLv3](https://www.gnu.org/licenses/gpl.html).  See COPYING in root of project for the full text.

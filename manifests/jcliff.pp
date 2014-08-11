@@ -32,6 +32,7 @@ class lightblue::jcliff (
 
     package { $package_name :
         ensure  => $package_ensure,
+        require => Class['lightblue::yumrepo::jbeaptools'],
     }
 
     $jcliff_config_dir=$config_dir
