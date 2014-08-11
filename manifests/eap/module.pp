@@ -50,8 +50,9 @@ class lightblue::eap::module
     }
 
     if !$mongo_noCertValidation {
-        # deploy cacert
+        # deploy cacert and mongossl
         include lightblue::cacert
+        include lightblue::eap::mongossl
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/datasources.json':
@@ -61,23 +62,5 @@ class lightblue::eap::module
         content => template('lightblue/properties/datasources.json.erb'),
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
-    }
-
-    file { '/etc/ssl/mongodb.pem':
-        ensure      => file,
-        content     => hiera('lightblue::mongodb::certificate'),
-        owner       => 'jboss',
-        group       => 'jboss',
-        mode        => '0600',
-        require     => Package[$lightblue::eap::package_name],
-    }
-
-    java_ks { "mongossl:${lightblue::java::java_home}/jre/lib/security/cacerts":
-        ensure       => latest,
-        certificate  => '/etc/ssl/mongodb.pem',
-        password     => 'changeit',
-        target       => "${lightblue::java::java_home}/jre/lib/security/cacerts",
-        trustcacerts => true,
-        require      => File['/etc/ssl/mongodb.pem'],
     }
 }
