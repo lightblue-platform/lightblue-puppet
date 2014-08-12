@@ -31,9 +31,9 @@ lightblue::eap::java::Xmx: 1572m
 # package name and ensure (can be used to set version: http://docs.puppetlabs.com/references/latest/type.html#package-attribute-ensure)
 lightblue::jcliff::package::name: jcliff
 lightblue::jcliff::package::ensure: latest
-lightblue::service::data::package::name: lightblue-rest-crud-cert-auth
+lightblue::service::data::package::name: lightblue-rest-crud
 lightblue::service::data::package::ensure: latest
-lightblue::service::metadata::package::name: lightblue-rest-metadata-cert-auth
+lightblue::service::metadata::package::name: lightblue-rest-metadata
 lightblue::service::metadata::package::ensure: latest
 lightblue::eap::package::name: jbossas-standalone
 lightblue::eap::package::ensure: 7.2.0-8.Final_redhat_8.ep6.el6
