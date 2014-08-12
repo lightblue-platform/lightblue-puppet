@@ -33,17 +33,6 @@
 <% end %>
      },
 <% end %>
-<% if defined? mongo_server_host -%>
-     "server" : 
-        { 
-<% if defined? mongo_server_port -%>
-           "host" : "<%=mongo_server_host%>",
-           "port" : "<%=mongo_server_port%>"
-<% else -%>
-           "host" : "<%=mongo_server_host%>"
-<% end -%>
-        }
-<% end -%>
 <% if mongo_servers_cfg.kind_of?(Array) -%>
      "servers" : [
         <%
@@ -88,17 +77,6 @@
 <% end %>
      },
 <% end %>
-<% if defined? mongo_server_host -%>
-     "server" : 
-        { 
-<% if defined? mongo_server_port -%>
-           "host" : "<%=mongo_server_host%>",
-           "port" : "<%=mongo_server_port%>"
-<% else -%>
-           "host" : "<%=mongo_server_host%>"
-<% end -%>
-        }
-<% end -%>
 <% if mongo_servers_cfg.kind_of?(Array) -%>
      "servers" : [
         <%

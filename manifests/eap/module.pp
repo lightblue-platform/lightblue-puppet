@@ -8,8 +8,6 @@ class lightblue::eap::module
     $hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds = hiera('lightblue::eap::module::hystrix::command::mongodb::execution_isolation_timeoutInMilliseconds', 50000)
     $hystrix_threadpool_mongodb_coreSize = hiera('lightblue::eap::module::hystrix::threadpool::mongodb::coreSize', 30)
 
-    $mongo_server_host = hiera('lightblue::eap::module::datastore::mongo::server_host', undef)
-    $mongo_server_port = hiera('lightblue::eap::module::datastore::mongo::server_port', undef)
     $mongo_servers_cfg = hiera('lightblue::eap::module::datastore::mongo::servers', undef)
     $mongo_ssl = hiera('lightblue::eap::module::datastore::mongo::ssl', true)
     $mongo_noCertValidation = hiera('lightblue::eap::module::datastore::mongo::disableCertValidation', false)
