@@ -25,4 +25,8 @@ class lightblue::service::metadata inherits lightblue::service {
         ensure  => $package_ensure,
         require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
     }
+    
+    if $package_name == 'lightblue-rest-metadata-cert-auth' {
+      include lightblue::authentication::certificate
+    }
 }
