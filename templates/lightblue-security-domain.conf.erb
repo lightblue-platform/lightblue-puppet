@@ -28,11 +28,11 @@
              "client-auth" => true,
              "keystore" => {
                         "password" => "<%= keystore_password %>",
-                        "url" => "<%= keystore_url %>"
+                        "url" => "file://<%= keystore_url %>"
                     },
              "truststore" => {
                         "password" => "<%= truststore_password %>",
-                        "url" => "<%= truststore_url %>"
+                        "url" => "file://<%= truststore_url %>"
                     }
             }
          }
