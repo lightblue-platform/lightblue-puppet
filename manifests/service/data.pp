@@ -25,7 +25,7 @@ class lightblue::service::data inherits lightblue::service {
         ensure  => $package_ensure,
         require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
     }
-    
+
     if $package_name == 'lightblue-rest-crud-cert-auth' {
       include lightblue::authentication::certificate
     }
