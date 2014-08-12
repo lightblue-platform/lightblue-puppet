@@ -1,10 +1,9 @@
-class lightblue::eap::logging
+class lightblue::eap::logging (
+    $format = '%d [%t] %-5p [%c] %m%n',
+    $root_log_level = WARN,
+    $lightblue_log_level = WARN,
 {
     # setup eap6 logging
-    $logging_format = hiera('lightblue::eap::logging::format', '%d [%t] %-5p [%c] %m%n')
-    $root_log_level = hiera('lightblue::eap::logging::level::root', WARN)
-    $com_redhat_log_level = hiera('lightblue::eap::logging::level::lightblue', $root_log_level)
-
     lightblue::jcliff::config { 'logging.conf':
         content => template('lightblue/logging.conf.erb'),
     }

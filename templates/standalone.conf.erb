@@ -49,8 +49,8 @@ fi
 PROCESSED_JAVA_OPTS="false"
 if [ "x$JAVA_OPTS" = "x" ]; then
    PROCESSED_JAVA_OPTS="true"
-   JAVA_OPTS="-Xms<%= @jboss_java_opts_Xms -%>
- -Xmx<%= @jboss_java_opts_Xmx -%>
+   JAVA_OPTS="-Xms<%= @java_Xms -%>
+ -Xmx<%= @java_Xmx -%>
 <%- if @jboss_disable_explicit_gc !=true -%>
  -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000<%- -%>
 <%- else -%>

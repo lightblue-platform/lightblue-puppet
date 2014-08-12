@@ -14,12 +14,13 @@
 #
 # include lightblue::service::data
 #
-class lightblue::service::data inherits lightblue::service {
+class lightblue::service::data (
+    $package_name = 'lightblue-rest-crud',
+    $package_ensure = latest,
+)
+inherits lightblue::service {
     include lightblue::base
     include lightblue::yumrepo::lightblue
-
-    $package_name = hiera('lightblue::service::data::package::name', 'lightblue-rest-crud')
-    $package_ensure = hiera('lightblue::service::data::package::ensure', latest)
 
     package { $package_name :
         ensure  => $package_ensure,
