@@ -1,5 +1,5 @@
 class lightblue::eap::logging (
-    $format = '%d [%t] %-5p [%c] %m%n',
+    $logging_format = '%d [%t] %-5p [%c] %m%n',
     $root_log_level = WARN,
     $lightblue_log_level = WARN,
 )
