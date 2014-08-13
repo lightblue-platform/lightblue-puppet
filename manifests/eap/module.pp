@@ -1,22 +1,20 @@
-class lightblue::eap::module
+class lightblue::eap::module (
+    $mongo_auth_mechanism,
+    $mongo_auth_username,
+    $mongo_auth_password,
+    $mongo_auth_source,
+    $hystrix_command_default_execution_isolation_strategy = 'THREAD',
+    $hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds = 60000,
+    $hystrix_command_default_circuitBreaker_enabled = false,
+    $hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds = 50000,
+    $hystrix_threadpool_mongodb_coreSize = 30,
+    $mongo_servers_cfg = undef,
+    $mongo_ssl = true,
+    $mongo_noCertValidation = false,
+    $hook_configuration_parsers = '',
+)
     inherits lightblue::eap
 {
-    # get all hystrix config variables
-    $hystrix_command_default_execution_isolation_strategy = hiera('lightblue::eap::module::hystrix::command::default::execution_isolation_strategy::default', 'THREAD')
-    $hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds = hiera('lightblue::eap::module::hystrix::command::default::execution_isolation_thread_timeoutInMilliseconds', 60000)
-    $hystrix_command_default_circuitBreaker_enabled = hiera('lightblue::eap::module::hystrix::command::default::circuitBreaker_enabled', false)
-    $hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds = hiera('lightblue::eap::module::hystrix::command::mongodb::execution_isolation_timeoutInMilliseconds', 50000)
-    $hystrix_threadpool_mongodb_coreSize = hiera('lightblue::eap::module::hystrix::threadpool::mongodb::coreSize', 30)
-
-    $mongo_server_host = hiera('lightblue::eap::module::datastore::mongo::server_host', undef)
-    $mongo_server_port = hiera('lightblue::eap::module::datastore::mongo::server_port', undef)
-    $mongo_servers_cfg = hiera('lightblue::eap::module::datastore::mongo::servers', undef)
-    $mongo_ssl = hiera('lightblue::eap::module::datastore::mongo::ssl', true)
-    $mongo_noCertValidation = hiera('lightblue::eap::module::datastore::mongo::disableCertValidation', false)
-    $mongo_auth_mechanism = hiera('lightblue::eap::module::datastore::mongo::auth::mechanism')
-    $mongo_auth_username = hiera('lightblue::eap::module::datastore::mongo::auth::username')
-    $mongo_auth_password = hiera('lightblue::eap::module::datastore::mongo::auth::password')
-    $mongo_auth_source = hiera('lightblue::eap::module::datastore::mongo::auth::source')
 
     # Setup the properties directory
     file { [ '/usr/share/jbossas/modules/com',
@@ -60,6 +58,26 @@ class lightblue::eap::module
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/datasources.json.erb'),
+        notify  => Service['jbossas'],
+        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+    }
+
+    # both configs for crud and metadata are required for each service to work
+
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-crud.json':
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        content => template('lightblue/properties/lightblue-crud.json.erb'),
+        notify  => Service['jbossas'],
+        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+    }
+
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-metadata.json':
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        content => template('lightblue/properties/lightblue-metadata.json.erb'),
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }

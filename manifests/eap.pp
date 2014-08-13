@@ -2,14 +2,14 @@
 # Declares a service to control eap6 instance
 class lightblue::eap (
     $config_dir = '/etc/redhat/lightblue',
-    $eap_version = '6.1.0',
+    $package_name = 'jbossas-standalone',
+    $package_ensure = latest,
+    $java_Xms = '786m',
+    $java_Xmx = '1572m',
 ) {
   include lightblue::yumrepo::jbeap
   include lightblue::yumrepo::jbeaptools
   include lightblue::java
-
-  $package_name = hiera('lightblue::eap::package::name', 'jbossas-standalone')
-  $package_ensure = hiera('lightblue::eap::package::ensure', latest)
 
   package { $package_name :
     ensure  => $package_ensure,
@@ -23,9 +23,6 @@ class lightblue::eap (
     mode     => '0755',
     require  => Package[$package_name],
   }
-
-  $jboss_java_opts_Xms = hiera('lightblue::eap::java::Xms', '786m')
-  $jboss_java_opts_Xmx = hiera('lightblue::eap::java::Xmx', '1572m')
 
   # bind jboss to the correct address
   file { '/usr/share/jbossas/bin/standalone.conf':
