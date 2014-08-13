@@ -11,6 +11,7 @@ class lightblue::eap::module (
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
     $mongo_noCertValidation = false,
+    $hook_configuration_parsers = undef,
 )
     inherits lightblue::eap
 {

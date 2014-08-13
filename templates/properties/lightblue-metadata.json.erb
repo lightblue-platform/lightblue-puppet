@@ -5,6 +5,22 @@
         "The remainder of the file is parsed by the implementation class"
     ],
     "type" : "com.redhat.lightblue.mongo.config.MongoMetadataConfiguration",
+<% if hook_configuration_parsers.kind_of?(Array) -%>
+     "hookConfigurationParsers" : [
+        <%
+        i = hook_configuration_parsers.length
+        hook_configuration_parsers.each do |parser|
+        -%>
+           "<%=parser%>"
+        <% if i > 1 then -%>
+        ,
+        <%
+          end 
+          i = i - 1
+        -%>
+        <% end -%>
+     ]
+<% end -%>
     "dataSource" : "metadata",
     "collection": "metadata"
 }
