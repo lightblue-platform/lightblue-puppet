@@ -59,7 +59,7 @@ class lightblue::eap::ssl (
         target       => "${keystore_location}/eap6trust.keystore",
         password     => $keystore_password,
         trustcacerts => true,
-        require      => [ File[$certificate_file], File["${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}"] ],
+        require      => File["${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}"],
     }
     file {"${keystore_location}/eap6.keystore":
         owner   => 'jboss',
