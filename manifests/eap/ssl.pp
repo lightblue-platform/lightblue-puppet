@@ -51,7 +51,7 @@ class lightblue::eap::ssl (
         target       => "${keystore_location}/eap6.keystore",
         password     => $keystore_password,
         trustcacerts => true,
-        require      => File[$certificate_file],
+        require      => [ File[$certificate_file], File["${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}"] ]
     }
     java_ks { "${keystore_alias}:truststore":
         ensure       => latest,
