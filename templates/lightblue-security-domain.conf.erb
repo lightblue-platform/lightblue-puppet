@@ -14,10 +14,10 @@
                   "verifier" => "org.jboss.security.auth.certs.AnyCertVerifier",
                   "rolesProperties" => expression "file://${jboss.server.config.dir}/roles.properties",
                   "authRoleName" => "authenticated",
-                  "ldapAdServer" => "<%= ldap_ad_server %>",
-                  "ldapSearchBase" => "<%= ldap_search_base %>",
-                  "ldapUsername" => "<%= ldap_username %>",
-                  "ldapPassword" => "<%= ldap_password %>"
+                  "ldapServer" => "<%= ldap_ad_server %>",
+                  "searchBase" => "<%= ldap_search_base %>",
+                  "bindDn" => "<%= ldap_username %>",
+                  "bindPassword" => "<%= ldap_password %>"
                 }
               }
             }
