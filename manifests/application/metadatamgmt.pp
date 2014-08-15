@@ -14,7 +14,7 @@
 #
 # include lightblue::application::metadatamgmt
 #
-class lightblue::service::metadata (
+class lightblue::application::metadatamgmt (
     $package_name = 'lightblue-metadata-mgmt',
     $package_ensure = latest,
 )
