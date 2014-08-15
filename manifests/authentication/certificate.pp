@@ -62,8 +62,8 @@ class lightblue::authentication::certificate (
         require => Package[$lightblue::eap::package_name],
     }
 
-    lightblue::jcliff::config { 'lightblue-security-domain.conf':
-        content => template('lightblue/lightblue-security-domain.conf.erb'),
+    lightblue::jcliff::config { 'lightblue-security-domain-cert.conf':
+        content => template('lightblue/lightblue-security-domain-cert.conf.erb'),
         require => File["${config_dir}/roles.properties"],
     }
 }
