@@ -12,6 +12,11 @@ class lightblue::eap::module (
     $mongo_ssl = true,
     $mongo_noCertValidation = false,
     $hook_configuration_parsers = '',
+    $mgmt_app_service_URI,
+    $mgmt_app_ca_file_path,
+    $mgmt_app_cert_file_path,
+    $mgmt_app_cert_password,
+    $mgmt_app_cert_alias,
 )
     inherits lightblue::eap
 {
