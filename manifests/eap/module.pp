@@ -38,7 +38,14 @@ class lightblue::eap::module (
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
 
-
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/appconfig.properties':
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        content => template('lightblue/properties/appconfig.properties.erb'),
+        notify  => Service['jbossas'],
+        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+    }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/config.properties':
         mode    => '0644',
