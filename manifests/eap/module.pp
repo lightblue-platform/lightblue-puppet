@@ -17,6 +17,14 @@ class lightblue::eap::module (
     $mgmt_app_cert_file_path,
     $mgmt_app_cert_password,
     $mgmt_app_cert_alias,
+    $saml_identity_url,
+    $saml_service_url,
+    $saml_key_store_url,
+    $saml_key_store_pass,
+    $saml_signing_key_pass,
+    $saml_signing_key_alias,
+    $saml_validating_alias_key,
+    $saml_validating_alias_value,
 )
     inherits lightblue::eap
 {
