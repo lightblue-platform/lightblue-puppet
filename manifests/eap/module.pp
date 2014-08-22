@@ -51,7 +51,7 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
-    
+
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/picketlink.xml':
         mode    => '0644',
         owner   => 'jboss',
