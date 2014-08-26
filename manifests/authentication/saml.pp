@@ -16,7 +16,7 @@ class lightblue::authentication::saml {
     lightblue::jcliff::config { 'lightblue-security-domain-saml.conf':
         content => template('lightblue/lightblue-security-domain-saml.conf.erb')
     }
-    
+
     lightblue::jcliff::config { 'lightblue-system-properties-saml.conf':
         content => template('lightblue/lightblue-system-properties-saml.conf.erb')
     }
