@@ -13,8 +13,8 @@
 class lightblue::authentication::saml (
     $identity_url,
     $service_url,
-    $keystore_url,
-    $keystore_pass,
+    $key_store_url,
+    $key_store_pass,
     $signing_key_pass,
     $signing_key_alias,
     $validating_key_alias,
