@@ -1,12 +1,11 @@
 { "system-property" => {
-    "IdentityURL" => "https://saml.dev.redhat.com/idp/",
-    "ServiceURL" => "https://metadatadevelb.a1.vary.redhat.com/app/metadata/",
-    "KeyStoreURL" => "dev-internal-idp.jks",
-    "KeyStorePass" => "gxqT8mobh2getaW",
-    "SigningKeyPass" => "nothingtoseehere",
-    "SigningKeyAlias" => "bogusvalue",
-    "ValidatingAliasKey" => "saml.dev.redhat.com",
-    "ValidatingAliasValue" => "RedHatSAMLIDP",
-    "TestThisWorks" => "ItDoes!"
+    "IdentityURL" => "<%= identity_url %>",
+    "ServiceURL" => "<%= service_url %>",
+    "KeyStoreURL" => '<%= keystore_url %>",
+    "KeyStorePass" => "<%= keystore_pass %>",
+    "SigningKeyPass" => "<%= signing_key_pass %>",
+    "SigningKeyAlias" => "<%= signing_key_alias %>",
+    "ValidatingAliasKey" => "<%= validating_key_alias %>",
+    "ValidatingAliasValue" => "<%= validating_alias_value %>"
   }
 }
