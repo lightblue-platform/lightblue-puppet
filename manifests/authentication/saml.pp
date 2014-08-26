@@ -18,7 +18,7 @@ class lightblue::authentication::saml (
     $signing_key_pass,
     $signing_key_alias,
     $validating_key_alias,
-    $validating_alias_value",
+    $validating_alias_value,
 ) {
     include lightblue::eap
 
