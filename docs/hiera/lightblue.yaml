@@ -13,28 +13,27 @@ lightblue::jcliff::deploy_apps: true
 lightblue::jcliff::require: Class['lightblue::eap']
 
 # Hystrix defaults.
-lightblue::eap::module::hystrix::command::default::execution_isolation_strategy: THREAD
-lightblue::eap::module::hystrix::command::default::execution_isolation_thread_timeoutInMilliseconds: 60000
-lightblue::eap::module::hystrix::command::default::circuitBreaker_enabled: false
-lightblue::eap::module::hystrix::command::mongodb::execution_isolation_timeoutInMilliseconds: 50000
-lightblue::eap::module::hystrix::threadpool::mongodb::coreSize: 30
+lightblue::eap::module::hystrix_command_default_execution_isolation_strategy: THREAD
+lightblue::eap::module::hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds: 60000
+lightblue::eap::module::hystrix_command_default_circuitBreaker_enabled: false
+lightblue::eap::module::hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds: 50000
+lightblue::eap::module::hystrix_threadpool_mongodb_coreSize: 30
 
 # eap logging
-lightblue::eap::logging::format: %d [%t] %-5p [%c] %m%n
-lightblue::eap::logging::level::root: WARN
-lightblue::eap::logging::level::lightblue: WARN
+lightblue::eap::logging::logging_format: %d [%t] %-5p [%c] %m%n
+lightblue::eap::logging::root_log_level: WARN
+lightblue::eap::logging::lightblue_log_level: WARN
 
 # java opts
-lightblue::eap::java::Xms: 786m
-lightblue::eap::java::Xmx: 1572m
+lightblue::eap::java_Xms: 786m
+lightblue::eap::java_Xmx: 1572m
 
 # package name and ensure (can be used to set version: http://docs.puppetlabs.com/references/latest/type.html#package-attribute-ensure)
-lightblue::jcliff::package::name: jcliff
-lightblue::jcliff::package::ensure: latest
+lightblue::jcliff::package_name: jcliff
+lightblue::jcliff::package_ensure: latest
 lightblue::service::data::package_name: lightblue-rest-crud
 lightblue::service::data::package_ensure: latest
 lightblue::service::metadata::package_name: lightblue-rest-metadata
 lightblue::service::metadata::package_ensure: latest
-lightblue::eap::package::name: jbossas-standalone
-lightblue::eap::package::ensure: 7.2.0-8.Final_redhat_8.ep6.el6
-
+lightblue::eap::package_name: jbossas-standalone
+lightblue::eap::package_ensure: 7.2.0-8.Final_redhat_8.ep6.el6
