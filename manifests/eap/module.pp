@@ -100,7 +100,7 @@ class lightblue::eap::module (
     }
 
     # client-cert config
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/$ca_file':
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/$client_ca_file':
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
