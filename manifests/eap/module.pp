@@ -19,7 +19,6 @@ class lightblue::eap::module (
     $mgmt_app_cert_password,
     $mgmt_app_cert_alias,
     $client_ca_source,
-    $client_ca_file,
 )
     inherits lightblue::eap
 {
@@ -100,7 +99,7 @@ class lightblue::eap::module (
     }
 
     # client-cert config
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/$client_ca_file':
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/cacert.pem':
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
