@@ -110,7 +110,7 @@ class lightblue::eap::module (
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
 
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lb-client-cert.pkcs12':
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lb-metadata-mgmt.pkcs12':
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
