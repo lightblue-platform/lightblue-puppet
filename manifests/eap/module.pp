@@ -98,14 +98,14 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
-    
+        
     # client-cert config
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-metadata.json':
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/$ca_file':
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
         links   => 'follow',
-        source  => $client_ca_cert,
+        source  => $client_ca_source,
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
