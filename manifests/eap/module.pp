@@ -19,6 +19,7 @@ class lightblue::eap::module (
     $mgmt_app_cert_password,
     $mgmt_app_cert_alias,
     $client_ca_source,
+    $client_cert_source,
 )
     inherits lightblue::eap
 {
@@ -105,6 +106,16 @@ class lightblue::eap::module (
         group   => 'jboss',
         links   => 'follow',
         source  => $client_ca_source,
+        notify  => Service['jbossas'],
+        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+    }
+    
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lb-client-cert.pkcs12':
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        links   => 'follow',
+        source  => $client_cert_source,
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
