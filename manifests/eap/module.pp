@@ -98,7 +98,7 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
-        
+
     # client-cert config
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/$ca_file':
         mode    => '0644',
@@ -109,5 +109,5 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
-    
+
 }
