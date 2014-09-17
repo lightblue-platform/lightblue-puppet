@@ -1,0 +1,35 @@
+{
+ "logging" =>  {
+    "size-rotating-file-handler" => {
+       "rh_access_log_file_handler" => {
+           "rotate-size" => "10m",
+           "max-backup-index" => 50,
+           "file" => {
+               "relative-to" => "jboss.server.log.dir",
+               "path" => "access.log",
+            },
+           "formatter" => "<%= logging_format %>"
+       }
+    },
+    "periodic-rotating-file-handler" => {
+        "FILE" => "deleted"
+    },
+    "async-handler" => {
+       "rh_async" => {
+         "subhandlers" => ["rh_file_handler"],
+         "queue-length" => 1000
+       }
+   },
+    "logger" => {
+       "com.redhat.lightblue.rest.auth" => {
+         "level" => "INFO",
+       }
+   },
+    "root-logger" => {
+       "ROOT" => {
+         "handlers" => [ "rh_file_handler" ],
+         "level" => "<%= root_log_level %>"
+       }
+    }
+  }
+}

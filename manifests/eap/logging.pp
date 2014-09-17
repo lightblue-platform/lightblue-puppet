@@ -8,4 +8,9 @@ class lightblue::eap::logging (
     lightblue::jcliff::config { 'logging.conf':
         content => template('lightblue/logging.conf.erb'),
     }
+    
+    # setup access logging
+    lightblue::jcliff::config { 'accesslogging.conf':
+        content => template('lightblue/accesslogging.conf.erb'),
+    }
 }
