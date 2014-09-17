@@ -1,6 +1,6 @@
-# == Class: lightblue::service::data
+# == Class: lightblue::service::metadata
 #
-# Deploys lightblue data (crud) RESTful service.
+# Deploys lightblue metadata RESTful service.
 #
 # === Parameters
 #
@@ -12,13 +12,13 @@
 #
 # === Example
 #
-# include lightblue::service::data
+# include lightblue::application::metadatamgmt
 #
-class lightblue::service::data (
-    $package_name = 'lightblue-rest-crud',
+class lightblue::application::metadatamgmt (
+    $package_name = 'lightblue-metadata-mgmt',
     $package_ensure = latest,
 )
-inherits lightblue::service {
+inherits lightblue::application {
     include lightblue::base
     include lightblue::yumrepo::lightblue
 
@@ -27,7 +27,7 @@ inherits lightblue::service {
         require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
     }
 
-    if $package_name == 'lightblue-rest-crud-cert-auth' {
-      include lightblue::authentication::certificate
+    if $package_name == 'lightblue-metadata-mgmt-saml-auth' {
+      include lightblue::authentication::saml
     }
 }

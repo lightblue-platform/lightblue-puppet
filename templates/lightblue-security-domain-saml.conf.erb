@@ -1,0 +1,21 @@
+{
+  "security" => {
+    "security-domain" => {
+      "lightblue-saml" => {
+        "authentication" => {
+          "classic" => {
+            "login-module" => {
+              "CertLdapLoginModule" => {
+                "code" => "org.picketlink.identity.federation.bindings.jboss.auth.SAML2LoginModule",
+                "flag" => "required",
+                "module-options" => {
+                  "password-stacking" => "useFirstPass"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

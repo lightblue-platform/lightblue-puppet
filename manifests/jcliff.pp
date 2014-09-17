@@ -23,12 +23,11 @@ class lightblue::jcliff (
   $jboss_home='/usr/share/jbossas',
   $enable_logging=false,
   $log_dir=undef,
-  $deploy_apps=true
+  $deploy_apps=true,
+  $package_name='jcliff',
+  $package_ensure=latest,
 ) {
     include lightblue::eap
-
-    $package_name = hiera('lightblue::jcliff::package::name', 'jcliff')
-    $package_ensure = hiera('lightblue::jcliff::package::ensure', latest)
 
     package { $package_name :
         ensure  => $package_ensure,
