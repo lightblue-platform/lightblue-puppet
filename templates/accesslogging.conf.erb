@@ -24,5 +24,18 @@
          "handlers" => [ "rh_access_log_file_handler" ]
        }
    },
+   "logger" => {
+       "com.redhat.lightblue.rest.auth.jboss" => {
+         "level" => "WARN",
+         "use-parent-handlers" => false,
+         "handlers" => [ "rh_access_log_file_handler" ]
+       }
+   },"logger" => {
+       "com.redhat.lightblue.rest.auth" => {
+         "level" => "WARN",
+         "use-parent-handlers" => false,
+         "handlers" => [ "rh_access_log_file_handler" ]
+       }
+   },
   }
 }
