@@ -53,9 +53,11 @@ class lightblue::application::migrator::daemon (
 ) {
     case $::osfamily {
         'RedHat', 'Linux': {
-            $jsvc_package_name = $::operatingsystemrelease ? {
-                /^7\./  => 'apache-commons-daemon-jsvc',
-                default => 'jakarta-commons-daemon-jsvc'
+            if versioncmp($::operatingsystemrelease, '7.0') < 0 {
+                $jsvc_package_name = 'jakarta-commons-daemon-jsvc'
+            }
+            else{
+                $jsvc_package_name = 'apache-commons-daemon-jsvc'
             }
         }
         default: {
