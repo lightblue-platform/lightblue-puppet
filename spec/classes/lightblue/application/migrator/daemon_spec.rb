@@ -74,10 +74,6 @@ describe 'lightblue::application::migrator::daemon' do
   
   context 'daemon.sh' do
     service_name = 'fake_service'
-    path_to_jar = '/path/to/jar'
-    main_class = 'Main.class'
-    log_out = 'out.log'
-    log_err = 'err.log'
     
     let :facts do
       {
@@ -87,6 +83,11 @@ describe 'lightblue::application::migrator::daemon' do
     end
     
     describe 'with default settings' do
+      path_to_jar = '/path/to/jar'
+      main_class = 'Main.class'
+      log_out = 'out.log'
+      log_err = 'err.log'
+      
       let :params do
         {
           :service_name => service_name,
@@ -112,6 +113,44 @@ describe 'lightblue::application::migrator::daemon' do
         .with_content(/^LOG_OUT=#{log_out}$/) \
         .with_content(/^LOG_ERR=#{log_err}$/) \
         .with_content(/#{path_to_jar}/)
+      end
+    end
+    
+    describe 'with optional settings' do
+      owner = 'fake'
+      group = 'fake'
+      jsvc_exec = '/path/to/jsvc'
+      java_home = '/path/to/java_home'
+      lib_dir = '/path/to/lib'
+      
+      let :params do
+        {
+          :service_name => service_name,
+          :service_out_logfile => 'out.log',
+          :service_err_logfile => 'err.log',
+          :jar_path => '/path/to/jar',
+          :mainClass => 'Main.class',
+          :owner => owner,
+          :group => group,
+          :jsvc_exec => jsvc_exec,
+          :java_home => java_home,
+          :lib_dir => lib_dir,
+          :arguments => {'key' => 'value' , 'anotherkey' => 'anothervalue'}
+        }
+      end
+      
+      it do
+        should contain_file("/etc/init.d/#{service_name}").with({
+          'ensure' => 'file',
+          'owner'  => owner,
+          'group'  => group,
+          'mode'   => '0744'
+        }) \
+        .with_content(/^JSVC_EXEC=#{jsvc_exec}$/) \
+        .with_content(/^JAVA_HOME_DIR=#{java_home}$/) \
+        .with_content(/^LIBS=#{lib_dir}$/) \
+        .with_content(/^\s*--key=value \\$/) \
+        .with_content(/^\s*--anotherkey=anothervalue$/)
       end
     end
     
