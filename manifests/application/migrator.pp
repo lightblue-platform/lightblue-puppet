@@ -4,7 +4,26 @@
 #
 # === Parameters
 #
-# No parameters.
+# $lbclient_metadata_uri   - see lightblue::client::configure
+# $lbclient_data_uri       - see lightblue::client::configure
+# $lbclient_use_cert_auth  - see lightblue::client::configure
+# $lbclient_ca_file_path   - see lightblue::client::configure
+# $lbclient_cert_file_path - see lightblue::client::configure
+# $lbclient_cert_password  - see lightblue::client::configure
+# $lbclient_cert_alias     - see lightblue::client::configure
+# $config_file             - (required) Lightblue Client configuration file
+# $service_owner           - Owner of service and related files. Defaults to root.
+# $service_group           - Group of service and related files. Defaults to root.
+# $migrator_version        - Version of consistency-checker rpm to install. Defaults to latest.
+# $jsvc_version            - Version of the jsvc package to install. Defaults to latest.
+# $java_home               - (optional) Specify the java home directory. Defaults to JAVA_HOME.
+# $jar_path                - (optional) Specify the path to the jar file to be wrapped in the service.
+# $service_log_file        - Path to log out/err message too.
+# $hostname                - Hostname to pass into consistency-checker. Defaults to $(hostname)
+# $ip                      - IP Address to pass into consistency-checker. Defaults to localhost ip.
+# $checker_name            - Name of this consistency-checker.
+# $job_version             - Job version to pass into consistency-checker.
+# $configuration_version   - Configuration version to pass into consistency-checker.
 #
 # === Variables
 #
