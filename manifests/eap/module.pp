@@ -55,7 +55,7 @@ class lightblue::eap::module (
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
 
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-cilent.properties':
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-client.properties':
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
