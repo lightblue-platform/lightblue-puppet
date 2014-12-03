@@ -105,14 +105,14 @@ describe 'lightblue::application::migrator::daemon' do
           'group'  => 'root',
           'mode'   => '0744',
         }) \
-        .with_content(/^JSVC_EXEC=\$\(which jsvc\)$/) \
-        .without_content(/^JAVA_HOME_DIR=*$/) \
-        .without_content(/^LIBS=*$/) \
-        .with_content(/^MAIN_CLASS=#{main_class}$/) \
-        .with_content(/^PID=\/tmp\/#{service_name}.pid$/) \
-        .with_content(/^LOG_OUT=#{log_out}$/) \
-        .with_content(/^LOG_ERR=#{log_err}$/) \
-        .with_content(/#{path_to_jar}/)
+          .with_content(/^JSVC_EXEC=\$\(which jsvc\)$/) \
+          .without_content(/^JAVA_HOME_DIR=*$/) \
+          .without_content(/^LIBS=*$/) \
+          .with_content(/^MAIN_CLASS=#{main_class}$/) \
+          .with_content(/^PID=\/tmp\/#{service_name}.pid$/) \
+          .with_content(/^LOG_OUT=#{log_out}$/) \
+          .with_content(/^LOG_ERR=#{log_err}$/) \
+          .with_content(/#{path_to_jar}/)
       end
     end
     
@@ -146,11 +146,11 @@ describe 'lightblue::application::migrator::daemon' do
           'group'  => group,
           'mode'   => '0744'
         }) \
-        .with_content(/^JSVC_EXEC=#{jsvc_exec}$/) \
-        .with_content(/^JAVA_HOME_DIR=#{java_home}$/) \
-        .with_content(/^LIBS=#{lib_dir}$/) \
-        .with_content(/^\s*--key=value \\$/) \
-        .with_content(/^\s*--anotherkey=anothervalue$/)
+          .with_content(/^JSVC_EXEC=#{jsvc_exec}$/) \
+          .with_content(/^JAVA_HOME_DIR=#{java_home}$/) \
+          .with_content(/^LIBS=#{lib_dir}$/) \
+          .with_content(/^\s*--key=value \\$/) \
+          .with_content(/^\s*--anotherkey=anothervalue$/)
       end
     end
     

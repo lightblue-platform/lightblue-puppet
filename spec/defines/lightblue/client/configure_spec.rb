@@ -23,9 +23,9 @@ describe 'lightblue::client::configure' do
         'group'  => 'root',
         'mode'   => '0644',
       }) \
-      .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
-      .with_content(/^dataServiceURI=#{data_uri}/) \
-      .with_content(/^useCertAuth=false/)
+        .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
+        .with_content(/^dataServiceURI=#{data_uri}/) \
+        .with_content(/^useCertAuth=false/)
     end
   end
   
@@ -54,13 +54,13 @@ describe 'lightblue::client::configure' do
         'group'  => 'root',
         'mode'   => '0644',
       }) \
-      .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
-      .with_content(/^dataServiceURI=#{data_uri}/) \
-      .with_content(/^useCertAuth=true/) \
-      .with_content(/^caFilePath=#{ca_file_path}/) \
-      .with_content(/^certFilePath=#{cert_file_path}/) \
-      .with_content(/^certPassword=#{password}/) \
-      .with_content(/^certAlias=#{cert_alias}/)
+        .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
+        .with_content(/^dataServiceURI=#{data_uri}/) \
+        .with_content(/^useCertAuth=true/) \
+        .with_content(/^caFilePath=#{ca_file_path}/) \
+        .with_content(/^certFilePath=#{cert_file_path}/) \
+        .with_content(/^certPassword=#{password}/) \
+        .with_content(/^certAlias=#{cert_alias}/)
     end
   end
 
