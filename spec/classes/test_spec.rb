@@ -1,5 +1,7 @@
 require 'spec_helper'
 
-describe 'example test' do
-  
+describe 'lightblue::application::metadatamgmt' do
+  it do
+    should contain_package('lightblue-metadata-mgmt')
+  end
 end
