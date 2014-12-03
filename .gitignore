@@ -2,3 +2,4 @@
 *.swp
 .project
 spec/fixtures/
+Gemfile.lock
