@@ -9,8 +9,16 @@ describe 'lightblue::application::migrator' do
   job_version = 1
   configuration_version = 1
   
-  let(:hiera_config){'spec/fixtures/hiera/repo.yaml'}
+  let(:hiera_config){ 'spec/fixtures/hiera/hiera.yaml' }
   
+  let :facts do
+    {
+      :architecture => 'x86_64',
+      :osfamily => 'RedHat',
+      :operatingsystemrelease => '7.0'
+    }
+  end
+    
   let :params do
     {
       :lbclient_metadata_uri => metadata_uri,
@@ -19,21 +27,7 @@ describe 'lightblue::application::migrator' do
       :ip => ip,
       :checker_name => checker_name,
       :job_version => job_version,
-      :configuration_version => configuration_version,
-      
-      :lbclient_use_cert_auth => false,
-      :lbclient_ca_file_path => nil,
-      :lbclient_cert_file_path => nil,
-      :lbclient_cert_password => nil,
-      :lbclient_cert_alias => nil,
-      :config_file => 'lightblue-client.properties',
-      :service_owner => 'root',
-      :service_group => 'root',
-      :migrator_version => 'latest',
-      :jsvc_version => 'latest',
-      :java_home => nil,
-      :jar_path => '/usr/share/jbossas/standalone/deployments/consistency-checker-*.jar',
-      :service_log_file => 'migrator.log'
+      :configuration_version => configuration_version
     }
   end
   
