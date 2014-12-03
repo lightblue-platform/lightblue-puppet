@@ -149,8 +149,8 @@ describe 'lightblue::application::migrator::daemon' do
           .with_content(/^JSVC_EXEC=#{jsvc_exec}$/) \
           .with_content(/^JAVA_HOME_DIR=#{java_home}$/) \
           .with_content(/^LIBS=#{lib_dir}$/) \
-          .with_content(/^\s*--key=value \\$/) \
-          .with_content(/^\s*--anotherkey=anothervalue$/)
+          .with_content(/--key=value/) \
+          .with_content(/--anotherkey=anothervalue/)
       end
     end
     
