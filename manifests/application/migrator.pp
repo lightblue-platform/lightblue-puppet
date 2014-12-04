@@ -19,11 +19,12 @@
 # $java_home               - (optional) Specify the java home directory. Defaults to JAVA_HOME.
 # $jar_path                - (optional) Specify the path to the jar file to be wrapped in the service.
 # $service_log_file        - Path to log out/err message too.
-# $hostname                - Hostname to pass into consistency-checker. Defaults to $(hostname)
-# $ip                      - IP Address to pass into consistency-checker. Defaults to localhost ip.
 # $checker_name            - Name of this consistency-checker.
-# $job_version             - Job version to pass into consistency-checker.
+# $hostname                - Hostname to pass into consistency-checker. Defaults to $(hostname)
 # $configuration_version   - Configuration version to pass into consistency-checker.
+# $job_version             - Job version to pass into consistency-checker.
+# $source_config           - Source lightblue client configuration file. Defaults to $config_file.
+# $destination_config      - Destination lightblue client configuration file. Defaults to $config_file.
 #
 # === Variables
 #
@@ -51,11 +52,12 @@ class lightblue::application::migrator (
     $java_home = undef,
     $jar_path = '/usr/share/jbossas/standalone/deployments/consistency-checker-*.jar',
     $service_log_file = 'migrator.log',
-    $hostname = '$(hostname)',
-    $ip = '$(dig +short $(hostname))',
     $checker_name,
+    $hostname = '$(hostname)',
     $job_version,
     $configuration_version,
+    $source_config = undef,
+    $destination_config = undef,
 ){
     require lightblue::yumrepo::lightblue
     require lightblue::java
@@ -88,16 +90,17 @@ class lightblue::application::migrator (
         service_name        => $migrator_service_name,
         service_out_logfile => $service_log_file,
         service_err_logfile => $service_log_file,
-        java_home          => $java_home,
+        java_home           => $java_home,
         jar_path            => $jar_path,
         mainClass           => 'com.redhat.lightblue.migrator.consistency.ConsistencyCheckerDaemon',
         arguments           => {
-          config        => $config_file,
-          hostname      => $hostname,
-          ip            => $ip,
-          jobversion    => $job_version,
-          name          => $checker_name,
-          configversion => $configuration_version,
+          name              => $checker_name,
+          hostname          => $hostname,
+          config            => $config_file,
+          configversion     => $configuration_version,
+          jobversion        => $job_version,
+          sourceconfig      => $source_config ? {undef => $config_file, default => $source_config},
+          destinationconfig => $destination_config ? {undef => $config_file, default => $destination_config},
         },
         require             => [Package[$migrator_package_name]],
     }
