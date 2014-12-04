@@ -66,7 +66,7 @@ do_start()
 do_stop()
 {
     if [ -f "$PID" ]; then
-        do_exec "-stop"
+        $JSVC_EXEC -stop -pidfile $PID $MAIN_CLASS
         echo "service stopped"
     else
         echo "service not running, will do nothing"
@@ -97,7 +97,7 @@ case "$1" in
         do_status
         ;;
     *)
-        echo "usage: daemon {start|stop|restart}" >&2
+        echo "usage: daemon {start|stop|restart|status}" >&2
         exit 3
         ;;
 esac
