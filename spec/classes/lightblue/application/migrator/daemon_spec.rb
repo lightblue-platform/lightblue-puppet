@@ -10,11 +10,21 @@ describe 'lightblue::application::migrator::daemon' do
         :osfamily => fake_os_name
       }
     end
+    
+    let :params do
+      {
+        :service_name => 'fake_service',
+        :service_out_logfile => 'out.log',
+        :service_err_logfile => 'err.log',
+        :jar_path => '/path/to/jar',
+        :mainClass => 'Main.class'
+      }
+    end
 
     it do
-      expect{
-        to raise_error(Puppet::Error, /Unsupported OS family: #{fake_os_name}/)
-      }
+      expect {
+        should compile
+      }.to raise_error(Puppet::Error, /Unsupported OS family: #{fake_os_name}/)
     end
   end
 

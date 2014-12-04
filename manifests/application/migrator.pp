@@ -37,14 +37,6 @@
 # }
 #
 class lightblue::application::migrator (
-    $lbclient_metadata_uri,
-    $lbclient_data_uri,
-    $lbclient_use_cert_auth = false,
-    $lbclient_ca_file_path = undef,
-    $lbclient_cert_file_path = undef,
-    $lbclient_cert_password = undef,
-    $lbclient_cert_alias = undef,
-    $config_file = 'lightblue-client.properties',
     $service_owner = 'root',
     $service_group = 'root',
     $migrator_version = 'latest',
@@ -56,31 +48,99 @@ class lightblue::application::migrator (
     $hostname = '$(hostname)',
     $job_version,
     $configuration_version,
+
+    #primary lightblue client to be used as migrator backend
+    $primary_config_file = 'lightblue-client.properties',
+    $primary_client_metadata_uri,
+    $primary_client_data_uri,
+    $primary_client_use_cert_auth = false,
+    $primary_client_ca_file_path = undef,
+    $primary_client_cert_file_path = undef,
+    $primary_client_cert_password = undef,
+    $primary_client_cert_alias = undef,
+
+    #(optional) source lightblue client to pull data from
     $source_config = undef,
+    $source_client_metadata_uri = undef,
+    $source_client_data_uri = undef,
+    $source_client_use_cert_auth = false,
+    $source_client_ca_file_path = undef,
+    $source_client_cert_file_path = undef,
+    $source_client_cert_password = undef,
+    $source_client_cert_alias = undef,
+
+    #(optiona) destination lightblue client to push data too
     $destination_config = undef,
+    $destination_client_metadata_uri = undef,
+    $destination_client_data_uri = undef,
+    $destination_client_use_cert_auth = false,
+    $destination_client_ca_file_path = undef,
+    $destination_client_cert_file_path = undef,
+    $destination_client_cert_password = undef,
+    $destination_client_cert_alias = undef,
 ){
     require lightblue::yumrepo::lightblue
     require lightblue::java
 
     $migrator_service_name = 'migrator-service'
     $migrator_package_name = 'lightblue-consistency-checker'
+    $source_config_file = $source_config ? {undef => $primary_config_file, default => $source_config}
+    $destination_config_file = $destination_config ? {undef => $primary_config_file, default => $destination_config}
 
     package { $migrator_package_name:
       ensure  => $migrator_version,
       notify  => [Service[$migrator_service_name]],
     }
 
-    lightblue::client::configure { $config_file:
+    lightblue::client::configure { $primary_config_file:
         owner                   => $service_owner,
         group                   => $service_group,
-        lbclient_metadata_uri   => $lbclient_metadata_uri,
-        lbclient_data_uri       => $lbclient_data_uri,
-        lbclient_use_cert_auth  => $lbclient_use_cert_auth,
-        lbclient_ca_file_path   => $lbclient_ca_file_path,
-        lbclient_cert_file_path => $lbclient_cert_file_path,
-        lbclient_cert_password  => $lbclient_cert_password,
-        lbclient_cert_alias     => $lbclient_cert_alias,
+        lbclient_metadata_uri   => $primary_client_metadata_uri,
+        lbclient_data_uri       => $primary_client_data_uri,
+        lbclient_use_cert_auth  => $primary_client_use_cert_auth,
+        lbclient_ca_file_path   => $primary_client_ca_file_path,
+        lbclient_cert_file_path => $primary_client_cert_file_path,
+        lbclient_cert_password  => $primary_client_cert_password,
+        lbclient_cert_alias     => $primary_client_cert_alias,
         notify                  => [Service[$migrator_service_name]],
+    }
+
+    if($source_config_file != $primary_config_file){
+      if !$source_client_metadata_uri or !$source_client_data_uri {
+        fail('If defining a source_config, then you must also define data and metadata urls for it.')
+      }
+
+      lightblue::client::configure { $source_config_file:
+          owner                   => $service_owner,
+          group                   => $service_group,
+          lbclient_metadata_uri   => $source_client_metadata_uri,
+          lbclient_data_uri       => $source_client_data_uri,
+          lbclient_use_cert_auth  => $source_client_use_cert_auth,
+          lbclient_ca_file_path   => $source_client_ca_file_path,
+          lbclient_cert_file_path => $source_client_cert_file_path,
+          lbclient_cert_password  => $source_client_cert_password,
+          lbclient_cert_alias     => $source_client_cert_alias,
+          notify                  => [Service[$migrator_service_name]],
+      }
+    }
+
+    if($destination_config_file != $primary_config_file){
+      if !$destination_client_metadata_uri or !$destination_client_data_uri {
+        fail('If defining a destination_config, then you must also define data and metadata urls for it.')
+      }
+
+      lightblue::client::configure { $destination_config_file:
+          owner                   => $service_owner,
+          group                   => $service_group,
+          lbclient_metadata_uri   => $destination_client_metadata_uri,
+          lbclient_data_uri       => $destination_client_data_uri,
+          lbclient_use_cert_auth  => $destination_client_use_cert_auth,
+          lbclient_ca_file_path   => $destination_client_ca_file_path,
+          lbclient_cert_file_path => $destination_client_cert_file_path,
+          lbclient_cert_password  => $destination_client_cert_password,
+          lbclient_cert_alias     => $destination_client_cert_alias,
+          notify                  => [Service[$migrator_service_name]],
+      }
     }
 
     class { 'lightblue::application::migrator::daemon':
@@ -96,11 +156,11 @@ class lightblue::application::migrator (
         arguments           => {
           name              => $checker_name,
           hostname          => $hostname,
-          config            => $config_file,
+          config            => $primary_config_file,
           configversion     => $configuration_version,
           jobversion        => $job_version,
-          sourceconfig      => $source_config ? {undef => $config_file, default => $source_config},
-          destinationconfig => $destination_config ? {undef => $config_file, default => $destination_config},
+          sourceconfig      => $source_config_file,
+          destinationconfig => $destination_config_file,
         },
         require             => [Package[$migrator_package_name]],
     }
