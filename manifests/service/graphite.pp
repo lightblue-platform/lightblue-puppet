@@ -13,7 +13,7 @@
 #
 # === Example
 #
-# include lightblue::service::data
+# include lightblue::service::graphite
 #
 class lightblue::service::graphite ($hostname, $port){
 
