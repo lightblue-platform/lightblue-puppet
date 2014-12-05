@@ -15,3 +15,9 @@ env:
 - PUPPET_VERSION="~> 3.5.0"
 - PUPPET_VERSION="~> 3.6.0"
 - PUPPET_VERSION="~> 3.7.0"
+notifications:
+  email: false
+  irc:
+    channels:
+    - chat.freenode.net#lightblue
+    on_success: always
