@@ -35,6 +35,7 @@ define lightblue::client::configure (
     $lbclient_cert_file_path = undef,
     $lbclient_cert_password = undef,
     $lbclient_cert_alias = undef,
+    $before = [],
     $notify = [],
 ) {
 
@@ -44,6 +45,7 @@ define lightblue::client::configure (
         owner   => $owner,
         group   => $group,
         content => template('lightblue/client/lightblue-client.properties.erb'),
+        before => $before,
         notify => $notify,
     }
 
