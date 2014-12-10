@@ -9,6 +9,7 @@
 # $hostname - Hostname of the graphite server.
 #             If not set, puppet will remove the environment variables.
 # $port     - Port the graphite server is listening on
+#             Defaults to 2003
 #
 # === Variables
 #
@@ -18,15 +19,11 @@
 #
 # include lightblue::service::graphite
 #
-class lightblue::service::plugin::graphite ($prefix = undef, $hostname = undef, $port = undef){
+class lightblue::service::plugin::graphite ($prefix = undef, $hostname = undef, $port = 2003){
 
   $graphite_file = '/etc/profile.d/graphite.sh'
 
   if($hostname){
-    if(!$port){
-      fail('If providing a graphite hostname, a port must also be provided.')
-    }
-
     $warning = '#This file is managed by Puppet, any changes will be overridden.'
 
     file { $graphite_file:
