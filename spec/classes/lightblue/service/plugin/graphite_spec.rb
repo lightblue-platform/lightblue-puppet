@@ -57,19 +57,4 @@ describe 'lightblue::service::plugin::graphite' do
     end
   end
   
-  context 'missing port' do
-    let :params do
-      {
-        :hostname => 'localhost'
-        #:port
-      }
-    end
-    
-    it do
-      expect {
-        should compile
-      }.to raise_error(Puppet::Error, /If providing a graphite hostname, a port must also be provided./)
-    end
-  end
-  
 end
