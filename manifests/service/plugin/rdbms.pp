@@ -8,6 +8,8 @@ class lightblue::service::plugin::rdbms (
     $password = 'password',
 ) {
 
+  include lightblue::eap
+
   if $dbms == 'oracle' {
     $driver_name = 'oracle'
 
