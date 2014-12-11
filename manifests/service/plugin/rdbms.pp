@@ -8,7 +8,7 @@ class lightblue::service::plugin::rdbms (
     $password = 'password',
 ) {
 
-  if $dbms = 'oracle' {
+  if $dbms == 'oracle' {
     $driver_name = 'oracle'
 
     lightblue::jcliff::config { 'lightblue-rdbms-oracle-driver.conf':
