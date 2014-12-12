@@ -62,7 +62,7 @@ define lightblue::eap::client (
     include lightblue::eap::client::modulepath
 
     $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
-    $module_dirs = ["/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}, $module_path"]
+    $module_dirs = ["/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", $module_path]
 
     # Setup the module directory
     file { $module_dirs :
