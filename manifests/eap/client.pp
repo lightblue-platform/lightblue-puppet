@@ -10,10 +10,17 @@
 #
 # [*metadata_uri*]
 #   URI of Lightblue metadata service.
+#  
+# [*use_cert_auth*]
+#   Flag to indicate whether or not to use certificate based authentication with
+#   lightblue. I
 #
 # [*auth_cert_source*]
 #   The source of the certificate to authenticate with the Lightblue services.
-#   Will be copied to the JBoss module.
+#   Will be copied to the JBoss module, unless auth_cert_content is specified.
+#   
+# [*auth_cert_content*]
+#   The content of an auth certificate to be placed inside the JBoss module.
 #
 # [*auth_cert_file_path*]
 #   The destination file path inside the JBoss module to put the auth cert.
@@ -86,6 +93,16 @@ define lightblue::eap::client (
         require => File[$module_dirs],
     }
 
+    file { "${module_path}/${ssl_ca_file_path}":
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        links   => 'follow',
+        source  => $ssl_ca_source,
+        notify  => Service['jbossas'],
+        require => File[$module_dirs],
+    }
+
     if $use_cert_auth {
         if defined('$auth_cert_content') {
             file { "${module_path}/${auth_cert_file_path}":
@@ -110,16 +127,6 @@ define lightblue::eap::client (
         } else {
             fail("If using certificate authentication, a source certificate \
 or certificate content must be provided.")
-        }
-
-        file { "${module_path}/${ssl_ca_file_path}":
-            mode    => '0644',
-            owner   => 'jboss',
-            group   => 'jboss',
-            links   => 'follow',
-            source  => $ssl_ca_source,
-            notify  => Service['jbossas'],
-            require => File[$module_dirs],
         }
     }
 
