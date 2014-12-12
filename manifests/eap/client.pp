@@ -23,7 +23,7 @@
 #   The password for the auth cert.
 #
 # [*auth_cert_alias*]
-#   TODO: I don't know what this is.
+#   The alias for the cert.
 #
 # [*ssl_ca_source*]
 #   The source of the SSL certificate authority file. Will be copied to the
