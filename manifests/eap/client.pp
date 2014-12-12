@@ -53,16 +53,21 @@ define lightblue::eap::client (
     $metadata_uri,
     $use_cert_auth=false,
     $auth_cert_source=undef,
+    $auth_cert_content=undef,
     $auth_cert_file_path="lb-${name}.pkcs12",
     $auth_cert_password=undef,
     $auth_cert_alias="lb-${name}",
     $ssl_ca_source=undef,
     $ssl_ca_file_path="cacert.pem")
 {
-    include lightblue::eap::client::modulepath
-
     $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
-    $module_dirs = ["/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", $module_path]
+
+    $module_dirs = ['/usr/share/jbossas/modules/com',
+        '/usr/share/jbossas/modules/com/redhat',
+        '/usr/share/jbossas/modules/com/redhat/lightblue',
+        '/usr/share/jbossas/modules/com/redhat/lightblue/client',
+        "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", 
+        $module_path]
 
     # Setup the module directory
     file { $module_dirs :
@@ -70,7 +75,6 @@ define lightblue::eap::client (
         owner    => 'jboss',
         group    => 'jboss',
         mode     => '0755',
-        require  => Class['lightblue::eap::client::modulepath']
     }
 
     file { "${module_path}/module.xml":
@@ -83,22 +87,37 @@ define lightblue::eap::client (
     }
 
     if $use_cert_auth {
+        if defined('$auth_cert_content') {
+            file { "${module_path}/${auth_cert_file_path}":
+                mode    => '0644',
+                owner   => 'jboss',
+                group   => 'jboss',
+                links   => 'follow',
+                content => $auth_cert_content,
+                notify  => Service['jbossas'],
+                require => File[$module_dirs],
+            }
+        } elsif defined('$auth_cert_source') {
+            file { "${module_path}/${auth_cert_file_path}":
+                mode    => '0644',
+                owner   => 'jboss',
+                group   => 'jboss',
+                links   => 'follow',
+                source  => $auth_cert_source,
+                notify  => Service['jbossas'],
+                require => File[$module_dirs],
+            }
+        } else {
+            fail("If using certificate authentication, a source certificate \
+or certificate content must be provided.")
+        }
+
         file { "${module_path}/${ssl_ca_file_path}":
             mode    => '0644',
             owner   => 'jboss',
             group   => 'jboss',
             links   => 'follow',
             source  => $ssl_ca_source,
-            notify  => Service['jbossas'],
-            require => File[$module_dirs],
-        }
-
-        file { "${module_path}/${auth_cert_file_path}":
-            mode    => '0644',
-            owner   => 'jboss',
-            group   => 'jboss',
-            links   => 'follow',
-            source  => $auth_cert_source,
             notify  => Service['jbossas'],
             require => File[$module_dirs],
         }
