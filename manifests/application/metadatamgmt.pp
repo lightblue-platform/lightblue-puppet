@@ -19,7 +19,7 @@ class lightblue::application::metadatamgmt (
     $package_ensure = latest,
 )
 inherits lightblue::application {
-    include lightblue::base
+    include lightblue::logging
     include lightblue::yumrepo::lightblue
 
     package { $package_name :
