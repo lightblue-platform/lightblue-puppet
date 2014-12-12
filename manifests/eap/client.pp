@@ -13,7 +13,8 @@
 #  
 # [*use_cert_auth*]
 #   Flag to indicate whether or not to use certificate based authentication with
-#   lightblue. I
+#   lightblue. Defaults to false. If true, auth_cert_source or auth_cert_content
+#   must be provided.
 #
 # [*auth_cert_source*]
 #   The source of the certificate to authenticate with the Lightblue services.
