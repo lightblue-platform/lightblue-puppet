@@ -66,14 +66,13 @@ define lightblue::eap::client (
     $auth_cert_password=undef,
     $auth_cert_alias="lb-${name}",
     $ssl_ca_source=undef,
-    $ssl_ca_file_path="cacert.pem")
+    $ssl_ca_file_path="cacert.pem"
+)
+    inherits lightblue::eap
 {
     $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
 
-    $module_dirs = ['/usr/share/jbossas/modules/com',
-        '/usr/share/jbossas/modules/com/redhat',
-        '/usr/share/jbossas/modules/com/redhat/lightblue',
-        '/usr/share/jbossas/modules/com/redhat/lightblue/client',
+    $module_dirs = ['/usr/share/jbossas/modules/com/redhat/lightblue/client',
         "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", 
         $module_path]
 
