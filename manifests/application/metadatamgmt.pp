@@ -44,8 +44,8 @@ inherits lightblue::application {
     }
 
     lightblue::eap::client { 'metadata-mgmt' 
-        data_uri             => ${data_service_uri},
-        metadata__uri        => ${metadata_service_uri},
+        data_service_uri     => ${data_service_uri},
+        metadata_service_uri => ${metadata_service_uri},
         use_cert_auth        => ${use_cert_auth},
         auth_cert_source     => ${auth_cert_source},
         auth_cert_password   => ${auth_cert_password},

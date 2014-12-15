@@ -44,11 +44,11 @@ inherits lightblue::application {
     }
 
     lightblue::eap::client { 'data-mgmt' 
-        data_uri           => ${data_service_uri},
-        metadata_uri       => ${metadata_service_uri},
-        use_cert_auth      => ${use_cert_auth},
-        auth_cert_source   => ${auth_cert_source},
-        auth_cert_password => ${auth_cert_password},
-        ssl_ca_source      => ${ssl_ca_source},
+        data_service_uri     => ${data_service_uri},
+        metadata_service_uri => ${metadata_service_uri},
+        use_cert_auth        => ${use_cert_auth},
+        auth_cert_source     => ${auth_cert_source},
+        auth_cert_password   => ${auth_cert_password},
+        ssl_ca_source        => ${ssl_ca_source},
     }
 }
