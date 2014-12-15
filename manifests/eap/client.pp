@@ -48,12 +48,12 @@
 # === Examples
 #
 #    lightblue::eap::client { 'myapp' :
-#        data_service_uri           => 'https://mylightblue.mycompany.com/rest/data',
-#        metadata_service_uri       => 'https://mylightblue.mycompany.com/rest/metadata',
-#        use_cert_auth      => true,
-#        auth_cert_source   => 'puppet:///path/to/your/lb-myapp.pkcs12',
-#        auth_cert_password => hiera('myapp::lightblue::pass'),
-#        ssl_ca_source      => 'puppet:///path/to/your/cacert.pem',
+#        data_service_uri     => 'https://mylightblue.mycompany.com/rest/data',
+#        metadata_service_uri => 'https://mylightblue.mycompany.com/rest/metadata',
+#        use_cert_auth        => true,
+#        auth_cert_source     => 'puppet:///path/to/your/lb-myapp.pkcs12',
+#        auth_cert_password   => hiera('myapp::lightblue::pass'),
+#        ssl_ca_source        => 'puppet:///path/to/your/cacert.pem',
 #    }
 #
 define lightblue::eap::client (
