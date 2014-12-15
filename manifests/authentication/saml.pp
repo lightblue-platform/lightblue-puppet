@@ -12,7 +12,7 @@
 # Setup saml base authentication.
 class lightblue::authentication::saml (
     $identity_url,
-    $service_url,
+    $service_url='',
     $key_store_url,
     $key_store_pass,
     $signing_key_pass,
