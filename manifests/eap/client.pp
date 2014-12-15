@@ -5,10 +5,10 @@
 #
 # === Parameters
 #
-# [*data_uri*]
+# [*data_service_uri*]
 #   URI of Lightblue data service.
 #
-# [*metadata_uri*]
+# [*metadata_service_uri*]
 #   URI of Lightblue metadata service.
 #  
 # [*use_cert_auth*]
@@ -48,8 +48,8 @@
 # === Examples
 #
 #    lightblue::eap::client { 'myapp' :
-#        data_uri           => 'https://mylightblue.mycompany.com/rest/data',
-#        metadata_uri       => 'https://mylightblue.mycompany.com/rest/metadata',
+#        data_service_uri           => 'https://mylightblue.mycompany.com/rest/data',
+#        metadata_service_uri       => 'https://mylightblue.mycompany.com/rest/metadata',
 #        use_cert_auth      => true,
 #        auth_cert_source   => 'puppet:///path/to/your/lb-myapp.pkcs12',
 #        auth_cert_password => hiera('myapp::lightblue::pass'),
@@ -57,8 +57,8 @@
 #    }
 #
 define lightblue::eap::client (
-    $data_uri,
-    $metadata_uri,
+    $data_service_uri,
+    $metadata_service_uri,
     $use_cert_auth=false,
     $auth_cert_source=undef,
     $auth_cert_content=undef,
@@ -134,8 +134,8 @@ or certificate content must be provided.")
     lightblue::client::configure{ "${module_path}/lightblue-client.properties":
         owner                   => 'jboss',
         group                   => 'jboss',
-        lbclient_metadata_uri   => ${metadata_uri},
-        lbclient_data_uri       => ${data_uri},
+        lbclient_metadata_uri   => ${metadata_service_uri},
+        lbclient_data_uri       => ${data_service_uri},
         lbclient_use_cert_auth  => ${use_cert_auth},
         lbclient_ca_file_path   => ${ssl_ca_file_path},
         lbclient_cert_file_path => ${auth_cert_file_path},
