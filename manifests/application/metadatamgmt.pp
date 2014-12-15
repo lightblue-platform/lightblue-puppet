@@ -17,8 +17,9 @@
 class lightblue::application::metadatamgmt (
     $package_name = 'lightblue-metadata-mgmt',
     $package_ensure = latest,
-    $data_uri,
-    $metadata_uri,
+    $app_uri,
+    $data_service_uri,
+    $metadata_service_uri,
     $use_cert_auth = false,
     $auth_cert_source = undef,
     $auth_cert_content = undef,
@@ -35,15 +36,19 @@ inherits lightblue::application {
     }
 
     if $package_name == 'lightblue-metadata-mgmt-saml-auth' {
-      include lightblue::authentication::saml
+        include lightblue::authentication::saml 
+
+        lightblue::jcliff::config { 'metadata-mgmt-system-properties.conf': 
+            content => "{ 'system-property' => { 'MetadataMgmtURL' => '${app_uri}' } }",
+        }
     }
 
     lightblue::eap::client { 'metadata-mgmt' 
-        data_uri           => ${data_uri},
-        metadata_uri       => ${metadata_uri},
-        use_cert_auth      => ${use_cert_auth},
-        auth_cert_source   => ${auth_cert_source},
-        auth_cert_password => ${auth_cert_password},
-        ssl_ca_source      => ${ssl_ca_source},
+        data_uri             => ${data_service_uri},
+        metadata__uri        => ${metadata_service_uri},
+        use_cert_auth        => ${use_cert_auth},
+        auth_cert_source     => ${auth_cert_source},
+        auth_cert_password   => ${auth_cert_password},
+        ssl_ca_source        => ${ssl_ca_source},
     }
 }

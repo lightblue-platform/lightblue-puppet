@@ -17,8 +17,9 @@
 class lightblue::application::datamgmt (
     $package_name = 'lightblue-data-mgmt',
     $package_ensure = latest,
-    $data_uri,
-    $metadata_uri,
+    $app_uri,
+    $data_service_uri,
+    $metadata_service_uri,
     $use_cert_auth = false,
     $auth_cert_source = undef,
     $auth_cert_content = undef,
@@ -35,12 +36,16 @@ inherits lightblue::application {
     }
 
     if $package_name == 'lightblue-data-mgmt-saml-auth' {
-      include lightblue::authentication::saml
+        include lightblue::authentication::saml
+
+        lightblue::jcliff::config { 'data-mgmt-system-properties.conf': 
+            content => "{ 'system-property' => { 'DataMgmtURL' => '${app_uri}' } }"
+        }
     }
 
     lightblue::eap::client { 'data-mgmt' 
-        data_uri           => ${data_uri},
-        metadata_uri       => ${metadata_uri},
+        data_uri           => ${data_service_uri},
+        metadata_uri       => ${metadata_service_uri},
         use_cert_auth      => ${use_cert_auth},
         auth_cert_source   => ${auth_cert_source},
         auth_cert_password => ${auth_cert_password},
