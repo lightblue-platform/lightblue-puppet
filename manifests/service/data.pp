@@ -19,6 +19,8 @@ class lightblue::service::data (
     $package_ensure = latest,
 )
 inherits lightblue::service {
+    require lightblue::service::plugin::graphite
+
     include lightblue::base
     include lightblue::yumrepo::lightblue
 
