@@ -27,7 +27,9 @@ class lightblue::application::metadatamgmt (
     $ssl_ca_source = undef,
 )
 inherits lightblue::application {
-    include lightblue::logging
+    # Include base until application is updated to use new config; then just
+    # include lightblue::logging.
+    include lightblue::base
     include lightblue::yumrepo::lightblue
 
     package { $package_name :
