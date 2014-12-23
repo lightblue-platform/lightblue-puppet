@@ -10,7 +10,7 @@
 #
 # [*metadata_service_uri*]
 #   URI of Lightblue metadata service.
-#  
+#
 # [*use_cert_auth*]
 #   Flag to indicate whether or not to use certificate based authentication with
 #   lightblue. Defaults to false. If true, auth_cert_source or auth_cert_content
@@ -19,7 +19,7 @@
 # [*auth_cert_source*]
 #   The source of the certificate to authenticate with the Lightblue services.
 #   Will be copied to the JBoss module, unless auth_cert_content is specified.
-#   
+#
 # [*auth_cert_content*]
 #   The content of an auth certificate to be placed inside the JBoss module.
 #
@@ -38,7 +38,7 @@
 #   JBoss module.
 #
 # [*ssl_ca_file_path*]
-#   The destination file path inside the JBoss module to put the SSL 
+#   The destination file path inside the JBoss module to put the SSL
 #   certificate authority file. Defaults to 'cacert.pem'.
 #
 # === Variables
@@ -68,7 +68,6 @@ define lightblue::eap::client (
     $ssl_ca_source=undef,
     $ssl_ca_file_path="cacert.pem"
 )
-    inherits lightblue::eap
 {
     $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
 
@@ -76,7 +75,7 @@ define lightblue::eap::client (
         '/usr/share/jbossas/modules/com/redhat',
         '/usr/share/jbossas/modules/com/redhat/lightblue',
         '/usr/share/jbossas/modules/com/redhat/lightblue/client',
-        "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", 
+        "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}",
         $module_path]
 
     # Setup the module directory
@@ -136,13 +135,13 @@ or certificate content must be provided.")
     lightblue::client::configure{ "${module_path}/lightblue-client.properties":
         owner                   => 'jboss',
         group                   => 'jboss',
-        lbclient_metadata_uri   => ${metadata_service_uri},
-        lbclient_data_uri       => ${data_service_uri},
-        lbclient_use_cert_auth  => ${use_cert_auth},
-        lbclient_ca_file_path   => ${ssl_ca_file_path},
-        lbclient_cert_file_path => ${auth_cert_file_path},
-        lbclient_cert_password  => ${auth_cert_password},
-        lbclient_cert_alias     => ${auth_cert_alias},
+        lbclient_metadata_uri   => $metadata_service_uri,
+        lbclient_data_uri       => $data_service_uri,
+        lbclient_use_cert_auth  => $use_cert_auth,
+        lbclient_ca_file_path   => $ssl_ca_file_path,
+        lbclient_cert_file_path => $auth_cert_file_path,
+        lbclient_cert_password  => $auth_cert_password,
+        lbclient_cert_alias     => $auth_cert_alias,
         notify                  => Service['jbossas'],
         require                 => File[$module_dirs],
     }
