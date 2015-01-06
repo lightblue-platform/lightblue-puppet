@@ -26,7 +26,7 @@ inherits lightblue::service {
 
     package { $package_name :
         ensure  => $package_ensure,
-        require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
+        require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'], Class['lightblue::service::plugin::rdbms'] ],
     }
 
     if $package_name == 'lightblue-rest-crud-cert-auth' {
