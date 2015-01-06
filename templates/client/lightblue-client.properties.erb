@@ -1,0 +1,9 @@
+metadataServiceURI=<%= @lbclient_metadata_uri %>
+dataServiceURI=<%= @lbclient_data_uri %>
+useCertAuth=<%= @lbclient_use_cert_auth %>
+<% if(@lbclient_use_cert_auth == true) -%>
+caFilePath=<%= @lbclient_ca_file_path %>
+certFilePath=<%= @lbclient_cert_file_path %>
+certPassword=<%= @lbclient_cert_password %>
+certAlias=<%= @lbclient_cert_alias %>
+<% end -%>

@@ -12,6 +12,14 @@ class lightblue::eap::module (
     $mongo_ssl = true,
     $mongo_noCertValidation = false,
     $hook_configuration_parsers = '',
+    $mgmt_app_service_URI,
+    $mgmt_app_use_cert_auth,
+    $mgmt_app_ca_file_path,
+    $mgmt_app_cert_file_path,
+    $mgmt_app_cert_password,
+    $mgmt_app_cert_alias,
+    $client_ca_source,
+    $client_cert_source,
 )
     inherits lightblue::eap
 {
@@ -39,6 +47,15 @@ class lightblue::eap::module (
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/appconfig.properties':
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        content => template('lightblue/properties/appconfig.properties.erb'),
+        notify  => Service['jbossas'],
+        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+    }
+
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-client.properties':
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
@@ -90,4 +107,26 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
+
+    # client-cert config
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/cacert.pem':
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        links   => 'follow',
+        source  => $client_ca_source,
+        notify  => Service['jbossas'],
+        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+    }
+
+    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lb-metadata-mgmt.pkcs12':
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        links   => 'follow',
+        source  => $client_cert_source,
+        notify  => Service['jbossas'],
+        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+    }
+
 }
