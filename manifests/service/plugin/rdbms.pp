@@ -9,8 +9,8 @@ class lightblue::service::plugin::rdbms (
         $driver_name = 'oracle'
         $driver-module-name" = 'oracle.jdbcx'
         $driver-xa-datasource-class-name" = 'oracle.jdbc.XADataSource'
-        lightblue::jcliff::config { 'lightblue-rdbms-oracle-driver.conf':
-          content => template('lightblue/lightblue-rdbms-oracle-driver.conf.erb')
+        lightblue::jcliff::config { 'lightblue-rdbms-driver.conf':
+          content => template('lightblue/lightblue-rdbms-driver.conf.erb')
         }
       }
 
