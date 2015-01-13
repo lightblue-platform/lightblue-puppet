@@ -6,20 +6,12 @@
       }
       
       <% if additional_backend_controllers != '' && additional_backend_controllers.kind_of?(Array) -%>   
-        i = additional_backend_controllers.length
         additional_backend_controllers.each do |controller|
         ,   
         {
        "backend" : "<%=controller['backend']%>",
        "controllerFactory" : "<%=controller['controllerFactory']%>"
         }
-        
-        <% if i > 1 then -%>
-        ,
-        <%
-          end 
-          i = i - 1
-        -%>
       <% end -%> 
    ]
 }
