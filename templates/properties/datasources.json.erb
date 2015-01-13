@@ -104,7 +104,7 @@
     "type" : "com.redhat.lightblue.config.rdbms.RDBMSDataSourceConfiguration",
     "metadataDataStoreParser" : "com.redhat.lightblue.metadata.rdbms.impl.RDBMSDataStoreParser",
     <% if database -%>
-    "rdbms_servers_cfg.database" : <%=database%>,
+    "rdbms_servers_cfg.database" : "<%=database%>",
     <% end -%>
     <% if rdbms_servers_cfg.connections.kind_of?(Array) -%>
     "connections" : [
