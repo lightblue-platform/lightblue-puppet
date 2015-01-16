@@ -4,5 +4,14 @@
         "backend" : "mongo",
         "controllerFactory" : "com.redhat.lightblue.mongo.config.MongoCRUDFactory"
       }
+      
+      <% if additional_backend_controllers != '' && additional_backend_controllers.kind_of?(Array) -%>   
+        additional_backend_controllers.each do |controller|
+        ,   
+        {
+       "backend" : "<%=controller['backend']%>",
+       "controllerFactory" : "<%=controller['controllerFactory']%>"
+        }
+      <% end -%> 
    ]
 }

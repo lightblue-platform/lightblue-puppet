@@ -54,4 +54,4 @@ Puppet is pretty bad when handling undefined variables.  Especially when passing
 
 # License
 
-The license of lightblue-puppet is [GPLv3](https://www.gnu.org/licenses/gpl.html).  See COPYING in root of project for the full text.
+The license of lightblue-puppet is [GPLv3](https://www.gnu.org/licenses/gpl.html).  See LICENSE in root of project for the full text.
