@@ -14,6 +14,7 @@ class lightblue::eap::module (
     $rdbms_servers_cfg = undef,
     $hook_configuration_parsers = '',
     $backend_parsers = undef,
+    $property_parsers = undef,
     $additional_backend_controllers = undef,
     $mgmt_app_service_URI,
     $mgmt_app_use_cert_auth,

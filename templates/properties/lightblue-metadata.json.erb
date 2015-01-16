@@ -40,6 +40,26 @@
         -%>
         <% end -%>
      ],
+<% end -%>
+<% if property_parsers != '' && property_parsers.kind_of?(Array) -%>
+    "property_parsers": [
+        <%
+        i = property_parsers.length
+        property_parsers.each do |parser|
+        
+        {
+       "name" : "<%=parser['name']%>",
+       "clazz" : "<%=parser['clazz']%>"
+        }
+        
+        <% if i > 1 then -%>
+        ,
+        <%
+          end 
+          i = i - 1
+        -%>
+        <% end -%>
+     ],
 <% end -%>    
     "dataSource" : "metadata",
     "collection": "metadata"
