@@ -24,19 +24,19 @@
 <% if backend_parsers != '' && backend_parsers.kind_of?(Array) -%>
     "backend_parsers": [
         <%
-        i = backend_parsers.length
-        backend_parsers.each do |parser|
-        
+        j = backend_parsers.length
+        backend_parsers.each do |backend_parser|
+        -%>
         {
-       "name" : "<%=parser['name']%>",
-       "clazz" : "<%=parser['clazz']%>"
+       "name" : "<%=backend_parser['name']%>",
+       "clazz" : "<%=backend_parser['clazz']%>"
         }
         
-        <% if i > 1 then -%>
+        <% if j > 1 then -%>
         ,
         <%
           end 
-          i = i - 1
+          j = j - 1
         -%>
         <% end -%>
      ],
@@ -44,19 +44,19 @@
 <% if property_parsers != '' && property_parsers.kind_of?(Array) -%>
     "property_parsers": [
         <%
-        i = property_parsers.length
-        property_parsers.each do |parser|
-        
+        k = property_parsers.length
+        property_parsers.each do |property_parser|
+        -%>
         {
-       "name" : "<%=parser['name']%>",
-       "clazz" : "<%=parser['clazz']%>"
+       "name" : "<%=property_parser['name']%>",
+       "clazz" : "<%=property_parser['clazz']%>"
         }
         
-        <% if i > 1 then -%>
+        <% if k > 1 then -%>
         ,
         <%
           end 
-          i = i - 1
+          i = k - 1
         -%>
         <% end -%>
      ],
