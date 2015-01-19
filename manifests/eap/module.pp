@@ -26,7 +26,6 @@ class lightblue::eap::module (
     $client_cert_source,
     $metadata_roles=undef,
 )
-    inherits lightblue::eap
 {
 
     # Setup the properties directory
