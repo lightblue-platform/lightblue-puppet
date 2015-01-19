@@ -50,7 +50,14 @@ For full documentation on each of these, see the RDocs included in the source.
 # Unit Tests
 TODO add more background on this here, including links for references.
 
-To run unit tests:
+## Setup
+
+```
+sudo yum install rake
+```
+
+## Execute
+
 ```
 rake spec
 ```
