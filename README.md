@@ -51,13 +51,15 @@ For full documentation on each of these, see the RDocs included in the source.
 TODO add more background on this here, including links for references.
 
 ## Setup
+Install rake, puppet, and puppetlabs_spec_helper.
 
 ```
-sudo yum install rake
+sudo yum install rake puppet
 gem install puppetlabs_spec_helper
 ```
 
 ## Execute
+Run the unit tests.
 
 ```
 rake spec
