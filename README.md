@@ -47,6 +47,14 @@ For full documentation on each of these, see the RDocs included in the source.
 * [lightblue::authentication::certificate](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/authentication/certificate.pp)
 * [lightblue::eap::ssl](https://github.com/lightblue-platform/lightblue-puppet/blob/master/manifests/eap/ssl.pp)
 
+# Unit Tests
+TODO add more background on this here, including links for references.
+
+To run unit tests:
+```
+rake spec
+```
+
 # Gotyas
 
 ## Use of default empty string
