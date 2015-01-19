@@ -10,7 +10,7 @@ describe 'lightblue::eap::module' do
 
       let :params do
         {
-          :metadata_roles => undef
+          :metadata_roles => ''
         }
       end
 
