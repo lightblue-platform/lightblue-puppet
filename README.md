@@ -54,6 +54,7 @@ TODO add more background on this here, including links for references.
 
 ```
 sudo yum install rake
+gem install puppetlabs_spec_helper
 ```
 
 ## Execute
