@@ -24,6 +24,7 @@ class lightblue::eap::module (
     $mgmt_app_cert_alias,
     $client_ca_source,
     $client_cert_source,
+    $metadata_roles=undef,
 )
     inherits lightblue::eap
 {
