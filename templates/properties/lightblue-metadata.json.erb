@@ -4,9 +4,9 @@
         "hookConfigurationParsers - OPTIONAL - array of classes implementing HookConfigurationParser interface",
         "The remainder of the file is parsed by the implementation class"
     ],
-    "type" : "com.redhat.lightblue.mongo.config.MongoMetadataConfiguration",
+    "type": "com.redhat.lightblue.mongo.config.MongoMetadataConfiguration",
 <% if hook_configuration_parsers != '' && hook_configuration_parsers.kind_of?(Array) -%>
-    "hookConfigurationParsers" : [
+    "hookConfigurationParsers": [
     <%
       i = hook_configuration_parsers.length
       hook_configuration_parsers.each do |parser|
@@ -43,8 +43,8 @@
         backend_parsers.each do |backend_parser|
         -%>
         {
-       "name" : "<%=backend_parser['name']%>",
-       "clazz" : "<%=backend_parser['clazz']%>"
+       "name": "<%=backend_parser['name']%>",
+       "clazz": "<%=backend_parser['clazz']%>"
         }
         
         <% if j > 1 then -%>
@@ -63,8 +63,8 @@
         property_parsers.each do |property_parser|
         -%>
         {
-       "name" : "<%=property_parser['name']%>",
-       "clazz" : "<%=property_parser['clazz']%>"
+       "name": "<%=property_parser['name']%>",
+       "clazz": "<%=property_parser['clazz']%>"
         }
         
         <% if k > 1 then -%>
@@ -76,6 +76,6 @@
         <% end -%>
      ],
 <% end -%>    
-    "dataSource" : "metadata",
+    "dataSource": "metadata",
     "collection": "metadata"
 }
