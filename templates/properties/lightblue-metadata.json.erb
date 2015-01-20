@@ -22,7 +22,7 @@
      ],
 <% end -%>
 <% if backend_parsers != '' && backend_parsers.kind_of?(Array) -%>
-    "backend_parsers": [
+    "backendParsers" : [
         <%
         j = backend_parsers.length
         backend_parsers.each do |backend_parser|
@@ -42,7 +42,7 @@
      ],
 <% end -%>
 <% if property_parsers != '' && property_parsers.kind_of?(Array) -%>
-    "property_parsers": [
+    "propertyParsers" : [
         <%
         k = property_parsers.length
         property_parsers.each do |property_parser|
