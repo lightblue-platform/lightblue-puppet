@@ -2,6 +2,7 @@
     "documentation": [
         "type - REQUIRED - the class implementing MetadataConfiguration interface",
         "hookConfigurationParsers - OPTIONAL - array of classes implementing HookConfigurationParser interface",
+        "roleMap - OPTIONAL - map of metadata roles to array of roles allowed.  expected keys: metadata.find.dependencies, metadata.find.roles, metadata.find.entityNames, metadata.find.entityVersions, metadata.find.entityVersions, metadata.find.entityMetadata, metadata.insert, metadata.insert.schema, metadata.update.entityInfo, metadata.update.schemaStatus, metadata.update.defaultVersion, metadata.delete.entity",
         "The remainder of the file is parsed by the implementation class"
     ],
     "type": "com.redhat.lightblue.mongo.config.MongoMetadataConfiguration",
@@ -23,17 +24,13 @@
 <% end -%>
 <% if metadata_roles != '' && metadata_roles.kind_of?(Hash) -%>
     "roleMap": {
-        "metadata.find.dependencies": ["<%= metadata_roles["metadata.find.dependencies"] %>"],
-        "metadata.find.roles": ["<%= metadata_roles["metadata.find.roles"] %>"],
-        "metadata.find.entityNames": ["<%= metadata_roles["metadata.find.entityNames"] %>"],
-        "metadata.find.entityVersions": ["<%= metadata_roles["metadata.find.entityVersions"] %>"],
-        "metadata.find.entityMetadata": ["<%= metadata_roles["metadata.find.entityMetadata"] %>"],
-        "metadata.insert": ["<%= metadata_roles["metadata.insert"] %>"],
-        "metadata.insert.schema": ["<%= metadata_roles["metadata.insert.schema"] %>"],
-        "metadata.update.entityInfo": ["<%= metadata_roles["metadata.update.entityInfo"] %>"],
-        "metadata.update.schemaStatus": ["<%= metadata_roles["metadata.update.schemaStatus"] %>"],
-        "metadata.update.defaultVersion": ["<%= metadata_roles["metadata.update.defaultVersion"] %>"],
-        "metadata.delete.entity": ["<%= metadata_roles["metadata.delete.entity"] %>"]
+    <% metadata_roles.keys.each do |role| -%>
+      <% if metadata_roles[role].kind_of?(Array) -%>
+        "<%= role %>": <%= metadata_roles[role] %>
+      <% else -%>
+        "<%= role %>": ["<%= metadata_roles[role] %>"]
+      <% end -%>
+    <% end -%>
     },
 <% end -%>
 <% if backend_parsers != '' && backend_parsers.kind_of?(Array) -%>
