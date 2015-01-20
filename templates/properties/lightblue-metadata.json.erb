@@ -22,7 +22,10 @@
     ],
 <% end -%>
 <% if metadata_roles != '' && metadata_roles.kind_of?(Hash) -%>
-    "roleMap":{
+    "roleMap": "foo",
+<% end -%>
+<% if false -%>
+    "roleMap": {
         "metadata.find.dependencies": ["<%= metadata_roles["metadata.find.dependencies"] %>"],
         "metadata.find.roles": ["<%= metadata_roles["metadata.find.roles"] %>"],
         "metadata.find.entityNames": ["<%= metadata_roles["metadata.find.entityNames"] %>"],

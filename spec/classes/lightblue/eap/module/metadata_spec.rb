@@ -4,15 +4,15 @@ describe 'lightblue::eap::module::metadata' do
 
   let(:hiera_config){ 'spec/fixtures/hiera/hiera.yaml' }
 
-  let :params do
-    {
-      :directory => '/tmp'
-    }
-  end
-
   context 'lightblue-metadata.json' do
 
     describe 'defaults' do
+      let :params do
+        {
+          :directory => '/tmp'
+        }
+      end
+
       it do
         should contain_file("/tmp/lightblue-metadata.json") \
           .with({
@@ -36,19 +36,21 @@ describe 'lightblue::eap::module::metadata' do
     describe 'roleMap' do
       let :params do
         {
-          :metadata_roles => {
-              :'metadata.find.dependencies' => 'find.dependencies',
-              :'metadata.find.roles' => 'find.roles',
-              :'metadata.find.entityNames' => 'find.entityNames',
-              :'metadata.find.entityVersions' => 'find.entityVersions',
-              :'metadata.find.entityMetadata' => 'find.entityMetadata',
-              :'metadata.insert' => 'insert',
-              :'metadata.insert.schema' => 'insert.schema',
-              :'metadata.update.entityInfo' => 'update.entityInfo',
-              :'metadata.update.schemaStatus' => 'update.schemaStatus',
-              :'metadata.update.defaultVersion' => 'update.defaultVersion',
-              :'metadata.delete.entity' => 'delete.entity'
-          }
+          :directory => '/tmp',
+          :metadata_roles => 'test'
+#          :metadata_roles => {
+#              :'metadata.find.dependencies' => 'find.dependencies',
+#              :'metadata.find.roles' => 'find.roles',
+#              :'metadata.find.entityNames' => 'find.entityNames',
+#              :'metadata.find.entityVersions' => 'find.entityVersions',
+#              :'metadata.find.entityMetadata' => 'find.entityMetadata',
+#              :'metadata.insert' => 'insert',
+#              :'metadata.insert.schema' => 'insert.schema',
+#              :'metadata.update.entityInfo' => 'update.entityInfo',
+#              :'metadata.update.schemaStatus' => 'update.schemaStatus',
+#              :'metadata.update.defaultVersion' => 'update.defaultVersion',
+#              :'metadata.delete.entity' => 'delete.entity'
+#          }
         }
       end
 
