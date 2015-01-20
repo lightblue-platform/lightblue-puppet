@@ -24,12 +24,28 @@
 <% end -%>
 <% if metadata_roles != '' && metadata_roles.kind_of?(Hash) -%>
     "roleMap": {
-    <% metadata_roles.keys.each do |role| -%>
+    <% 
+      k = metadata_roles.keys.length
+      metadata_roles.keys.each do |role| 
+    -%>
       <% if metadata_roles[role].kind_of?(Array) -%>
-        "<%= role %>": <%= metadata_roles[role] %>
+        "<%= role %>": [<% 
+            r = metadata_roles[role].length
+            metadata_roles[role].each do |value|
+            -%>"<%= value %>"<% 
+            if r > 1 then -%>, <%
+            end 
+            r = r - 1
+          end -%>]
       <% else -%>
         "<%= role %>": ["<%= metadata_roles[role] %>"]
       <% end -%>
+      <% if k > 1 then -%>
+        ,
+      <%
+        end
+        k = k -1
+      -%>
     <% end -%>
     },
 <% end -%>
