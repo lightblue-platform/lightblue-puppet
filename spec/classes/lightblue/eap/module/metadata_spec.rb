@@ -10,10 +10,9 @@ describe 'lightblue::eap::module::metadata' do
     }
   end
 
-  context 'deploy lightblue-metadata.yaml' do
+  context 'lightblue-metadata.json' do
 
-    describe 'with default parameters' do
-
+    describe 'defaults' do
       it do
         should contain_file("/tmp/lightblue-metadata.json") \
           .with({
@@ -32,9 +31,45 @@ describe 'lightblue::eap::module::metadata' do
           .with_content(/"dataSource": "metadata",/) \
           .with_content(/"collection": "metadata"/)
       end
-
     end
 
-  end
+    describe 'roleMap' do
+      it do
+        let :params do
+          {
+            :metadata_roles => {
+                :"metadata.find.dependencies" => 'find.dependencies',
+                :"metadata.find.roles" => 'find.roles',
+                :"metadata.find.entityNames" => 'find.entityNames',
+                :"metadata.find.entityVersions" => 'find.entityVersions',
+                :"metadata.find.entityMetadata" => 'find.entityMetadata',
+                :"metadata.insert" => 'insert',
+                :"metadata.insert.schema" => 'insert.schema',
+                :"metadata.update.entityInfo" => 'update.entityInfo',
+                :"metadata.update.schemaStatus" => 'update.schemaStatus',
+                :"metadata.update.defaultVersion" => 'update.defaultVersion',
+                :"metadata.delete.entity" => 'delete.entity'
+            }
+          }
+        end
+
+        should contain_file("/tmp/lightblue-metadata.json") \
+          .with({
+              'ensure'  => 'file',
+              'owner'   => 'jboss',
+              'group'   => 'jboss',
+              'mode'    => '0644'
+            }
+          ) \
+          .with_content(/"documentation":/) \
+          .with_content(/"type":/) \
+          .without_content(/"hookConfigurationParsers":/) \
+          .without_content(/"roleMap":/) \
+          .without_content(/"backend_parsers":/) \
+          .without_content(/"property_parsers":/) \
+          .with_content(/"dataSource": "metadata",/) \
+          .with_content(/"collection": "metadata"/)
+      end
+    end
 
 end
