@@ -4,6 +4,7 @@ class lightblue::service::plugin::rdbms (
   $driver_module_name,
   $driver_xa_datasource_class_name,
   $data_source_name,
+  $pool_name,
   $jndi_name,
   $connection_url,
   $user_name,
