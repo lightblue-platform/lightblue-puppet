@@ -34,25 +34,25 @@ describe 'lightblue::eap::module::metadata' do
     end
 
     describe 'roleMap' do
-      it do
-        let :params do
-          {
-            :metadata_roles => {
-                :'metadata.find.dependencies' => 'find.dependencies',
-                :'metadata.find.roles' => 'find.roles',
-                :'metadata.find.entityNames' => 'find.entityNames',
-                :'metadata.find.entityVersions' => 'find.entityVersions',
-                :'metadata.find.entityMetadata' => 'find.entityMetadata',
-                :'metadata.insert' => 'insert',
-                :'metadata.insert.schema' => 'insert.schema',
-                :'metadata.update.entityInfo' => 'update.entityInfo',
-                :'metadata.update.schemaStatus' => 'update.schemaStatus',
-                :'metadata.update.defaultVersion' => 'update.defaultVersion',
-                :'metadata.delete.entity' => 'delete.entity'
-            }
+      let :params do
+        {
+          :metadata_roles => {
+              :'metadata.find.dependencies' => 'find.dependencies',
+              :'metadata.find.roles' => 'find.roles',
+              :'metadata.find.entityNames' => 'find.entityNames',
+              :'metadata.find.entityVersions' => 'find.entityVersions',
+              :'metadata.find.entityMetadata' => 'find.entityMetadata',
+              :'metadata.insert' => 'insert',
+              :'metadata.insert.schema' => 'insert.schema',
+              :'metadata.update.entityInfo' => 'update.entityInfo',
+              :'metadata.update.schemaStatus' => 'update.schemaStatus',
+              :'metadata.update.defaultVersion' => 'update.defaultVersion',
+              :'metadata.delete.entity' => 'delete.entity'
           }
-        end
+        }
+      end
 
+      it do
         should contain_file("/tmp/lightblue-metadata.json") \
           .with({
               'ensure'  => 'file',
