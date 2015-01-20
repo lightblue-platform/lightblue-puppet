@@ -33,7 +33,7 @@ describe 'lightblue::eap::module::metadata' do
       end
     end
 
-    describe 'roleMap' do
+    describe 'roleMap single values' do
       let :params do
         {
           :directory => '/tmp',
@@ -65,11 +65,22 @@ describe 'lightblue::eap::module::metadata' do
           .with_content(/"documentation":/) \
           .with_content(/"type":/) \
           .without_content(/"hookConfigurationParsers":/) \
-          .without_content(/"roleMap":/) \
+          .with_content(/"roleMap":/) \
           .without_content(/"backend_parsers":/) \
           .without_content(/"property_parsers":/) \
           .with_content(/"dataSource": "metadata",/) \
-          .with_content(/"collection": "metadata"/)
+          .with_content(/"collection": "metadata"/) \
+          .with_content(/"metadata.find.dependencies": \["find.dependencies"\]/) \
+          .with_content(/"metadata.find.roles": \["find.roles"\]/) \
+          .with_content(/"metadata.find.entityNames": \["find.entityNames"\]/) \
+          .with_content(/"metadata.find.entityVersions": \["find.entityVersions"\]/) \
+          .with_content(/"metadata.find.entityMetadata": \["find.entityMetadata"\]/) \
+          .with_content(/"metadata.insert": \["insert"\]/) \
+          .with_content(/"metadata.insert.schema": \["insert.schema"\]/) \
+          .with_content(/"metadata.update.entityInfo": \["update.entityInfo"\]/) \
+          .with_content(/"metadata.update.schemaStatus": \["update.schemaStatus"\]/) \
+          .with_content(/"metadata.update.defaultVersion": \["update.defaultVersion"\]/) \
+          .with_content(/"metadata.delete.entity": \["delete.entity"\]/)
       end
     end
   end
