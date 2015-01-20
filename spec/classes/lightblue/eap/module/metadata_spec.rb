@@ -122,16 +122,16 @@ describe 'lightblue::eap::module::metadata' do
           .with_content(/"dataSource": "metadata",/) \
           .with_content(/"collection": "metadata"/) \
           .with_content(/"metadata.find.dependencies": \["find.dependencies",[ ]*"find.dependencies2"\]/) \
-          .with_content(/"metadata.find.roles": \["find.roles",[ ]*"find.roles2"\]"/) \
-          .with_content(/"metadata.find.entityNames": \["find.entityNames",[ ]*"find.entityNames2"\]"/) \
-          .with_content(/"metadata.find.entityVersions": \["find.entityVersions",[ ]*"find.entityVersions2"\]"/) \
-          .with_content(/"metadata.find.entityMetadata": \["find.entityMetadata",[ ]*"find.entityMetadata2"\]"/) \
-          .with_content(/"metadata.insert": \["insert",[ ]*"insert2"\]"/) \
-          .with_content(/"metadata.insert.schema": \["insert.schema",[ ]*"insert.schema2"\]"/) \
-          .with_content(/"metadata.update.entityInfo": \["update.entityInfo",[ ]*"update.entityInfo2"\]"/) \
-          .with_content(/"metadata.update.schemaStatus": \["update.schemaStatus",[ ]*"update.schemaStatus2"\]"/) \
-          .with_content(/"metadata.update.defaultVersion": \["update.defaultVersion",[ ]*"update.defaultVersion2"\]"/) \
-          .with_content(/"metadata.delete.entity": \["delete.entity",[ ]*"delete.entity2"\]"/)
+          .with_content(/"metadata.find.roles": \["find.roles",[ ]*"find.roles2"\]/) \
+          .with_content(/"metadata.find.entityNames": \["find.entityNames",[ ]*"find.entityNames2"\]/) \
+          .with_content(/"metadata.find.entityVersions": \["find.entityVersions",[ ]*"find.entityVersions2"\]/) \
+          .with_content(/"metadata.find.entityMetadata": \["find.entityMetadata",[ ]*"find.entityMetadata2"\]/) \
+          .with_content(/"metadata.insert": \["insert",[ ]*"insert2"\]/) \
+          .with_content(/"metadata.insert.schema": \["insert.schema",[ ]*"insert.schema2"\]/) \
+          .with_content(/"metadata.update.entityInfo": \["update.entityInfo",[ ]*"update.entityInfo2"\]/) \
+          .with_content(/"metadata.update.schemaStatus": \["update.schemaStatus",[ ]*"update.schemaStatus2"\]/) \
+          .with_content(/"metadata.update.defaultVersion": \["update.defaultVersion",[ ]*"update.defaultVersion2"\]/) \
+          .with_content(/"metadata.delete.entity": \["delete.entity",[ ]*"delete.entity2"\]/)
       end
     end
   end
