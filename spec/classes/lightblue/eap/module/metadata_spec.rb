@@ -38,17 +38,17 @@ describe 'lightblue::eap::module::metadata' do
         {
           :directory => '/tmp',
           :metadata_roles => {
-              :'metadata.find.dependencies' => 'find.dependencies',
-              :'metadata.find.roles' => 'find.roles',
-              :'metadata.find.entityNames' => 'find.entityNames',
-              :'metadata.find.entityVersions' => 'find.entityVersions',
-              :'metadata.find.entityMetadata' => 'find.entityMetadata',
-              :'metadata.insert' => 'insert',
-              :'metadata.insert.schema' => 'insert.schema',
-              :'metadata.update.entityInfo' => 'update.entityInfo',
-              :'metadata.update.schemaStatus' => 'update.schemaStatus',
-              :'metadata.update.defaultVersion' => 'update.defaultVersion',
-              :'metadata.delete.entity' => 'delete.entity'
+              'metadata.find.dependencies' => 'find.dependencies',
+              'metadata.find.roles' => 'find.roles',
+              'metadata.find.entityNames' => 'find.entityNames',
+              'metadata.find.entityVersions' => 'find.entityVersions',
+              'metadata.find.entityMetadata' => 'find.entityMetadata',
+              'metadata.insert' => 'insert',
+              'metadata.insert.schema' => 'insert.schema',
+              'metadata.update.entityInfo' => 'update.entityInfo',
+              'metadata.update.schemaStatus' => 'update.schemaStatus',
+              'metadata.update.defaultVersion' => 'update.defaultVersion',
+              'metadata.delete.entity' => 'delete.entity'
           }
         }
       end
