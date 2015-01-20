@@ -1,8 +1,8 @@
 # Installs RDBMS data sources
 class lightblue::service::plugin::rdbms (
   $driver_name,
-  $driver-module-name,
-  $driver-xa-datasource-class-name,
+  $driver_module_name,
+  $driver_xa_datasource_class_name,
   $data_source_name,
   $jndi_name,
   $connection_url,
