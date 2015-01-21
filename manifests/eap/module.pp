@@ -24,21 +24,44 @@ class lightblue::eap::module (
     $mgmt_app_cert_alias,
     $client_ca_source,
     $client_cert_source,
+    $metadata_roles=undef,
 )
-    inherits lightblue::eap
 {
+    $directory = '/usr/share/jbossas/modules/com/redhat/lightblue/main'
 
     # Setup the properties directory
     file { [ '/usr/share/jbossas/modules/com',
         '/usr/share/jbossas/modules/com/redhat',
         '/usr/share/jbossas/modules/com/redhat/lightblue',
-        '/usr/share/jbossas/modules/com/redhat/lightblue/main']:
+        $directory ]:
         ensure   => 'directory',
         owner    => 'jboss',
         group    => 'jboss',
         mode     => '0755',
         require  => Package[$lightblue::eap::package_name],
-      }
+    }
+
+    # class to deploy datasources.json
+    class {'lightblue::eap::module::datasources':
+        directory               => $directory,
+        mongo_auth_mechanism    => $mongo_auth_mechanism,
+        mongo_auth_username     => $mongo_auth_username,
+        mongo_auth_password     => $mongo_auth_password,
+        mongo_auth_source       => $mongo_auth_source,
+        mongo_servers_cfg       => $mongo_servers_cfg,
+        mongo_ssl               => $mongo_ssl,
+        mongo_noCertValidation  => $mongo_noCertValidation,
+        rdbms_servers_cfg       => $rdbms_servers_cfg,
+    }
+
+    # class to deploy lightblue-metadata.json
+    class {'lightblue::eap::module::metadata':
+        directory                   => $directory,
+        hook_configuration_parsers  => $hook_configuration_parsers,
+        backend_parsers             => $backend_parsers,
+        property_parsers            => $property_parsers,
+        metadata_roles              => $metadata_roles,
+    }
 
     # Property files
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/module.xml':
@@ -47,7 +70,7 @@ class lightblue::eap::module (
         group   => 'jboss',
         content => template('lightblue/properties/module.xml.erb'),
         notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+        require => File[$directory],
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/appconfig.properties':
@@ -56,7 +79,7 @@ class lightblue::eap::module (
         group   => 'jboss',
         content => template('lightblue/properties/appconfig.properties.erb'),
         notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+        require => File[$directory],
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-client.properties':
@@ -65,7 +88,7 @@ class lightblue::eap::module (
         group   => 'jboss',
         content => template('lightblue/properties/appconfig.properties.erb'),
         notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+        require => File[$directory],
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/config.properties':
@@ -74,22 +97,13 @@ class lightblue::eap::module (
         group   => 'jboss',
         content => template('lightblue/properties/config.properties.erb'),
         notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+        require => File[$directory],
     }
 
     if !$mongo_noCertValidation {
         # deploy cacert and mongossl
         include lightblue::cacert
         include lightblue::eap::mongossl
-    }
-
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/datasources.json':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        content => template('lightblue/properties/datasources.json.erb'),
-        notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
     }
 
     # both configs for crud and metadata are required for each service to work
@@ -100,16 +114,7 @@ class lightblue::eap::module (
         group   => 'jboss',
         content => template('lightblue/properties/lightblue-crud.json.erb'),
         notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
-    }
-
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-metadata.json':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        content => template('lightblue/properties/lightblue-metadata.json.erb'),
-        notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+        require => File[$directory],
     }
 
     # client-cert config
@@ -120,7 +125,7 @@ class lightblue::eap::module (
         links   => 'follow',
         source  => $client_ca_source,
         notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+        require => File[$directory],
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lb-metadata-mgmt.pkcs12':
@@ -130,7 +135,7 @@ class lightblue::eap::module (
         links   => 'follow',
         source  => $client_cert_source,
         notify  => Service['jbossas'],
-        require => File['/usr/share/jbossas/modules/com/redhat/lightblue/main'],
+        require => File[$directory],
     }
 
 }

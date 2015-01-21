@@ -1,2 +1,18 @@
 ---
 lightblue::yumrepo::lightblue::baseurl: http://lightblue/repo/url
+lightblue::eap::module::mongo_noCertValidation: true
+lightblue::eap::module::mongo_auth_mechanism: MONGODB_CR_MECHANISM
+lightblue::eap::module::mongo_auth_source: admin
+lightblue::eap::module::mongo_auth_username: lightblue
+lightblue::eap::module::mongo_auth_password: nothing
+lightblue::eap::module::mgmt_app_service_URI: http://lightblue/
+lightblue::eap::module::mgmt_app_use_cert_auth: false
+lightblue::eap::module::mgmt_app_ca_file_path: ''
+lightblue::eap::module::mgmt_app_cert_file_path: ''
+lightblue::eap::module::mgmt_app_cert_password: ''
+lightblue::eap::module::mgmt_app_cert_alias: lb-metadata-mgmt
+lightblue::eap::module::client_ca_source: ///client_ca_source/
+lightblue::eap::module::client_cert_source: ///client_cert_source/
+lightblue::cacert::ca_source: ///ca_source/
+lightblue::cacert::ca_location: /etc/openldap/cacerts
+lightblue::cacert::ca_file: cacert.pem
