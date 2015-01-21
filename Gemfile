@@ -8,3 +8,4 @@ gem "puppet-syntax"
 gem "puppetlabs_spec_helper"
 
 gem "coveralls", :require => false if RUBY_VERSION.to_f >= 1.9
+gem "simplecov", :require => false
