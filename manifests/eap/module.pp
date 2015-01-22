@@ -26,6 +26,7 @@ class lightblue::eap::module (
     $client_cert_source,
     $metadata_roles=undef,
 )
+inherits lightblue::eap
 {
     $directory = '/usr/share/jbossas/modules/com/redhat/lightblue/main'
 
