@@ -16,3 +16,5 @@ lightblue::eap::module::client_cert_source: ///client_cert_source/
 lightblue::cacert::ca_source: ///ca_source/
 lightblue::cacert::ca_location: /etc/openldap/cacerts
 lightblue::cacert::ca_file: cacert.pem
+lightblue::java::java_home: /home/java
+lightblue::eap::package_name: jbossas-standalone
