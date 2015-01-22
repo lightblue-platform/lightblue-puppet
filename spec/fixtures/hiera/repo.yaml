@@ -18,6 +18,6 @@ lightblue::cacert::ca_location: /etc/openldap/cacerts
 lightblue::cacert::ca_file: cacert.pem
 lightblue::java::java_home: /home/java
 lightblue::eap::package_name: jbossas-standalone
-lightblue::jcliff::jcliff_config: /jcliff
+lightblue::jcliff::config_dir: /jcliff
 lightblue::yumrepo::jbeap::baseurl: http://somewhere/jbeap
 lightblue::yumrepo::jbeaptools::baseurl: http://somewhere/jbeaptools
