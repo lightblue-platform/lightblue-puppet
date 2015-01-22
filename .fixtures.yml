@@ -1,3 +1,4 @@
 fixtures:
   symlinks:
     lightblue: "#{source_dir}"
+    java_ks: "../puppetlabs-java_ks"
