@@ -127,8 +127,7 @@ define lightblue::eap::client (
                 require => File[$module_dirs],
             }
         } else {
-            fail("If using certificate authentication, a source certificate \
-or certificate content must be provided.")
+            fail("If using certificate authentication, a source certificate or certificate content must be provided.")
         }
     }
 
