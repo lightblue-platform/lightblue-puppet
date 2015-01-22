@@ -2,25 +2,93 @@
     "documentation": [
         "type - REQUIRED - the class implementing MetadataConfiguration interface",
         "hookConfigurationParsers - OPTIONAL - array of classes implementing HookConfigurationParser interface",
+        "roleMap - OPTIONAL - map of metadata roles to array of roles allowed.  expected keys: metadata.find.dependencies, metadata.find.roles, metadata.find.entityNames, metadata.find.entityVersions, metadata.find.entityVersions, metadata.find.entityMetadata, metadata.insert, metadata.insert.schema, metadata.update.entityInfo, metadata.update.schemaStatus, metadata.update.defaultVersion, metadata.delete.entity",
         "The remainder of the file is parsed by the implementation class"
     ],
-    "type" : "com.redhat.lightblue.mongo.config.MongoMetadataConfiguration",
+    "type": "com.redhat.lightblue.mongo.config.MongoMetadataConfiguration",
 <% if hook_configuration_parsers != '' && hook_configuration_parsers.kind_of?(Array) -%>
-     "hookConfigurationParsers" : [
+    "hookConfigurationParsers": [
+    <%
+      i = hook_configuration_parsers.length
+      hook_configuration_parsers.each do |parser|
+    -%>
+        "<%=parser%>"
+    <% if i > 1 then -%>
+        ,
+    <%
+      end 
+      i = i - 1
+    -%>
+    <% end -%>
+    ],
+<% end -%>
+<% if metadata_roles != '' && metadata_roles.kind_of?(Hash) -%>
+    "roleMap": {
+    <% 
+      k = metadata_roles.keys.length
+      metadata_roles.keys.each do |role| 
+    -%>
+      <% if metadata_roles[role].kind_of?(Array) -%>
+        "<%= role %>": [<% 
+            r = metadata_roles[role].length
+            metadata_roles[role].each do |value|
+            -%>"<%= value %>"<% 
+            if r > 1 then -%>, <%
+            end 
+            r = r - 1
+          end -%>]
+      <% else -%>
+        "<%= role %>": ["<%= metadata_roles[role] %>"]
+      <% end -%>
+      <% if k > 1 then -%>
+        ,
+      <%
+        end
+        k = k -1
+      -%>
+    <% end -%>
+    },
+<% end -%>
+<% if backend_parsers != '' && backend_parsers.kind_of?(Array) -%>
+    "backendParsers" : [
         <%
-        i = hook_configuration_parsers.length
-        hook_configuration_parsers.each do |parser|
+        j = backend_parsers.length
+        backend_parsers.each do |backend_parser|
         -%>
-           "<%=parser%>"
-        <% if i > 1 then -%>
+        {
+       "name": "<%=backend_parser['name']%>",
+       "clazz": "<%=backend_parser['clazz']%>"
+        }
+        
+        <% if j > 1 then -%>
         ,
         <%
           end 
-          i = i - 1
+          j = j - 1
         -%>
         <% end -%>
      ],
 <% end -%>
-    "dataSource" : "metadata",
+<% if property_parsers != '' && property_parsers.kind_of?(Array) -%>
+    "propertyParsers" : [
+        <%
+        k = property_parsers.length
+        property_parsers.each do |property_parser|
+        -%>
+        {
+       "name": "<%=property_parser['name']%>",
+       "clazz": "<%=property_parser['clazz']%>"
+        }
+        
+        <% if k > 1 then -%>
+        ,
+        <%
+          end 
+          i = k - 1
+        -%>
+        <% end -%>
+     ],
+<% end -%>    
+    "dataSource": "metadata",
     "collection": "metadata"
 }
