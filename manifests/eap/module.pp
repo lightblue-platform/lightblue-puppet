@@ -26,6 +26,7 @@ class lightblue::eap::module (
     $client_cert_source,
     $metadata_roles=undef,
 )
+    inherits lightblue::eap
 {
     $directory = '/usr/share/jbossas/modules/com/redhat/lightblue/main'
 
@@ -38,7 +39,7 @@ class lightblue::eap::module (
         owner    => 'jboss',
         group    => 'jboss',
         mode     => '0755',
-        require  => Package[$::lightblue::eap::package_name],
+        require  => Package[$lightblue::eap::package_name],
     }
 
     # class to deploy datasources.json
