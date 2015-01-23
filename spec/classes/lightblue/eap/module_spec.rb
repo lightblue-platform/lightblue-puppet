@@ -4,6 +4,12 @@ describe 'lightblue::eap::module' do
 
   let(:hiera_config){ 'spec/fixtures/hiera/hiera.yaml' }
 
+  let :facts do
+    {
+      :architecture => 'x86_64'
+    }
+  end
+
   context 'defaults' do
     it do
       should contain_file("/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-metadata.json")
