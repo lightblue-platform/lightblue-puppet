@@ -1,3 +1,0 @@
-[submodule "spec/fixtures/puppetlabs-java_ks"]
-	path = spec/fixtures/puppetlabs-java_ks
-	url = https://github.com/puppetlabs/puppetlabs-java_ks.git
