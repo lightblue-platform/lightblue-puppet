@@ -25,6 +25,8 @@ class lightblue::eap::module (
     $client_ca_source,
     $client_cert_source,
     $metadata_roles=undef,
+    $data_cors_config=undef,
+    $metadata_cors_config=undef,
 )
 inherits lightblue::eap
 {
@@ -62,6 +64,16 @@ inherits lightblue::eap
         backend_parsers             => $backend_parsers,
         property_parsers            => $property_parsers,
         metadata_roles              => $metadata_roles,
+    }
+
+    class {'lightblue::eap::module::cors::data':
+        directory => $directory,
+        config    => $data_cors_config,
+    }
+
+    class {'lightblue::eap::module::cors::metadata':
+        directory => $directory,
+        config    => $metadata_cors_config,
     }
 
     # Property files
