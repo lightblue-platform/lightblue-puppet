@@ -22,7 +22,7 @@ lightblue::jcliff::config_dir: /jcliff
 lightblue::yumrepo::jbeap::baseurl: http://somewhere/jbeap
 lightblue::yumrepo::jbeaptools::baseurl: http://somewhere/jbeaptools
 
-lightblue::eap::module::cors::data::config:
+lightblue::eap::module::data_cors_config:
   url_patterns:
     - /data/*
   allowed_origins:
@@ -41,7 +41,7 @@ lightblue::eap::module::cors::data::config:
   preflight_max_age: 100
   enable_logging: true
 
-lightblue::eap::module::cors::metadata::config:
+lightblue::eap::module::metadata_cors_config:
   url_patterns:
     - /metadata/*
   allowed_origins:
