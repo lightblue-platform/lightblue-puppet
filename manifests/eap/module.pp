@@ -66,14 +66,34 @@ inherits lightblue::eap
         metadata_roles              => $metadata_roles,
     }
 
-    class {'lightblue::eap::module::cors::data':
-        directory => $directory,
-        config    => $data_cors_config,
+    if $data_cors_config != undef {
+        lightblue::service::cors::configure { "${directory}/lightblue-crud-cors.json":
+            url_patterns      => $data_cors_config[url_patterns],
+            allowed_origins   => $data_cors_config[allowed_origins],
+            allowed_methods   => $data_cors_config[allowed_methods],
+            allowed_headers   => $data_cors_config[allowed_headers],
+            exposed_headers   => $data_cors_config[exposed_headers],
+            allow_credentials => $data_cors_config[allow_credentials],
+            preflight_max_age => $data_cors_config[preflight_max_age],
+            enable_logging    => $data_cors_config[enable_logging],
+            notify            => Service['jbossas'],
+            require           => File[$directory],
+        }
     }
 
-    class {'lightblue::eap::module::cors::metadata':
-        directory => $directory,
-        config    => $metadata_cors_config,
+    if $metadata_cors_config != undef {
+        lightblue::service::cors::configure { "${directory}/lightblue-metadata-cors.json":
+            url_patterns      => $metadata_cors_config[url_patterns],
+            allowed_origins   => $metadata_cors_config[allowed_origins],
+            allowed_methods   => $metadata_cors_config[allowed_methods],
+            allowed_headers   => $metadata_cors_config[allowed_headers],
+            exposed_headers   => $metadata_cors_config[exposed_headers],
+            allow_credentials => $metadata_cors_config[allow_credentials],
+            preflight_max_age => $metadata_cors_config[preflight_max_age],
+            enable_logging    => $metadata_cors_config[enable_logging],
+            notify            => Service['jbossas'],
+            require           => File[$directory],
+        }
     }
 
     # Property files
