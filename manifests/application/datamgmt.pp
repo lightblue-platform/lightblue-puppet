@@ -17,7 +17,7 @@
 class lightblue::application::datamgmt (
     $package_name = 'lightblue-data-mgmt',
     $package_ensure = latest,
-    $app_uri = '',
+    $app_uri = undef,
 )
 inherits lightblue::application {
     include lightblue::eap
@@ -32,7 +32,7 @@ inherits lightblue::application {
         include lightblue::authentication::saml
 
         if $app_uri == undef {
-            fail("Must define $app_uri if using SAML auth with data management.")
+            fail('Must define $app_uri if using SAML auth with data management.')
         }
 
         lightblue::jcliff::config { 'data-mgmt-system-properties.conf':
