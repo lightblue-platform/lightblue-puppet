@@ -24,7 +24,7 @@ describe 'lightblue::application::migrator::daemon' do
     it do
       expect {
         should compile
-      }.to raise_error(Puppet::Error, /Unsupported OS family: #{fake_os_name}/)
+      }.to raise_error(/Unsupported OS family: #{fake_os_name}/)
     end
   end
 
