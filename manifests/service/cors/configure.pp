@@ -71,9 +71,6 @@ define lightblue::service::cors::configure (
     $enable_logging = undef,
     $owner = 'root',
     $group = 'root',
-    $before = [],
-    $notify = [],
-    $require = [],
 ) {
     file { $title:
         ensure  => 'file',
