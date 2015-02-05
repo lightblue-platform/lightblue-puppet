@@ -126,7 +126,7 @@ describe 'lightblue::application::migrator' do
       it do
         expect {
           should compile
-        }.to raise_error(Puppet::Error, /Must provide \$primary_client_ca_file_path in order to deploy ca file./)
+        }.to raise_error(/Must provide \$primary_client_ca_file_path in order to deploy ca file./)
       end
     end
     
@@ -147,7 +147,7 @@ describe 'lightblue::application::migrator' do
       it do
         expect {
           should compile
-        }.to raise_error(Puppet::Error, /Must provide \$primary_client_cert_file_path in order to deploy cert file./)
+        }.to raise_error(/Must provide \$primary_client_cert_file_path in order to deploy cert file./)
       end
     end
   end
@@ -299,7 +299,7 @@ describe 'lightblue::application::migrator' do
       it do
         expect {
           should compile
-        }.to raise_error(Puppet::Error, /Must provide \$source_client_ca_file_path in order to deploy source ca file./)
+        }.to raise_error(/Must provide \$source_client_ca_file_path in order to deploy source ca file./)
       end
     end
     
@@ -323,7 +323,7 @@ describe 'lightblue::application::migrator' do
       it do
         expect {
           should compile
-        }.to raise_error(Puppet::Error, /Must provide \$source_client_cert_file_path in order to deploy source cert file./)
+        }.to raise_error(/Must provide \$source_client_cert_file_path in order to deploy source cert file./)
       end
     end
     
@@ -347,7 +347,7 @@ describe 'lightblue::application::migrator' do
       it do
         expect {
           should compile
-        }.to raise_error(Puppet::Error, /Must provide \$destination_client_ca_file_path in order to deploy destination ca file./)
+        }.to raise_error(/Must provide \$destination_client_ca_file_path in order to deploy destination ca file./)
       end
     end
     
@@ -371,7 +371,7 @@ describe 'lightblue::application::migrator' do
       it do
         expect {
           should compile
-        }.to raise_error(Puppet::Error, /Must provide \$destination_client_cert_file_path in order to deploy destination cert file./)
+        }.to raise_error(/Must provide \$destination_client_cert_file_path in order to deploy destination cert file./)
       end
     end
     
@@ -395,7 +395,7 @@ describe 'lightblue::application::migrator' do
     it do
       expect {
         should compile
-      }.to raise_error(Puppet::Error, /If defining a source_config, then you must also define data and metadata urls for it./)
+      }.to raise_error(/If defining a source_config, then you must also define data and metadata urls for it./)
     end
   end
   
@@ -417,7 +417,7 @@ describe 'lightblue::application::migrator' do
     it do
       expect {
         should compile
-      }.to raise_error(Puppet::Error, /If defining a source_config, then you must also define data and metadata urls for it./)
+      }.to raise_error(/If defining a source_config, then you must also define data and metadata urls for it./)
     end
   end
   
@@ -439,7 +439,7 @@ describe 'lightblue::application::migrator' do
     it do
       expect {
         should compile
-      }.to raise_error(Puppet::Error, /If defining a destination_config, then you must also define data and metadata urls for it./)
+      }.to raise_error(/If defining a destination_config, then you must also define data and metadata urls for it./)
     end
   end
   
@@ -461,7 +461,7 @@ describe 'lightblue::application::migrator' do
     it do
       expect {
         should compile
-      }.to raise_error(Puppet::Error, /If defining a destination_config, then you must also define data and metadata urls for it./)
+      }.to raise_error(/If defining a destination_config, then you must also define data and metadata urls for it./)
     end
   end
   
