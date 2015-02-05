@@ -1,0 +1,38 @@
+{
+<% if @url_patterns != nil && @url_patterns.kind_of?(Array) -%>
+    "urlPatterns": ["<%= @url_patterns.join('", "') -%>"],
+<% end -%>
+<% if @allowed_origins != nil && @allowed_origins.kind_of?(Array) -%>
+    "allowedOrigins": ["<%= @allowed_origins.join('", "') -%>"],
+<% end -%>
+<% if @allowed_methods != nil && @allowed_methods.kind_of?(Array) -%>
+    "allowedMethods": ["<%= @allowed_methods.join('", "') -%>"],
+<% end -%>
+<% if @allowed_headers != nil && @allowed_headers.kind_of?(Array) -%>
+    "allowedHeaders": ["<%= @allowed_headers.join('", "') -%>"],
+<% end -%>
+<% if @exposed_headers != nil && @exposed_headers.kind_of?(Array) -%>
+    "exposedHeaders": ["<%= @exposed_headers.join('", "') -%>"],
+<% end -%>
+<% if @allow_credentials != nil && ((@allow_credentials == true) ^ (@allow_credentials == false)) -%>
+    "allowCredentials": <%= @allow_credentials %>,
+<% end -%>
+<% if @preflight_max_age != nil -%>
+    "preflightMaxAge": <%= @preflight_max_age %>,
+<% end -%>
+<% if @enable_logging != nil && ((@enable_logging == true) ^ (@enable_logging == false)) -%>
+    "enableLogging": <%= @enable_logging %>,
+<% end -%>
+    "documentation": [
+        "All fields are optional, but this file must be at least present and contain a parseable JSON document (even if empty) for CORS to be enabled. For default values, see CorsConfiguration.java in lightblue-rest-common.",
+        "For more detail on what this configuration means, see MDN: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS",
+        "urlPatterns - OPTIONAL - array of url patterns within the service to allow CORS",
+        "allowedOrigins - OPTIONAL - array origins allowed to make cross-origin requests",
+        "allowedMethods - OPTIONAL - array of HTTP methods allowed cross-origin",
+        "allowedHeaders - OPTIONAL - array of allowed headers",
+        "exposedHeaders - OPTIONAL - array of exposed headers",
+        "allowCredentials - OPTIONAL - true or false to allow credentials to be used for cross-origin requests",
+        "preflightMaxAge - OPTIONAL - how long, in seconds (integer), should a preflight response be allowed to be cached",
+        "enableLogging - OPTIONAL - true or false to enable implementation-specific logging inside the CORS filter, if supported"
+    ]
+}

@@ -16,3 +16,46 @@ lightblue::eap::module::client_cert_source: ///client_cert_source/
 lightblue::cacert::ca_source: ///ca_source/
 lightblue::cacert::ca_location: /etc/openldap/cacerts
 lightblue::cacert::ca_file: cacert.pem
+lightblue::java::java_home: /home/java
+lightblue::eap::package_name: jbossas-standalone
+lightblue::jcliff::config_dir: /jcliff
+lightblue::yumrepo::jbeap::baseurl: http://somewhere/jbeap
+lightblue::yumrepo::jbeaptools::baseurl: http://somewhere/jbeaptools
+
+lightblue::eap::module::data_cors_config:
+  url_patterns:
+    - /data/*
+  allowed_origins:
+    - origin1
+    - origin2
+  allowed_methods:
+    - GET
+    - POST
+  allowed_headers:
+    - header1
+    - header2
+  exposed_headers:
+    - header3
+    - header4
+  allow_credentials: true
+  preflight_max_age: 100
+  enable_logging: true
+
+lightblue::eap::module::metadata_cors_config:
+  url_patterns:
+    - /metadata/*
+  allowed_origins:
+    - origin3
+    - origin4
+  allowed_methods:
+    - PUT
+    - DELETE
+  allowed_headers:
+    - header5
+    - header6
+  exposed_headers:
+    - header7
+    - header8
+  allow_credentials: false
+  preflight_max_age: 1000
+  enable_logging: false
