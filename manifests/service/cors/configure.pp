@@ -78,9 +78,6 @@ define lightblue::service::cors::configure (
         owner   => $owner,
         group   => $group,
         content => template('lightblue/properties/lightblue-cors.json.erb'),
-        before  => $before,
-        notify  => $notify,
-        require => $require,
     }
 
 }
