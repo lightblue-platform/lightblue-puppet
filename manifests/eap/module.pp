@@ -15,7 +15,7 @@
 # [*hystrix_command_default_execution_isolation_strategy*]
 #
 # [*hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds*]
-# 
+#
 # [*hystrix_command_default_circuitBreaker_enabled*]
 #
 # [*hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds*]
@@ -35,7 +35,7 @@
 # [*backend_parsers*]
 #
 # [*property_parsers*]
-# 
+#
 # [*additional_backend_controllers*]
 #
 # [*mgmt_app_service_URI*]
@@ -45,22 +45,22 @@
 # [*mgmt_app_ca_file_path*]
 #
 # [*mgmt_app_cert_file_path*]
-# 
+#
 # [*mgmt_app_cert_password*]
-# 
+#
 # [*mgmt_app_cert_alias*]
-# 
+#
 # [*client_ca_source*]
-# 
+#
 # [*client_cert_source*]
-# 
+#
 # [*metadata_roles*]
-# 
+#
 # [*data_cors_config*]
 #   Hash for configuring cross-origin resource sharing for the data service. All
 #   fields are optional, and the presence of an empty hash is enough to enable CORS
 #   with default configuration. The field names for the hash are:
-#   
+#
 #   - url_patterns (array)
 #   - allowed_origins (array)
 #   - allowed_headers (array)
@@ -68,14 +68,14 @@
 #   - allow_credentials (boolean)
 #   - preflight_max_age (int)
 #   - enable_logging (boolean)
-#   
+#
 #   For details of what these fields control, see lightblue::service::cors::configure.
-# 
+#
 # [*metadata_cors_config*]
 #   Hash for configuring cross-origin resource sharing for the metadata service. All
 #   fields are optional, and the presence of an empty hash is enough to enable CORS
 #   with default configuration. The field names for the hash are:
-#   
+#
 #   - url_patterns (array)
 #   - allowed_origins (array)
 #   - allowed_headers (array)
@@ -83,7 +83,7 @@
 #   - allow_credentials (boolean)
 #   - preflight_max_age (int)
 #   - enable_logging (boolean)
-#   
+#
 #   For details of what these fields control, see lightblue::service::cors::configure.
 #
 # === Variables
