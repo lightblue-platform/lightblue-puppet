@@ -29,3 +29,41 @@ lightblue::authentication::saml::signing_key_pass: my_signing_key_pass
 lightblue::authentication::saml::signing_key_alias: my_signing_key_alias
 lightblue::authentication::saml::validating_key_alias: saml.mycompany.com
 lightblue::authentication::saml::validating_alias_value: MyCompanyIdp
+
+lightblue::eap::module::data_cors_config:
+  url_patterns:
+    - /data/*
+  allowed_origins:
+    - origin1
+    - origin2
+  allowed_methods:
+    - GET
+    - POST
+  allowed_headers:
+    - header1
+    - header2
+  exposed_headers:
+    - header3
+    - header4
+  allow_credentials: true
+  preflight_max_age: 100
+  enable_logging: true
+
+lightblue::eap::module::metadata_cors_config:
+  url_patterns:
+    - /metadata/*
+  allowed_origins:
+    - origin3
+    - origin4
+  allowed_methods:
+    - PUT
+    - DELETE
+  allowed_headers:
+    - header5
+    - header6
+  exposed_headers:
+    - header7
+    - header8
+  allow_credentials: false
+  preflight_max_age: 1000
+  enable_logging: false
