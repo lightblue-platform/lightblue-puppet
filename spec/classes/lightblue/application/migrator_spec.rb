@@ -40,9 +40,9 @@ describe 'lightblue::application::migrator' do
         }
       )
       
-      should contain_file(client_config) \
-        .that_comes_before("Service[#{service_name}]") \
-        .that_notifies("Service[#{service_name}]")
+      should contain_lightblue__client__configure(client_config) \
+        .that_notifies("Service[#{service_name}]") \
+        .that_comes_before("Service[#{service_name}]")
       
       should contain_file("/etc/init.d/#{service_name}") \
         .with_content(/--name=#{checker_name}/) \
@@ -205,17 +205,21 @@ describe 'lightblue::application::migrator' do
           }
         )
         
-        should contain_file(client_config) \
-          .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
-          .with_content(/^dataServiceURI=#{data_uri}/) \
-          .that_comes_before("Service[#{service_name}]") \
-          .that_notifies("Service[#{service_name}]")
+        should contain_lightblue__client__configure(client_config) \
+         .with({
+            :lbclient_metadata_uri   => metadata_uri,
+            :lbclient_data_uri       => data_uri,
+          }) \
+          .that_notifies("Service[#{service_name}]") \
+          .that_comes_before("Service[#{service_name}]")
         
-        should contain_file(source_config) \
-          .with_content(/^metadataServiceURI=#{source_metadata_url}$/) \
-          .with_content(/^dataServiceURI=#{source_data_url}/) \
-          .that_comes_before("Service[#{service_name}]") \
-          .that_notifies("Service[#{service_name}]")
+        should contain_lightblue__client__configure(source_config) \
+         .with({
+            :lbclient_metadata_uri   => source_metadata_url,
+            :lbclient_data_uri       => source_data_url,
+         }) \
+         .that_notifies("Service[#{service_name}]") \
+         .that_comes_before("Service[#{service_name}]")
         
         should contain_file(source_ca_path) \
           .with({
@@ -239,11 +243,13 @@ describe 'lightblue::application::migrator' do
           .that_comes_before("Service[#{service_name}]") \
           .that_notifies("Service[#{service_name}]")
         
-        should contain_file(destination_config) \
-          .with_content(/^metadataServiceURI=#{destination_metadata_url}$/) \
-          .with_content(/^dataServiceURI=#{destination_data_url}/) \
-          .that_comes_before("Service[#{service_name}]") \
-          .that_notifies("Service[#{service_name}]")
+        should contain_lightblue__client__configure(destination_config) \
+          .with({
+            :lbclient_metadata_uri   => destination_metadata_url,
+            :lbclient_data_uri       => destination_data_url,
+          }) \
+          .that_notifies("Service[#{service_name}]") \
+          .that_comes_before("Service[#{service_name}]")
           
         should contain_file(destination_ca_path) \
           .with({
