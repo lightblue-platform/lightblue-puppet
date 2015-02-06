@@ -71,9 +71,6 @@ define lightblue::service::cors::configure (
     $enable_logging = undef,
     $owner = 'root',
     $group = 'root',
-    $before = [],
-    $notify = [],
-    $require = [],
 ) {
     file { $title:
         ensure  => 'file',
@@ -81,9 +78,6 @@ define lightblue::service::cors::configure (
         owner   => $owner,
         group   => $group,
         content => template('lightblue/properties/lightblue-cors.json.erb'),
-        before  => $before,
-        notify  => $notify,
-        require => $require,
     }
 
 }
