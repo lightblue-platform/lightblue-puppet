@@ -46,14 +46,15 @@ describe 'lightblue::service::cors::configure' do
         'group'  => 'root',
         'mode'   => '0644',
       }) \
-        .without_content(/^\s*"urlPatterns":/) \
-        .without_content(/^\s*"allowedOrigins":/) \
-        .without_content(/^\s*"allowedMethods":/) \
-        .without_content(/^\s*"allowedHeaders":/) \
-        .without_content(/^\s*"exposedHeaders":/) \
-        .without_content(/^\s*"allowCredentials":/) \
-        .without_content(/^\s*"preflightMaxAge":/) \
-        .without_content(/^\s*"enableLogging":/)
+        .with_content(/^\s*"urlPatterns": \["\/\*"\],$/) \
+        .with_content(/^\s*"allowedOrigins": \["\*"\],$/) \
+        .with_content(/^\s*"allowedMethods": \["GET", "PUT", "POST", "HEAD", "OPTIONS"\],$/) \
+        .with_content(/^\s*"allowedHeaders": \["Origin", "Accept", "X-Requested-With", \
+"Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers"\],$/) \
+        .with_content(/^\s*"exposedHeaders": \[""\],$/) \
+        .with_content(/^\s*"allowCredentials": false,$/) \
+        .with_content(/^\s*"preflightMaxAge": 1800,$/) \
+        .with_content(/^\s*"enableLogging": false,$/)
     end
   end
 

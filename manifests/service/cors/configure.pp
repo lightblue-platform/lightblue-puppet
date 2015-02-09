@@ -48,12 +48,6 @@
 #
 # Group to own the configuration file.
 #
-# [*before*]
-#
-# [*notify*]
-#
-# [*require*]
-#
 # === Variables
 #
 # None
@@ -61,14 +55,15 @@
 # === Examples
 #
 define lightblue::service::cors::configure (
-    $url_patterns = undef,
-    $allowed_origins = undef,
-    $allowed_methods = undef,
-    $allowed_headers = undef,
-    $exposed_headers = undef,
-    $allow_credentials = undef,
-    $preflight_max_age = undef,
-    $enable_logging = undef,
+    $url_patterns = ["/*"],
+    $allowed_origins = ["*"],
+    $allowed_methods = ["GET", "PUT", "POST", "HEAD", "OPTIONS"],
+    $allowed_headers = ["Origin", "Accept", "X-Requested-With", "Content-Type",
+            "Access-Control-Request-Method", "Access-Control-Request-Headers"],
+    $exposed_headers = [],
+    $allow_credentials = false,
+    $preflight_max_age = 1800,
+    $enable_logging = false,
     $owner = 'root',
     $group = 'root',
 ) {
