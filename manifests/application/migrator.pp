@@ -133,7 +133,6 @@ class lightblue::application::migrator (
         group   => $service_group,
         links   => 'follow',
         source  => $primary_client_ca_source,
-        before  => [Service[$migrator_service_name]],
         notify  => [Service[$migrator_service_name]],
       }
     }
@@ -149,7 +148,6 @@ class lightblue::application::migrator (
         group   => $service_group,
         links   => 'follow',
         source  => $primary_client_cert_source,
-        before  => [Service[$migrator_service_name]],
         notify  => [Service[$migrator_service_name]],
       }
     }
@@ -164,7 +162,6 @@ class lightblue::application::migrator (
       lbclient_cert_file_path => $primary_client_cert_file_path,
       lbclient_cert_password  => $primary_client_cert_password,
       lbclient_cert_alias     => $primary_client_cert_alias,
-      before                  => [Service[$migrator_service_name]],
       notify                  => [Service[$migrator_service_name]],
     }
 
@@ -184,7 +181,6 @@ class lightblue::application::migrator (
           group   => $service_group,
           links   => 'follow',
           source  => $source_client_ca_source,
-          before  => [Service[$migrator_service_name]],
           notify  => [Service[$migrator_service_name]],
         }
       }
@@ -200,7 +196,6 @@ class lightblue::application::migrator (
           group   => $service_group,
           links   => 'follow',
           source  => $source_client_cert_source,
-          before  => [Service[$migrator_service_name]],
           notify  => [Service[$migrator_service_name]],
         }
       }
@@ -215,7 +210,6 @@ class lightblue::application::migrator (
         lbclient_cert_file_path => $source_client_cert_file_path,
         lbclient_cert_password  => $source_client_cert_password,
         lbclient_cert_alias     => $source_client_cert_alias,
-        before                  => [Service[$migrator_service_name]],
         notify                  => [Service[$migrator_service_name]],
       }
     }
@@ -236,7 +230,6 @@ class lightblue::application::migrator (
           group   => $service_group,
           links   => 'follow',
           source  => $destination_client_ca_source,
-          before  => [Service[$migrator_service_name]],
           notify  => [Service[$migrator_service_name]],
         }
       }
@@ -252,7 +245,6 @@ class lightblue::application::migrator (
           group   => $service_group,
           links   => 'follow',
           source  => $destination_client_cert_source,
-          before  => [Service[$migrator_service_name]],
           notify  => [Service[$migrator_service_name]]
         }
       }
@@ -267,7 +259,6 @@ class lightblue::application::migrator (
         lbclient_cert_file_path => $destination_client_cert_file_path,
         lbclient_cert_password  => $destination_client_cert_password,
         lbclient_cert_alias     => $destination_client_cert_alias,
-        before                  => [Service[$migrator_service_name]],
         notify                  => [Service[$migrator_service_name]],
       }
     }

@@ -13,7 +13,6 @@
 # $lbclient_cert_file_path - cert file path. Required only if $lbclient_use_cert_auth == true.
 # $lbclient_cert_password  - cert password. Required only if $lbclient_use_cert_auth == true.
 # $lbclient_cert_alias     - cert alias. Required only if $lbclient_use_cert_auth == true.
-# $notify                  - Any resources that need to be notified if the file changes. Defaults to an empty array.
 #
 # === Variables
 #
@@ -35,8 +34,6 @@ define lightblue::client::configure (
     $lbclient_cert_file_path = undef,
     $lbclient_cert_password = undef,
     $lbclient_cert_alias = undef,
-    $before = [],
-    $notify = [],
 ) {
 
     file { $title:
@@ -45,7 +42,6 @@ define lightblue::client::configure (
         owner   => $owner,
         group   => $group,
         content => template('lightblue/client/lightblue-client.properties.erb'),
-        before => $before,
         notify => $notify,
     }
 
