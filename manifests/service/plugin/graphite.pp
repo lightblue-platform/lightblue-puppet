@@ -17,7 +17,7 @@
 #
 # === Example
 #
-# include lightblue::service::graphite
+# include lightblue::service::plugin::graphite
 #
 class lightblue::service::plugin::graphite ($prefix = undef, $hostname = undef, $port = 2003){
 
