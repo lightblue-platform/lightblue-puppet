@@ -34,7 +34,7 @@ describe 'lightblue::application::migrator' do
     end
     
     it do
-      should contain_package('lightblue-consistency-checker').with(
+      should contain_package('lightblue-migrator-consistency-checker').with(
         {
           :ensure => 'latest'
         }
@@ -196,7 +196,7 @@ describe 'lightblue::application::migrator' do
       end
       
       it do
-        should contain_package('lightblue-consistency-checker').with(
+        should contain_package('lightblue-migrator-consistency-checker').with(
           {
             :ensure => 'latest'
           }
