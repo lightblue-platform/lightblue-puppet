@@ -13,6 +13,10 @@
 # $lbclient_cert_file_path - cert file path. Required only if $lbclient_use_cert_auth == true.
 # $lbclient_cert_password  - cert password. Required only if $lbclient_use_cert_auth == true.
 # $lbclient_cert_alias     - cert alias. Required only if $lbclient_use_cert_auth == true.
+# $use_physical_file       - It is generally assumed that the cert and ca files will bundled in the application binary,
+#                            however toggling to true provides the ability for the files to be physically located
+#                            on the file system.
+#                            (defaults to false)
 #
 # === Variables
 #
@@ -34,6 +38,7 @@ define lightblue::client::configure (
     $lbclient_cert_file_path = undef,
     $lbclient_cert_password = undef,
     $lbclient_cert_alias = undef,
+    $use_physical_file = false,
 ) {
 
     file { $title:
