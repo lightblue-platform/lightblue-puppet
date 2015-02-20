@@ -1,4 +1,4 @@
-# == Class: lightblue::service::graphite
+# == Class: lightblue::service::statsd
 #
 # Deploys/Removes lightblue graphite environment variables.
 #
