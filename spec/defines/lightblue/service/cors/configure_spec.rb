@@ -15,10 +15,7 @@ describe 'lightblue::service::cors::configure' do
         :exposed_headers => ['header3', 'header4', 'header5'],
         :allow_credentials => true,
         :preflight_max_age => 1000,
-        :enable_logging => true,
-        :notify => 'notified',
-        :require => 'required',
-        :before => 'before'
+        :enable_logging => true
       }
     end
 
@@ -37,10 +34,7 @@ describe 'lightblue::service::cors::configure' do
         .with_content(/^\s*"exposedHeaders": \["header3", "header4", "header5"\],$/) \
         .with_content(/^\s*"allowCredentials": true,$/) \
         .with_content(/^\s*"preflightMaxAge": 1000,$/) \
-        .with_content(/^\s*"enableLogging": true,$/) \
-        .with_notify('notified') \
-        .with_require('required') \
-        .with_before('before')
+        .with_content(/^\s*"enableLogging": true,$/)
     end
   end
 
@@ -52,17 +46,15 @@ describe 'lightblue::service::cors::configure' do
         'group'  => 'root',
         'mode'   => '0644',
       }) \
-        .without_content(/^\s*"urlPatterns":/) \
-        .without_content(/^\s*"allowedOrigins":/) \
-        .without_content(/^\s*"allowedMethods":/) \
-        .without_content(/^\s*"allowedHeaders":/) \
-        .without_content(/^\s*"exposedHeaders":/) \
-        .without_content(/^\s*"allowCredentials":/) \
-        .without_content(/^\s*"preflightMaxAge":/) \
-        .without_content(/^\s*"enableLogging":/) \
-        .with_notify([]) \
-        .with_require([]) \
-        .with_before([])
+        .with_content(/^\s*"urlPatterns": \["\/\*"\],$/) \
+        .with_content(/^\s*"allowedOrigins": \["\*"\],$/) \
+        .with_content(/^\s*"allowedMethods": \["GET", "PUT", "POST", "HEAD", "OPTIONS"\],$/) \
+        .with_content(/^\s*"allowedHeaders": \["Origin", "Accept", "X-Requested-With", \
+"Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers"\],$/) \
+        .with_content(/^\s*"exposedHeaders": \[""\],$/) \
+        .with_content(/^\s*"allowCredentials": false,$/) \
+        .with_content(/^\s*"preflightMaxAge": 1800,$/) \
+        .with_content(/^\s*"enableLogging": false,$/)
     end
   end
 
