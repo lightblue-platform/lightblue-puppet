@@ -97,7 +97,7 @@ class lightblue::application::migrator (
     $source_client_cert_password = undef,
     $source_client_cert_alias = undef,
 
-    #(optiona) destination lightblue client to push data too
+    #(optional) destination lightblue client to push data too
     $destination_config = undef,
     $destination_client_metadata_uri = undef,
     $destination_client_data_uri = undef,
