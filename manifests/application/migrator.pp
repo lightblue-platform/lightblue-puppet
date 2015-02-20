@@ -113,7 +113,7 @@ class lightblue::application::migrator (
     require lightblue::java
 
     $migrator_service_name = 'migrator-service'
-    $migrator_package_name = 'lightblue-consistency-checker'
+    $migrator_package_name = 'lightblue-migrator-consistency-checker'
     $source_config_file = $source_config ? {undef => $primary_config_file, default => $source_config}
     $destination_config_file = $destination_config ? {undef => $primary_config_file, default => $destination_config}
 
