@@ -66,7 +66,7 @@ class lightblue::application::migrator (
     $migrator_version = 'latest',
     $jsvc_version = 'latest',
     $java_home = undef,
-    $jar_path = '/usr/share/jbossas/standalone/deployments/consistency-checker-*.jar',
+    $jar_path = '/usr/share/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
     $service_log_file = 'migrator.log',
     $checker_name,
     $hostname = '$(hostname)',
