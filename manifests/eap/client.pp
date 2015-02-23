@@ -106,7 +106,7 @@ define lightblue::eap::client (
     }
 
     if $use_cert_auth {
-        if defined('$auth_cert_content') {
+        if $auth_cert_content {
             file { "${module_path}/${auth_cert_file_path}":
                 mode    => '0644',
                 owner   => 'jboss',
@@ -116,7 +116,7 @@ define lightblue::eap::client (
                 notify  => Service['jbossas'],
                 require => File[$module_dirs],
             }
-        } elsif defined('$auth_cert_source') {
+        } elsif $auth_cert_source {
             file { "${module_path}/${auth_cert_file_path}":
                 mode    => '0644',
                 owner   => 'jboss',
