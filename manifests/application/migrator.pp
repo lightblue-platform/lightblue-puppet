@@ -66,7 +66,7 @@ class lightblue::application::migrator (
     $migrator_version = 'latest',
     $jsvc_version = 'latest',
     $java_home = undef,
-    $jar_path = '/usr/share/jbossas/standalone/deployments/consistency-checker-*.jar',
+    $jar_path = '/usr/share/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
     $service_log_file = 'migrator.log',
     $checker_name,
     $hostname = '$(hostname)',
@@ -97,7 +97,7 @@ class lightblue::application::migrator (
     $source_client_cert_password = undef,
     $source_client_cert_alias = undef,
 
-    #(optiona) destination lightblue client to push data too
+    #(optional) destination lightblue client to push data too
     $destination_config = undef,
     $destination_client_metadata_uri = undef,
     $destination_client_data_uri = undef,
