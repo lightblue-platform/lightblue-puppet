@@ -91,17 +91,5 @@ describe 'lightblue::client::configure' do
       end
     end
   end
-  
-  context 'notify and require' do
-    let :params do
-      {
-        :lbclient_metadata_uri => metadata_uri,
-        :lbclient_data_uri => data_uri,
-        :notify => 'notified',
-      }
-    end
-    
-    it{should contain_file(config_file).with_notify('notified')}
-  end
 
 end

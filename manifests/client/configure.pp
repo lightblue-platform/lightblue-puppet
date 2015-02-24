@@ -47,7 +47,6 @@ define lightblue::client::configure (
         owner   => $owner,
         group   => $group,
         content => template('lightblue/client/lightblue-client.properties.erb'),
-        notify => $notify,
     }
 
 }
