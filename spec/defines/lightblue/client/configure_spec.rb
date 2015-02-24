@@ -35,7 +35,7 @@ describe 'lightblue::client::configure' do
     password = 'secret'
     cert_alias = 'redleader'
     
-    describe 'and use_physical_file=false' do
+    describe 'and lbclient_use_physical_file=false' do
       let :params do
         {
           :lbclient_metadata_uri => metadata_uri,
@@ -65,7 +65,7 @@ describe 'lightblue::client::configure' do
       end
     end
     
-    describe 'and use_physical_file=true' do
+    describe 'and lbclient_use_physical_file=true' do
       let :params do
         {
           :lbclient_metadata_uri => metadata_uri,
@@ -75,7 +75,7 @@ describe 'lightblue::client::configure' do
           :lbclient_cert_file_path => cert_file_path,
           :lbclient_cert_password => password,
           :lbclient_cert_alias => cert_alias,
-          :use_physical_file => true,
+          :lbclient_use_physical_file => true,
         }
       end
       
