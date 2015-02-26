@@ -42,6 +42,13 @@ do_exec()
   jsvcCommand << "-outfile $LOG_OUT"
   jsvcCommand << "-errfile $LOG_ERR"
   jsvcCommand << "-pidfile $PID"
+  
+  if @jvmOptions
+    @jvmOptions.each do |key, value|
+      jsvcCommand << "-X#{key}=#{value}"
+    end
+  end
+  
   jsvcCommand << "$MAIN_CLASS"
 
   if @arguments
