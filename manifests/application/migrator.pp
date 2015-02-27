@@ -69,11 +69,11 @@ class lightblue::application::migrator (
     $java_home = undef,
     $jar_path = '/usr/share/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
     $service_log_file = 'migrator.log',
-    $checker_name,
     $hostname = '$(hostname)',
+    $serviceJvmOptions = {},
+    $checker_name,
     $job_version,
     $configuration_version,
-    $serviceJvmOptions = {},
 
     #primary lightblue client to be used as migrator backend
     $primary_config_file = 'lightblue-client.properties',
