@@ -15,6 +15,7 @@
 # $hostname                          - Hostname to pass into consistency-checker. Defaults to $(hostname)
 # $configuration_version             - Configuration version to pass into consistency-checker.
 # $job_version                       - Job version to pass into consistency-checker.
+# $serviceJvmOptions                 - JVM options to pass into the service. Defaults to {}. -X will be appended to keys.
 #
 # $primary_config_file               - (required) Lightblue Client configuration file for the Mongo backend used for scheduling jobs.
 #                                      Will also be used for source/destination configurations if they are not provided.
@@ -72,6 +73,7 @@ class lightblue::application::migrator (
     $hostname = '$(hostname)',
     $job_version,
     $configuration_version,
+    $serviceJvmOptions = {},
 
     #primary lightblue client to be used as migrator backend
     $primary_config_file = 'lightblue-client.properties',
@@ -282,6 +284,7 @@ class lightblue::application::migrator (
         sourceconfig      => $source_config_file,
         destinationconfig => $destination_config_file,
       },
+      jvmOptions          => $serviceJvmOptions,
       require             => [Package[$migrator_package_name]],
     } ~>
     service { $migrator_service_name:
