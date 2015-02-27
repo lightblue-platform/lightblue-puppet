@@ -42,16 +42,16 @@ class lightblue::application::migrator::daemon (
     $jsvc_version = 'latest',
     $owner = 'root',
     $group = 'root',
-    $service_name,
     $jsvc_exec = '$(which jsvc)',
     $java_home = undef,
-    $service_out_logfile,
-    $service_err_logfile,
     $lib_dir = undef,
-    $jar_path,
-    $mainClass,
     $arguments = {},
     $jvmOptions = {},
+    $service_name,
+    $jar_path,
+    $mainClass,
+    $service_out_logfile,
+    $service_err_logfile,
 ) {
     case $::osfamily {
         'RedHat', 'Linux': {
