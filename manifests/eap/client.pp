@@ -69,7 +69,7 @@ define lightblue::eap::client (
     $ssl_ca_file_path="cacert.pem"
 )
 {
-    include lightblue::eap::client::modulepath
+    require lightblue::eap::client::modulepath
 
     $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
 
@@ -83,7 +83,6 @@ define lightblue::eap::client (
         owner    => 'jboss',
         group    => 'jboss',
         mode     => '0755',
-        require  => Class['lightblue::eap::client::modulepath']
     }
 
     file { "${module_path}/module.xml":
