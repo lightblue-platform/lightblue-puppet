@@ -48,10 +48,10 @@ class lightblue::application::migrator::daemon (
     $arguments = {},
     $jvmOptions = {},
     $service_name,
-    $service_out_logfile,
-    $service_err_logfile,
     $jar_path,
     $mainClass,
+    $service_out_logfile,
+    $service_err_logfile,
 ) {
     case $::osfamily {
         'RedHat', 'Linux': {
