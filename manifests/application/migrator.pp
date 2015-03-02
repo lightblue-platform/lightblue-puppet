@@ -265,6 +265,12 @@ class lightblue::application::migrator (
       }
     }
 
+    file { $service_log_file:
+      ensure  => 'file',
+      owner   => $service_owner,
+      group   => $service_group,
+      mode    => '0744',
+    } ->
     class { 'lightblue::application::migrator::daemon':
       jsvc_version        => $jsvc_version,
       owner               => $service_owner,
