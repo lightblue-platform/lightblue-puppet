@@ -145,7 +145,7 @@ describe 'lightblue::application::migrator::daemon' do
           :jsvc_exec => jsvc_exec,
           :java_home => java_home,
           :lib_dir => lib_dir,
-          :jvmOptions => {'mx' => '4096m'},
+          :jvmOptions => ['Xmx128m','Xms128m'],
           :arguments => {'key' => 'value' , 'anotherkey' => 'anothervalue'}
         }
       end
@@ -160,7 +160,8 @@ describe 'lightblue::application::migrator::daemon' do
           .with_content(/^JSVC_EXEC=#{jsvc_exec}$/) \
           .with_content(/^JAVA_HOME_DIR=#{java_home}$/) \
           .with_content(/^LIBS=#{lib_dir}$/) \
-          .with_content(/-Xmx4096m/) \
+          .with_content(/-Xmx128m/) \
+          .with_content(/-Xms128m/) \
           .with_content(/--key=value/) \
           .with_content(/--anotherkey=anothervalue/)
       end

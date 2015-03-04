@@ -17,7 +17,7 @@
 # $mainClass               - Java classpath to Main method to be executed upon startup.
 #                            Defaults to com.redhat.lightblue.migrator.consistency.CompareLightblueToLegacyCLI
 # $arguments               - Additional CLI arguments to pass into the application. Defaults to {}.
-# $jvmOptions              - Options to pass to the JVM (No need to include leading X). Defaults to {}.
+# $jvmOptions              - Options to pass to the JVM (Example ['Xmx9999','Xms9999']). Defaults to [].
 #
 # === Variables
 #
@@ -46,7 +46,7 @@ class lightblue::application::migrator::daemon (
     $java_home = undef,
     $lib_dir = undef,
     $arguments = {},
-    $jvmOptions = {},
+    $jvmOptions = [],
     $service_name,
     $jar_path,
     $mainClass,

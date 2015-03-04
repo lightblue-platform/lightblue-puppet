@@ -44,8 +44,8 @@ do_exec()
   jsvcCommand << "-pidfile $PID"
   
   if @jvmOptions
-    @jvmOptions.each do |key, value|
-      jsvcCommand << "-X#{key}#{value}"
+    @jvmOptions.each do |param|
+      jsvcCommand << "-#{param}"
     end
   end
   
