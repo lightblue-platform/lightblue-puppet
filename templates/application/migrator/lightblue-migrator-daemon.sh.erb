@@ -45,7 +45,7 @@ do_exec()
   
   if @jvmOptions
     @jvmOptions.each do |key, value|
-      jsvcCommand << "-X#{key}=#{value}"
+      jsvcCommand << "-X#{key}#{value}"
     end
   end
   
