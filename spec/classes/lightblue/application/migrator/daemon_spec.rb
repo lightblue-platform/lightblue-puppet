@@ -160,7 +160,7 @@ describe 'lightblue::application::migrator::daemon' do
           .with_content(/^JSVC_EXEC=#{jsvc_exec}$/) \
           .with_content(/^JAVA_HOME_DIR=#{java_home}$/) \
           .with_content(/^LIBS=#{lib_dir}$/) \
-          .with_content(/-Xmx=4096m/) \
+          .with_content(/-Xmx4096m/) \
           .with_content(/--key=value/) \
           .with_content(/--anotherkey=anothervalue/)
       end
