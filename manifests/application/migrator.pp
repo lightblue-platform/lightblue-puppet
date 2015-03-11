@@ -113,6 +113,8 @@ class lightblue::application::migrator (
 ){
     require lightblue::yumrepo::lightblue
     require lightblue::java
+    require lightblue::service::plugin::graphite
+    require lightblue::service::plugin::statsd
 
     $migrator_service_name = 'migrator-service'
     $migrator_package_name = 'lightblue-migrator-consistency-checker'
