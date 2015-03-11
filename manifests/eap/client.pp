@@ -69,15 +69,14 @@ define lightblue::eap::client (
     $ssl_ca_file_path="cacert.pem"
 )
 {
+    require lightblue::eap::client::modulepath
+
     $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
 
-    $module_dirs = ['/usr/share/jbossas/modules/com',
-        '/usr/share/jbossas/modules/com/redhat',
-        '/usr/share/jbossas/modules/com/redhat/lightblue',
-        '/usr/share/jbossas/modules/com/redhat/lightblue/client',
-        "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}",
-        $module_path]
+    $module_dirs = ["/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", $module_path]
 
+    # Setup the properties directory
+    # mkdir -p equivalent in puppet is crazy :/
     # Setup the module directory
     file { $module_dirs :
         ensure   => 'directory',
@@ -106,7 +105,7 @@ define lightblue::eap::client (
     }
 
     if $use_cert_auth {
-        if defined('$auth_cert_content') {
+        if $auth_cert_content {
             file { "${module_path}/${auth_cert_file_path}":
                 mode    => '0644',
                 owner   => 'jboss',
@@ -116,7 +115,7 @@ define lightblue::eap::client (
                 notify  => Service['jbossas'],
                 require => File[$module_dirs],
             }
-        } elsif defined('$auth_cert_source') {
+        } elsif $auth_cert_source {
             file { "${module_path}/${auth_cert_file_path}":
                 mode    => '0644',
                 owner   => 'jboss',

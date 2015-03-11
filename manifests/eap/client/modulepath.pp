@@ -1,7 +1,7 @@
 # Setting up common module path for lightblue::eap::client resource
 class lightblue::eap::client::modulepath {
 
-    # Pretty sure many of those paths will conflicts with something else...
+    # Pretty sure many of those paths will conflict with something else...
     # Perhaps better use mkdir -p ?
     $module_base = [ '/usr/share/jbossas/modules/com',
         '/usr/share/jbossas/modules/com/redhat',
