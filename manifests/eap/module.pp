@@ -95,7 +95,7 @@
 class lightblue::eap::module (
     $mongo_auth_mechanism,
     $mongo_auth_username,
-    smongo_auth_password,
+    $mongo_auth_password,
     $mongo_auth_source,
     $hystrix_command_default_execution_isolation_strategy = 'THREAD',
     $hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds = 60000,
@@ -143,7 +143,7 @@ inherits lightblue::eap
         directory               => $directory,
         mongo_auth_mechanism    => $mongo_auth_mechanism,
         mongo_auth_username     => $mongo_auth_username,
-        mongo_auth_password     => $lightblue::eap::module::mongo_auth_password,
+        mongo_auth_password     => $mongo_auth_password,
         mongo_auth_source       => $mongo_auth_source,
         mongo_servers_cfg       => $mongo_servers_cfg,
         mongo_ssl               => $mongo_ssl,
