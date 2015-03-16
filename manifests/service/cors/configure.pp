@@ -64,8 +64,8 @@ define lightblue::service::cors::configure (
     $allow_credentials = false,
     $preflight_max_age = 1800,
     $enable_logging = false,
-    $owner = 'root',
-    $group = 'root',
+    $owner = 'jboss',
+    $group = 'jboss',
 ) {
     file { $title:
         ensure  => 'file',
