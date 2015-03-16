@@ -22,11 +22,11 @@
     <% end -%>
     ],
 <% end -%>
-<% if metadata_roles != '' && metadata_roles.kind_of?(Hash) -%>
+<% if metadata_roles != '' && metadata_roles.kind_of?(Array) -%>
     "roleMap": {
     <% 
-      k = metadata_roles.keys.length
-      metadata_roles.keys.each do |role| 
+      k = metadata_roles.length
+      metadata_roles.each do |role|
     -%>
       <% if metadata_roles[role].kind_of?(Array) -%>
         "<%= role %>": [<% 
