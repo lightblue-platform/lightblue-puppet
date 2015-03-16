@@ -95,7 +95,7 @@
 class lightblue::eap::module (
     $mongo_auth_mechanism,
     $mongo_auth_username,
-    $mongo_auth_password,
+    smongo_auth_password,
     $mongo_auth_source,
     $hystrix_command_default_execution_isolation_strategy = 'THREAD',
     $hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds = 60000,
@@ -170,7 +170,6 @@ inherits lightblue::eap
             allow_credentials => $data_cors_config[allow_credentials],
             preflight_max_age => $data_cors_config[preflight_max_age],
             enable_logging    => $data_cors_config[enable_logging],
-            notify            => Service['jbossas'],
             require           => File[$directory],
         }
     }
@@ -185,7 +184,6 @@ inherits lightblue::eap
             allow_credentials => $metadata_cors_config[allow_credentials],
             preflight_max_age => $metadata_cors_config[preflight_max_age],
             enable_logging    => $metadata_cors_config[enable_logging],
-            notify            => Service['jbossas'],
             require           => File[$directory],
         }
     }
