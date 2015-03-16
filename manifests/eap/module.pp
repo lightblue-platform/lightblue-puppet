@@ -54,8 +54,6 @@
 #
 # [*client_cert_source*]
 #
-# [*metadata_roles*]
-#
 # [*data_cors_config*]
 #   Hash for configuring cross-origin resource sharing for the data service. All
 #   fields are optional, and the presence of an empty hash is enough to enable CORS
@@ -118,7 +116,6 @@ class lightblue::eap::module (
     $mgmt_app_cert_alias,
     $client_ca_source,
     $client_cert_source,
-    $metadata_roles=undef,
     $data_cors_config=undef,
     $metadata_cors_config=undef,
 )
@@ -157,7 +154,6 @@ inherits lightblue::eap
         hook_configuration_parsers  => $hook_configuration_parsers,
         backend_parsers             => $backend_parsers,
         property_parsers            => $property_parsers,
-        metadata_roles              => $metadata_roles,
     }
 
     if $data_cors_config != undef {
