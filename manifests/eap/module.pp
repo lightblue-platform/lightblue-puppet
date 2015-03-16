@@ -93,7 +93,7 @@
 class lightblue::eap::module (
     $mongo_auth_mechanism,
     $mongo_auth_username,
-    $mongo_auth_password,
+    smongo_auth_password,
     $mongo_auth_source,
     $mgmt_app_service_URI,
     $mgmt_app_use_cert_auth,
@@ -166,7 +166,6 @@ inherits lightblue::eap
             allow_credentials => $data_cors_config[allow_credentials],
             preflight_max_age => $data_cors_config[preflight_max_age],
             enable_logging    => $data_cors_config[enable_logging],
-            notify            => Service['jbossas'],
             require           => File[$directory],
         }
     }
@@ -181,7 +180,6 @@ inherits lightblue::eap
             allow_credentials => $metadata_cors_config[allow_credentials],
             preflight_max_age => $metadata_cors_config[preflight_max_age],
             enable_logging    => $metadata_cors_config[enable_logging],
-            notify            => Service['jbossas'],
             require           => File[$directory],
         }
     }
