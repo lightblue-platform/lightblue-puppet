@@ -23,7 +23,7 @@ lightblue::yumrepo::jbeap::baseurl: http://somewhere/jbeap
 lightblue::yumrepo::jbeaptools::baseurl: http://somewhere/jbeaptools
 lightblue::authentication::saml::identity_url: https://saml.mycompany.com/idp/
 lightblue::authentication::saml::key_store_source: puppet:///modules/mykeystore/mykey.jks
-lightblue::authentication::saml::key_store_url: /etc/jbossas/standalone/cert-idp.jks
+lightblue::authentication::saml::key_store_url: /usr/share/jbossas/standalone/configuration/cert-idp.jks
 lightblue::authentication::saml::key_store_pass: my_secret_password
 lightblue::authentication::saml::signing_key_pass: my_signing_key_pass
 lightblue::authentication::saml::signing_key_alias: my_signing_key_alias
