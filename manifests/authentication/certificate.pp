@@ -5,7 +5,7 @@
 # === Parameters
 # [*config_dir*]
 #   EAP configuration directory
-#   i.e. /usr/share/jbossas/standalone/configuration
+#   i.e. /etc/jbossas/standalone
 #
 # [*ldap_ad_server*]
 #   ldap active directory server
