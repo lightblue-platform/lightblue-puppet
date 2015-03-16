@@ -93,7 +93,7 @@
 class lightblue::eap::module (
     $mongo_auth_mechanism,
     $mongo_auth_username,
-    smongo_auth_password,
+    $mongo_auth_password,
     $mongo_auth_source,
     $mgmt_app_service_URI,
     $mgmt_app_use_cert_auth,
@@ -140,7 +140,7 @@ inherits lightblue::eap
         directory               => $directory,
         mongo_auth_mechanism    => $mongo_auth_mechanism,
         mongo_auth_username     => $mongo_auth_username,
-        mongo_auth_password     => $lightblue::eap::module::mongo_auth_password,
+        mongo_auth_password     => $mongo_auth_password,
         mongo_auth_source       => $mongo_auth_source,
         mongo_servers_cfg       => $mongo_servers_cfg,
         mongo_ssl               => $mongo_ssl,
