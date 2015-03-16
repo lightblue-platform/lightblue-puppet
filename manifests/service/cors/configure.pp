@@ -55,11 +55,11 @@
 # === Examples
 #
 define lightblue::service::cors::configure (
-    $url_patterns = ["/*"],
-    $allowed_origins = ["*"],
-    $allowed_methods = ["GET", "PUT", "POST", "HEAD", "OPTIONS"],
-    $allowed_headers = ["Origin", "Accept", "X-Requested-With", "Content-Type",
-            "Access-Control-Request-Method", "Access-Control-Request-Headers"],
+    $url_patterns = ['/*'],
+    $allowed_origins = ['*'],
+    $allowed_methods = ['GET', 'PUT', 'POST', 'HEAD', 'OPTIONS'],
+    $allowed_headers = ['Origin', 'Accept', 'X-Requested-With', 'Content-Type',
+            'Access-Control-Request-Method', 'Access-Control-Request-Headers'],
     $exposed_headers = [],
     $allow_credentials = false,
     $preflight_max_age = 1800,
