@@ -23,8 +23,8 @@ describe 'lightblue::service::cors::configure' do
       should contain_file(config_file) \
       .with({
         'ensure' => 'file',
-        'owner'  => 'root',
-        'group'  => 'root',
+        'owner'  => 'jboss',
+        'group'  => 'jboss',
         'mode'   => '0644',
       }) \
         .with_content(/^\s*"urlPatterns": \["\/test", "\/data\/\*"\],$/) \
@@ -42,8 +42,8 @@ describe 'lightblue::service::cors::configure' do
     it do
       should contain_file(config_file).with({
         'ensure' => 'file',
-        'owner'  => 'root',
-        'group'  => 'root',
+        'owner'  => 'jboss',
+        'group'  => 'jboss',
         'mode'   => '0644',
       }) \
         .with_content(/^\s*"urlPatterns": \["\/\*"\],$/) \
