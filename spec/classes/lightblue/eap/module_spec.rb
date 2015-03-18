@@ -34,7 +34,6 @@ describe 'lightblue::eap::module' do
             'preflight_max_age' => 100,
             'enable_logging'    => true
           }) \
-          .with_notify('Service[jbossas]') \
           .with_require("File[#{module_dir}]")
       should contain_lightblue__service__cors__configure("#{module_dir}/lightblue-metadata-cors.json") \
           .with({
@@ -47,7 +46,6 @@ describe 'lightblue::eap::module' do
             'preflight_max_age' => 1000,
             'enable_logging'    => false
           }) \
-          .with_notify('Service[jbossas]') \
           .with_require("File[#{module_dir}]")
     end
   end
