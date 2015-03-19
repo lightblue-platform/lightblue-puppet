@@ -55,17 +55,17 @@
 # === Examples
 #
 define lightblue::service::cors::configure (
-    $url_patterns = ["/*"],
-    $allowed_origins = ["*"],
-    $allowed_methods = ["GET", "PUT", "POST", "HEAD", "OPTIONS"],
-    $allowed_headers = ["Origin", "Accept", "X-Requested-With", "Content-Type",
-            "Access-Control-Request-Method", "Access-Control-Request-Headers"],
+    $url_patterns = ['/*'],
+    $allowed_origins = ['*'],
+    $allowed_methods = ['GET', 'PUT', 'POST', 'HEAD', 'OPTIONS'],
+    $allowed_headers = ['Origin', 'Accept', 'X-Requested-With', 'Content-Type',
+            'Access-Control-Request-Method', 'Access-Control-Request-Headers'],
     $exposed_headers = [],
     $allow_credentials = false,
     $preflight_max_age = 1800,
     $enable_logging = false,
-    $owner = 'root',
-    $group = 'root',
+    $owner = 'jboss',
+    $group = 'jboss',
 ) {
     file { $title:
         ensure  => 'file',
@@ -73,6 +73,7 @@ define lightblue::service::cors::configure (
         owner   => $owner,
         group   => $group,
         content => template('lightblue/properties/lightblue-cors.json.erb'),
+        notify  => Service['jbossas'],
     }
 
 }
