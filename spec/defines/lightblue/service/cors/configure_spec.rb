@@ -23,8 +23,8 @@ describe 'lightblue::service::cors::configure' do
       should contain_file(config_file) \
       .with({
         'ensure' => 'file',
-        'owner'  => 'root',
-        'group'  => 'root',
+        'owner'  => 'jboss',
+        'group'  => 'jboss',
         'mode'   => '0644',
       }) \
         .with_content(/^\s*"urlPatterns": \["\/test", "\/data\/\*"\],$/) \
@@ -35,6 +35,7 @@ describe 'lightblue::service::cors::configure' do
         .with_content(/^\s*"allowCredentials": true,$/) \
         .with_content(/^\s*"preflightMaxAge": 1000,$/) \
         .with_content(/^\s*"enableLogging": true,$/)
+        .with_notify('Service[jbossas]') \
     end
   end
 
@@ -42,8 +43,8 @@ describe 'lightblue::service::cors::configure' do
     it do
       should contain_file(config_file).with({
         'ensure' => 'file',
-        'owner'  => 'root',
-        'group'  => 'root',
+        'owner'  => 'jboss',
+        'group'  => 'jboss',
         'mode'   => '0644',
       }) \
         .with_content(/^\s*"urlPatterns": \["\/\*"\],$/) \
@@ -55,6 +56,7 @@ describe 'lightblue::service::cors::configure' do
         .with_content(/^\s*"allowCredentials": false,$/) \
         .with_content(/^\s*"preflightMaxAge": 1800,$/) \
         .with_content(/^\s*"enableLogging": false,$/)
+        .with_notify('Service[jbossas]') \
     end
   end
 
