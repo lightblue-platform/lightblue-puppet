@@ -75,7 +75,7 @@ class lightblue::application::migrator (
     $migrator_log_dir = '/var/log/migrator',
     $generate_log4j = false,
     $java_home = undef,
-    $jar_path = '/var/lib/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
+    $jar_path = '/usr/share/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
     $service_log_name = 'console.log',
     $hostname = '$(hostname)',
     $serviceJvmOptions = [],
