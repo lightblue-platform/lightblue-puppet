@@ -1,0 +1,9 @@
+log4j.rootLogger=<%= @log_level %>,file
+
+# Direct log messages to a log file
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=<%=@log_file%>
+log4j.appender.file.MaxFileSize=<%= @log_max_file_size %>
+log4j.appender.file.MaxBackupIndex=<%= @log_max_backups_to_keep %>
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=<%= @log_pattern %>
