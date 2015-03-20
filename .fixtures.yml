@@ -1,5 +1,6 @@
 fixtures:
   repositories:
-    java_ks: "git://github.com/puppetlabs/puppetlabs-java_ks.git"    
+    java_ks: "git://github.com/puppetlabs/puppetlabs-java_ks.git"
+    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
   symlinks:
     lightblue: "#{source_dir}"
