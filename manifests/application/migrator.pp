@@ -165,7 +165,7 @@ class lightblue::application::migrator (
     } ->
     file { "$migrator_home_dir/conf":
       ensure   => 'link',
-      target   => $migrator_log_dir,
+      target   => $migrator_config_dir,
       before   => Service[$migrator_service_name],
       require  => File[$migrator_home_dir],
     }
