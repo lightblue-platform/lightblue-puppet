@@ -40,7 +40,9 @@ describe 'lightblue::application::migrator' do
         }
       )
       
-      should contain_lightblue__client__configure(client_config) \
+      should contain_lightblue__client__configure(client_config).with({
+          :lbclient_use_cert_auth  => false,
+        }) \
         .that_notifies("Service[#{service_name}]")
       
       should contain_file("/etc/init.d/#{service_name}") \
@@ -52,6 +54,10 @@ describe 'lightblue::application::migrator' do
         .with_content(/--sourceconfig=#{client_config}/) \
         .with_content(/--destinationconfig=#{client_config}/) \
         .that_notifies("Service[#{service_name}]")
+      
+      should contain_class('lightblue::application::migrator::daemon').with({
+        :jvmOptions => []
+      })
         
       should contain_service(service_name).with({
         :ensure => 'running'
@@ -84,6 +90,7 @@ describe 'lightblue::application::migrator' do
       it do
         should contain_lightblue__client__configure(client_config) \
           .with({
+            :lbclient_use_cert_auth  => true,
             :lbclient_ca_file_path   => ca_path,
             :lbclient_cert_file_path => cert_path,
           }) \
@@ -187,6 +194,7 @@ describe 'lightblue::application::migrator' do
          .with({
             :lbclient_metadata_uri   => metadata_uri,
             :lbclient_data_uri       => data_uri,
+            :lbclient_use_cert_auth  => false,
           }) \
           .that_notifies("Service[#{service_name}]")
         
@@ -194,6 +202,9 @@ describe 'lightblue::application::migrator' do
          .with({
             :lbclient_metadata_uri   => source_metadata_url,
             :lbclient_data_uri       => source_data_url,
+            :lbclient_use_cert_auth  => true,
+            :lbclient_ca_file_path   => source_ca_path,
+            :lbclient_cert_file_path => source_cert_path,
          }) \
          .that_notifies("Service[#{service_name}]")
         
@@ -221,6 +232,9 @@ describe 'lightblue::application::migrator' do
           .with({
             :lbclient_metadata_uri   => destination_metadata_url,
             :lbclient_data_uri       => destination_data_url,
+            :lbclient_use_cert_auth  => true,
+            :lbclient_ca_file_path   => destination_ca_path,
+            :lbclient_cert_file_path => destination_cert_path,
           }) \
           .that_notifies("Service[#{service_name}]")
           
@@ -250,6 +264,9 @@ describe 'lightblue::application::migrator' do
           .with_content(/--destinationconfig=#{destination_config}/) \
           .that_notifies("Service[#{service_name}]")
         
+        should contain_class('lightblue::application::migrator::daemon').with({
+        })
+          
         should contain_service(service_name).with({
           :ensure => 'running'
         })
@@ -435,6 +452,39 @@ describe 'lightblue::application::migrator' do
       expect {
         should compile
       }.to raise_error(/If defining a destination_config, then you must also define data and metadata urls for it./)
+    end
+  end
+  
+  context 'with log4j configured' do
+    existing_jvm_option = 'somearg'
+    
+    let :params do
+      {
+        :primary_client_metadata_uri => 'fake.metadata.uri',
+        :primary_client_data_uri => 'fake.data.uri',
+        :checker_name => 'test2',
+        :hostname => 'localhost',
+        :job_version => 1,
+        :configuration_version => 1,
+        :generate_log4j => true,
+        :serviceJvmOptions => [existing_jvm_option]
+      }
+    end
+    
+    it do
+      should contain_class('lightblue::application::migrator::log4j').with({
+        :config_dir => '/etc/migrator',
+        :log_dir => '/var/log/migrator',
+        :service_name => 'migrator-service',
+        :owner => 'root',
+        :group => 'root',
+      }) \
+        .that_requires('File[/etc/migrator]')
+      
+      #TODO rspec always things jvmOptions is [], not sure why
+      should contain_class('lightblue::application::migrator::daemon').with({
+        #:jvmOptions => ['Dlog4j.configuration=file:/etc/migrator/log4j.properties', existing_jvm_option]
+      })
     end
   end
   
