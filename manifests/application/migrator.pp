@@ -178,7 +178,7 @@ class lightblue::application::migrator (
           $primary_client_ca = $primary_client_ca_file_path
         }
         else{
-          $primary_client_ca = "$migrator_config_dir/primary.ca"
+          $primary_client_ca = "$migrator_config_dir/primary-lightblue.pem"
         }
 
         file { $primary_client_ca:
@@ -205,7 +205,7 @@ class lightblue::application::migrator (
           $primary_client_cert = $primary_client_cert_file_path
         }
         else{
-          $primary_client_cert = "$migrator_config_dir/primary.cert"
+          $primary_client_cert = "$migrator_config_dir/${basename($primary_client_cert_source)}"
         }
 
         file { $primary_client_cert:
@@ -262,7 +262,7 @@ class lightblue::application::migrator (
             $source_client_ca = $source_client_ca_file_path
           }
           else{
-            $source_client_ca = "$migrator_config_dir/source.ca"
+            $source_client_ca = "$migrator_config_dir/source-lightblue.pem"
           }
 
           file { $source_client_ca:
@@ -289,7 +289,7 @@ class lightblue::application::migrator (
             $source_client_cert = $source_client_cert_file_path
           }
           else{
-            $source_client_cert = "$migrator_config_dir/source.cert"
+            $source_client_cert = "$migrator_config_dir/${basename($source_client_cert_source)}"
           }
 
           file { $source_client_cert:
@@ -346,7 +346,7 @@ class lightblue::application::migrator (
             $destination_client_ca = $destination_client_ca_file_path
           }
           else{
-            $destination_client_ca = "$migrator_config_dir/destination.ca"
+            $destination_client_ca = "$migrator_config_dir/destination-lightblue.pem"
           }
 
           file { $destination_client_ca:
@@ -373,7 +373,7 @@ class lightblue::application::migrator (
             $destination_client_cert = $destination_client_cert_file_path
           }
           else{
-            $destination_client_cert = "$migrator_config_dir/destination.cert"
+            $destination_client_cert = "$migrator_config_dir/${basename($destination_client_cert_source)}"
           }
 
           file { $destination_client_cert:
