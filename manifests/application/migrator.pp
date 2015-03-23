@@ -205,7 +205,8 @@ class lightblue::application::migrator (
           $primary_client_cert = $primary_client_cert_file_path
         }
         else{
-          $primary_client_cert = "$migrator_config_dir/${basename($primary_client_cert_source)}"
+          $primary_basename = basename($primary_client_cert_source)
+          $primary_client_cert = "$migrator_config_dir/$primary_basename"
         }
 
         file { $primary_client_cert:
@@ -289,7 +290,8 @@ class lightblue::application::migrator (
             $source_client_cert = $source_client_cert_file_path
           }
           else{
-            $source_client_cert = "$migrator_config_dir/${basename($source_client_cert_source)}"
+            $source_basename = basename($source_client_cert_source)
+            $source_client_cert = "$migrator_config_dir/$source_basename"
           }
 
           file { $source_client_cert:
@@ -373,7 +375,8 @@ class lightblue::application::migrator (
             $destination_client_cert = $destination_client_cert_file_path
           }
           else{
-            $destination_client_cert = "$migrator_config_dir/${basename($destination_client_cert_source)}"
+            $destination_basename = basename($destination_client_cert_source)
+            $destination_client_cert = "$migrator_config_dir/$destination_basename"
           }
 
           file { $destination_client_cert:

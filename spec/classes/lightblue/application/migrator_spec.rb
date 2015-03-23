@@ -67,11 +67,11 @@ describe 'lightblue::application::migrator' do
   
   context 'with a user provided ca and cert' do
     ca_path = '/some/path/to/ca'
-    cert_path = '/some/path/to/cert'
+    cert_path = '/some/path/to/primary.cert'
     
     describe 'both present' do
       ca_source = 'ca source data'
-      cert_source = 'cert source data'
+      cert_source = '/path/to/primary.cert'
       
       let :params do
         {
@@ -148,17 +148,17 @@ describe 'lightblue::application::migrator' do
     describe 'both present' do
       source_metadata_url = 'fake.src.metadata.uri'
       source_data_url = 'fake.src.data.uri'
-      source_ca_path = '/etc/migrator/source.ca'
+      source_ca_path = '/etc/migrator/source-lightblue.pem'
       source_cert_path = '/etc/migrator/source.cert'
       source_ca_content = 'fake source ca content'
-      source_cert_content = 'fake source cert content'
+      source_cert_content = '/path/to/source.cert'
       
       destination_metadata_url = 'fake.dest.metadata.uri'
       destination_data_url = 'fake.dest.data.uri'
-      destination_ca_path = '/etc/migrator/destination.ca'
+      destination_ca_path = '/etc/migrator/destination-lightblue.pem'
       destination_cert_path = '/etc/migrator/destination.cert'
       destination_ca_content = 'fake destination ca content'
-      destination_cert_content = 'fake destination cert content'
+      destination_cert_content = '/path/to/destination.cert'
       
       let :params do
         {
