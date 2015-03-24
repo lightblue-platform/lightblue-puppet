@@ -475,13 +475,12 @@ describe 'lightblue::application::migrator' do
       should contain_class('lightblue::application::migrator::log4j').with({
         :config_dir => '/etc/migrator',
         :log_dir => '/var/log/migrator',
-        :service_name => 'migrator-service',
         :owner => 'root',
         :group => 'root',
       }) \
         .that_requires('File[/etc/migrator]')
       
-      #TODO rspec always things jvmOptions is [], not sure why
+      #TODO rspec always thinks jvmOptions is [], not sure why
       should contain_class('lightblue::application::migrator::daemon').with({
         #:jvmOptions => ['Dlog4j.configuration=file:/etc/migrator/log4j.properties', existing_jvm_option]
       })

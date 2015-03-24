@@ -422,7 +422,6 @@ class lightblue::application::migrator (
       class{ 'lightblue::application::migrator::log4j':
         config_dir   => $migrator_config_dir,
         log_dir      => $migrator_log_dir,
-        service_name => $migrator_service_name,
         owner        => $service_owner,
         group        => $service_group,
         require      => File[$migrator_config_dir],
