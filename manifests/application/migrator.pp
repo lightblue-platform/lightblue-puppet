@@ -68,9 +68,9 @@ class lightblue::application::migrator (
     $jsvc_version = 'latest',
     $java_home = undef,
     $jar_path = '/var/lib/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
-    $service_log_file = 'migrator.log',
+    $service_log_file = 'console.log',
     $hostname = '$(hostname)',
-    $serviceJvmOptions = {},
+    $serviceJvmOptions = [],
     $checker_name,
     $job_version,
     $configuration_version,
@@ -140,7 +140,7 @@ class lightblue::application::migrator (
     }
 
     if($primary_client_use_cert_auth and $primary_client_cert_source){
-      if(!$primary_client_ca_file_path){
+      if(!$primary_client_cert_file_path){
         fail('Must provide $primary_client_cert_file_path in order to deploy cert file.')
       }
 
