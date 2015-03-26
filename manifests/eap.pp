@@ -1,5 +1,29 @@
-# Installs EAP6 from internal repos
-# Declares a service to control eap6 instance
+# == Class: lightblue::eap
+#
+# Installs JBoss EAP and declares a service to control EAP.
+#
+# === Parameters
+#
+# [*config_dir*]
+#   The director in which jcliff configuration files are deployed.
+#
+# [*package_name*]
+#   The package name for JBoss EAP.
+#
+# [*package_ensure*]
+#   For 'ensure' value for the JBoss EAP package.
+#   See https://docs.puppetlabs.com/references/latest/type.html#package-attribute-ensure
+#
+# [*java_Xms*]
+#   Xms value for the java process.
+#
+# [*java_Xmx*]
+#   Xmx value for the java process.
+#
+# === Variables
+#
+# Module requires no global variables.
+#
 class lightblue::eap (
     $config_dir = '/etc/redhat/lightblue',
     $package_name = 'jbossas-standalone',
@@ -32,6 +56,15 @@ class lightblue::eap (
     mode    => '0644',
     require => Package[$package_name],
     notify  => Service['jbossas'],
+  }
+
+  # define log dir so it's 1) a resource in puppet 2) permissions are set correctly
+  file { '/var/log/jbossas/standalone/':
+    owner   => 'jboss',
+    group   => 'jboss',
+    mode    => '0755',
+    require => Package[$package_name],
+    before  => Service['jbossas'],
   }
 
   # fix logs dir to symlink correctly
