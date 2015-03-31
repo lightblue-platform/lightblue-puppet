@@ -2,6 +2,7 @@
 # that support the /etc/alternatives configuration abstraction.  This will also
 # provide the JAVA_HOME environment variable for Java based projects that only
 # support the environment style configuration.
+# Note: the alternatives entries for java is made by the company who package the RPM, such as http://pkgs.fedoraproject.org/cgit/java-1.7.0-openjdk.git/tree/java-1.7.0-openjdk.spec?h=f17 for openjdk7 and http://pkgs.fedoraproject.org/cgit/java-1.8.0-openjdk.git/tree/java-1.8.0-openjdk.spec for openjdk8 (which can be useful for insights for this class)
 include stdlib
 
 class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk') {
