@@ -1,30 +1,45 @@
 # == Define: lightblue::eap::client
 #
-# Client configuration for lightblue: ssl ca cert and cert for authentication.
-# Most settings have resonable defaults in hiera.
+# Configure a lightblue JBoss client by laying down puppetized configuration
+# inside a JBoss module named after the client application.
 #
 # === Parameters
 #
-# [*service_uri_data*]
-#   Description required.
+# [*data_service_uri*]
+#   URI of Lightblue data service.
 #
-# [*service_uri_metadata*]
-#   Description required.
+# [*metadata_service_uri*]
+#   URI of Lightblue metadata service.
+#
+# [*use_cert_auth*]
+#   Flag to indicate whether or not to use certificate based authentication with
+#   lightblue. Defaults to false. If true, auth_cert_source or auth_cert_content
+#   must be provided.
 #
 # [*auth_cert_source*]
-#   Description required.
+#   The source of the certificate to authenticate with the Lightblue services.
+#   Will be copied to the JBoss module, unless auth_cert_content is specified.
 #
-# [*ssl_ca_file_path*]
-#   Description required.
+# [*auth_cert_content*]
+#   The content of an auth certificate to be placed inside the JBoss module.
 #
 # [*auth_cert_file_path*]
-#   Description required.
+#   The destination file path inside the JBoss module to put the auth cert.
+#   Defaults to 'lb-${name}.pkcs12'.
 #
 # [*auth_cert_password*]
-#   Description required.
+#   The password for the auth cert.
 #
 # [*auth_cert_alias*]
-#   Description required.
+#   The alias for the cert.
+#
+# [*ssl_ca_source*]
+#   The source of the SSL certificate authority file. Will be copied to the
+#   JBoss module.
+#
+# [*ssl_ca_file_path*]
+#   The destination file path inside the JBoss module to put the SSL
+#   certificate authority file. Defaults to 'cacert.pem'.
 #
 # === Variables
 #
@@ -32,21 +47,29 @@
 #
 # === Examples
 #
-#    lightblue::eap::client { 'tncadmin' :
-#        auth_cert_source => hiera('appsjboss7::lightblue::app::tncadmin::cert'),
-#        auth_cert_password => hiera('appsjboss7::lightblue::app::tncadmin::pass'),
+#    lightblue::eap::client { 'myapp' :
+#        data_service_uri     => 'https://mylightblue.mycompany.com/rest/data',
+#        metadata_service_uri => 'https://mylightblue.mycompany.com/rest/metadata',
+#        use_cert_auth        => true,
+#        auth_cert_source     => 'puppet:///path/to/your/lb-myapp.pkcs12',
+#        auth_cert_password   => hiera('myapp::lightblue::pass'),
+#        ssl_ca_source        => 'puppet:///path/to/your/cacert.pem',
 #    }
 #
 define lightblue::eap::client (
-    $service_uri_data=hiera('lightblue::endpoint::data'),
-    $service_uri_metadata=hiera('lightblue::endpoint::metadata'),
-    $auth_cert_source="puppet:///certificates/pkcs12/lb-${name}.pkcs12",
-    $ssl_ca_file_path="cacert.pem",
+    $data_service_uri,
+    $metadata_service_uri,
+    $use_cert_auth=false,
+    $auth_cert_source=undef,
+    $auth_cert_content=undef,
     $auth_cert_file_path="lb-${name}.pkcs12",
-    $auth_cert_password,
-    $auth_cert_alias="lb-${name}")
+    $auth_cert_password=undef,
+    $auth_cert_alias="lb-${name}",
+    $ssl_ca_source=undef,
+    $ssl_ca_file_path="cacert.pem"
+)
 {
-    include lightblue::eap::client::modulepath
+    require lightblue::eap::client::modulepath
 
     $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
 
@@ -54,12 +77,12 @@ define lightblue::eap::client (
 
     # Setup the properties directory
     # mkdir -p equivalent in puppet is crazy :/
+    # Setup the module directory
     file { $module_dirs :
         ensure   => 'directory',
         owner    => 'jboss',
         group    => 'jboss',
         mode     => '0755',
-        require  => Class['lightblue::eap::client::modulepath']
     }
 
     file { "${module_path}/module.xml":
@@ -71,33 +94,53 @@ define lightblue::eap::client (
         require => File[$module_dirs],
     }
 
-    file { "${module_path}/appconfig.properties":
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        content => template('lightblue/properties/appconfigclient.properties.erb'),
-        notify  => Service['jbossas'],
-        require => File[$module_dirs],
-    }
-
     file { "${module_path}/${ssl_ca_file_path}":
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
         links   => 'follow',
-        source  => hiera('lightblue::client_ca_source'),
+        source  => $ssl_ca_source,
         notify  => Service['jbossas'],
         require => File[$module_dirs],
     }
 
-    file { "${module_path}/${auth_cert_file_path}":
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        links   => 'follow',
-        source  => $auth_cert_source,
-        notify  => Service['jbossas'],
-        require => File[$module_dirs],
+    if $use_cert_auth {
+        if $auth_cert_content {
+            file { "${module_path}/${auth_cert_file_path}":
+                mode    => '0644',
+                owner   => 'jboss',
+                group   => 'jboss',
+                links   => 'follow',
+                content => $auth_cert_content,
+                notify  => Service['jbossas'],
+                require => File[$module_dirs],
+            }
+        } elsif $auth_cert_source {
+            file { "${module_path}/${auth_cert_file_path}":
+                mode    => '0644',
+                owner   => 'jboss',
+                group   => 'jboss',
+                links   => 'follow',
+                source  => $auth_cert_source,
+                notify  => Service['jbossas'],
+                require => File[$module_dirs],
+            }
+        } else {
+            fail("If using certificate authentication, a source certificate or certificate content must be provided.")
+        }
     }
 
+    lightblue::client::configure{ "${module_path}/lightblue-client.properties":
+        owner                   => 'jboss',
+        group                   => 'jboss',
+        lbclient_metadata_uri   => $metadata_service_uri,
+        lbclient_data_uri       => $data_service_uri,
+        lbclient_use_cert_auth  => $use_cert_auth,
+        lbclient_ca_file_path   => $ssl_ca_file_path,
+        lbclient_cert_file_path => $auth_cert_file_path,
+        lbclient_cert_password  => $auth_cert_password,
+        lbclient_cert_alias     => $auth_cert_alias,
+        notify                  => Service['jbossas'],
+        require                 => File[$module_dirs],
+    }
 }

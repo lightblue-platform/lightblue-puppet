@@ -1,0 +1,28 @@
+---
+language: ruby
+rvm:
+    - 1.9.3
+    - 2.0.0
+    - 2.1.0
+
+before_script:
+   - bundle exec rake syntax
+   - bundle exec rake lint
+
+script: 
+    - bundle exec rake spec
+env:
+    - PUPPET_VERSION="~> 3.4.0"
+    - PUPPET_VERSION="~> 3.5.0"
+    - PUPPET_VERSION="~> 3.6.0"
+    - PUPPET_VERSION="~> 3.7.0"
+matrix:
+    exclude:
+        - rvm: 2.1.0
+          env: PUPPET_VERSION="~> 3.4.0"
+notifications:
+  email: false
+  irc:
+    channels:
+        - chat.freenode.net#lightblue
+    on_success: always

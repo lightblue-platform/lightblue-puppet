@@ -1,20 +1,20 @@
 require 'spec_helper'
 
 describe 'lightblue::service::plugin::graphite' do
-
+  
   context 'deploy graphite.sh' do
-
+    
     describe 'without prefix' do
       graphite_hostname = 'localhost'
       graphite_port = 1234
-
+      
       let :params do
         {
           :hostname => graphite_hostname,
           :port     => graphite_port
         }
       end
-
+      
       it do
         should contain_file('/etc/profile.d/graphite.sh') \
           .with({
@@ -29,10 +29,10 @@ describe 'lightblue::service::plugin::graphite' do
           .with_content(/^export GRAPHITE_PORT=#{graphite_port}$/)
       end
     end
-
+    
     describe 'with prefix' do
       graphite_prefix = 'mister'
-
+      
       let :params do
         {
           :hostname => 'localhost',
@@ -40,14 +40,14 @@ describe 'lightblue::service::plugin::graphite' do
           :prefix   => graphite_prefix
         }
       end
-
+      
       it do
         should contain_file('/etc/profile.d/graphite.sh') \
         .with_content(/^export GRAPHITE_PREFIX=#{graphite_prefix}$/)
       end
     end
   end
-
+  
   context 'graphite.sh is absent' do
     it do
       should contain_file('/etc/profile.d/graphite.sh') \
@@ -56,5 +56,5 @@ describe 'lightblue::service::plugin::graphite' do
         })
     end
   end
-
+  
 end

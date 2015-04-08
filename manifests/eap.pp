@@ -1,5 +1,29 @@
-# Installs EAP6 from internal repos
-# Declares a service to control eap6 instance
+# == Class: lightblue::eap
+#
+# Installs JBoss EAP and declares a service to control EAP.
+#
+# === Parameters
+#
+# [*config_dir*]
+#   The director in which jcliff configuration files are deployed.
+#
+# [*package_name*]
+#   The package name for JBoss EAP.
+#
+# [*package_ensure*]
+#   For 'ensure' value for the JBoss EAP package.
+#   See https://docs.puppetlabs.com/references/latest/type.html#package-attribute-ensure
+#
+# [*java_Xms*]
+#   Xms value for the java process.
+#
+# [*java_Xmx*]
+#   Xmx value for the java process.
+#
+# === Variables
+#
+# Module requires no global variables.
+#
 class lightblue::eap (
     $config_dir = '/etc/redhat/lightblue',
     $package_name = 'jbossas-standalone',

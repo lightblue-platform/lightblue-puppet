@@ -12,15 +12,26 @@
 # Setup saml base authentication.
 class lightblue::authentication::saml (
     $identity_url,
-    $service_url,
+    $key_store_source,
     $key_store_url,
     $key_store_pass,
     $signing_key_pass,
     $signing_key_alias,
     $validating_key_alias,
     $validating_alias_value,
+    $service_url='',
 ) {
     include lightblue::eap
+
+    # Land key store on file system
+    file { $key_store_url :
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        links   => 'follow',
+        source  => $key_store_source,
+        notify  => Service['jbossas'],
+    }
 
     lightblue::jcliff::config { 'lightblue-security-domain-saml.conf':
         content => template('lightblue/lightblue-security-domain-saml.conf.erb')
