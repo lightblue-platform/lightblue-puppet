@@ -31,12 +31,12 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   $jre_location = "${jvm_dir}jre-${java_version_distribution}"
   $alternative_priority = 9000000
   $java_package_jre_install = $java_specific_version ? {
-     undef   => "java-${java_version}-${java_distribution}",
-     default => "java-${java_version}-${java_distribution}-${java_specific_version}.${::architecture}"
+    undef   => "java-${java_version}-${java_distribution}",
+    default => "java-${java_version}-${java_distribution}-${java_specific_version}.${::architecture}"
   }
   $java_package_sdk_install = $java_specific_version ? {
-     undef   => "java-${java_version}-${java_distribution}-devel",
-     default => "java-${java_version}-${java_distribution}-devel-${java_specific_version}.${::architecture}"
+    undef   => "java-${java_version}-${java_distribution}-devel",
+    default => "java-${java_version}-${java_distribution}-devel-${java_specific_version}.${::architecture}"
   }
 
   package { 'java':
