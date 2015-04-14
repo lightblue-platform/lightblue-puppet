@@ -40,13 +40,15 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   }
 
   package { 'java':
-    ensure => [installed,$java_version],
+    ensure => [installed,$java_package_jre_install],
     name   => "${java_package_jre_install}",
+    alias  =>"java",
   }
   ->
   package { 'java-devel':
-    ensure => [installed,$java_version],
+    ensure => [installed,$java_package_sdk_install],
     name   => "${java_package_sdk_install}",
+    alias  =>"java-devel",
   }
   ->
   file { '/etc/profile.d/java-env.sh':
@@ -69,13 +71,6 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless => "test /etc/alternatives/jre_${java_distribution} -ef ${jre_location} && /usr/sbin/alternatives --display jre_${java_distribution} | grep link | grep ${jre_location}",
   }
-  ->
-  exec { "configure jre_${java_version}_${java_distribution}":
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
-    command => "/usr/sbin/alternatives --set jre_${java_version}_${java_distribution} '${jre_location}'",
-    require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
-    unless => "test /etc/alternatives/jre_${java_version}_${java_distribution} -ef ${jre_location} && /usr/sbin/alternatives --display jre_${java_version}_${java_distribution} | grep link | grep ${jre_location}",
-  }
 #jre section - end
   ->
 #sdk section - begin
@@ -91,13 +86,6 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
     command => "/usr/sbin/alternatives --set java_sdk_${java_distribution} '${java_sdk_location}'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless => "test /etc/alternatives/java_sdk_${java_distribution} -ef ${java_sdk_location} && /usr/sbin/alternatives --display java_sdk_${java_distribution} | grep link | grep ${java_sdk_location}",
-  }
-  ->
-  exec { "configure java_sdk_${java_version}_${java_distribution}":
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
-    command => "/usr/sbin/alternatives --set java_sdk_${java_version}_${java_distribution} '${java_sdk_location}'",
-    require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
-    unless => "test /etc/alternatives/java_sdk_${java_version}_${java_distribution} -ef ${java_sdk_location} && /usr/sbin/alternatives --display java_sdk_${java_version}_${java_distribution} | grep link | grep ${java_sdk_location}",
   }
 #sdk section - end
   ->
