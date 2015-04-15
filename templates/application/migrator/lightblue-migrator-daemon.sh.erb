@@ -1,0 +1,112 @@
+#!/bin/sh
+#
+# <%= service_name %>   Wraps the lightblue-migrator self-executing jar so that it can run as a service.
+# chkconfig: 345 99 05
+# description: Ensures that the legacy and new datasources are in sync.
+
+#This file is managed by Puppet, any changes will be overridden.
+
+# Setup variables
+JSVC_EXEC=<%= jsvc_exec %>
+<% if @java_home -%>
+JAVA_HOME_DIR=<%= java_home %>
+<% end -%>
+<% if @lib_dir -%>
+LIBS=<%= lib_dir %>
+<% end -%>
+
+MAIN_CLASS=<%= mainClass %>
+PID=/tmp/<%= service_name %>.pid
+
+LOG_OUT=<%= service_out_logfile %>
+LOG_ERR=<%= service_err_logfile %>
+
+do_exec()
+{
+<% if @lib_dir -%>
+    for f in $LIBS
+    do
+        CLASS_PATH=${f}:${CLASS_PATH}
+    done
+<% end -%>
+    
+    #Using a for loop in order to support wildcard characters.
+    for f in <%= jar_path %>
+    do
+        CLASS_PATH=${CLASS_PATH}:${f}
+    done
+
+<% 
+  jsvcCommand = []
+  jsvcCommand << "$JSVC_EXEC"
+  jsvcCommand << "-home $JAVA_HOME_DIR" if @java_home
+  jsvcCommand << "-cp $CLASS_PATH"
+  jsvcCommand << "-outfile $LOG_OUT"
+  jsvcCommand << "-errfile $LOG_ERR"
+  jsvcCommand << "-pidfile $PID"
+  
+  if @jvmOptions
+    @jvmOptions.each do |param|
+      jsvcCommand << "-#{param}"
+    end
+  end
+  
+  jsvcCommand << "$MAIN_CLASS"
+
+  if @arguments
+    @arguments.each do |key, value|
+      jsvcCommand << "--#{key}=#{value}"
+    end
+  end
+-%>
+    <%= jsvcCommand.join " \\\n        " %>
+}
+
+do_start()
+{
+    if [ -f "$PID" ]; then
+        echo "service is already running"
+    else
+        do_exec
+        echo "service started"
+    fi
+}
+
+do_stop()
+{
+    if [ -f "$PID" ]; then
+        $JSVC_EXEC -stop -pidfile $PID $MAIN_CLASS
+        echo "service stopped"
+    else
+        echo "service not running, will do nothing"
+    fi
+}
+
+do_status()
+{
+    if [ -f "$PID" ]; then
+        echo "service is running"
+    else
+        echo "service is not running"
+    fi
+}
+
+case "$1" in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart)
+        do_stop
+        do_start
+        ;;
+    status)
+        do_status
+        ;;
+    *)
+        echo "usage: daemon {start|stop|restart|status}" >&2
+        exit 3
+        ;;
+esac

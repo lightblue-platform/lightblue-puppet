@@ -97,4 +97,32 @@
      ]
 <% end -%>
    }
+
+<% if rdbms_servers_cfg.kind_of?(Array) -%>   
+   ,
+    "rdbms" : {
+        "type" : "com.redhat.lightblue.config.rdbms.RDBMSDataSourceConfiguration",
+        "metadataDataStoreParser" : "com.redhat.lightblue.metadata.rdbms.impl.RDBMSDataStoreParser",
+        "database" : "rdbms",
+        "connections" : [
+        <%
+        i = rdbms_servers_cfg.length
+        rdbms_servers_cfg.each do |connection|
+        -%>
+        {
+          "datasourceName" : "<%=connection['datasourceName']%>",
+          "JNDI" : "<%=connection['JNDI']%>"
+        }
+        <% if i > 1 then -%>
+        ,
+        <%
+        end 
+        i = i - 1
+        -%>
+        <% end -%>
+        ]
+<% end -%>  
+    }
+   
+   
 }
