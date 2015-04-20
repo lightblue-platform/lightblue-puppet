@@ -90,7 +90,6 @@
 #
 # === Examples
 #
-include lightblue::eap
 class lightblue::eap::module (
     $mongo_auth_mechanism,
     $mongo_auth_username,
@@ -121,6 +120,7 @@ class lightblue::eap::module (
     $metadata_cors_config=undef,
 )
 {
+    include lightblue::eap
     $directory = '/usr/share/jbossas/modules/com/redhat/lightblue/main'
 
     # Setup the properties directory
