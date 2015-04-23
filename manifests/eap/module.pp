@@ -119,8 +119,8 @@ class lightblue::eap::module (
     $data_cors_config=undef,
     $metadata_cors_config=undef,
 )
-inherits lightblue::eap
 {
+    include lightblue::eap
     $directory = '/usr/share/jbossas/modules/com/redhat/lightblue/main'
 
     # Setup the properties directory
