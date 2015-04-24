@@ -40,7 +40,7 @@ inherits lightblue::application {
         auth_cert_password => hiera('lightblue::eap::module::mgmt_app_cert_password'),
         auth_cert_file_path => hiera('lightblue::eap::module::mgmt_app_cert_file_path'),
         auth_cert_alias => hiera('lightblue::eap::module::mgmt_app_cert_alias'),
-        ssl_ca_source => hiera('lightblue::eap::module::mgmt_app_ca_file_path'),
+        ssl_ca_source => hiera('lightblue::client_ca_source'),
     }
 
 }
