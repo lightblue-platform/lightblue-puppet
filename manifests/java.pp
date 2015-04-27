@@ -4,13 +4,12 @@
 # support the environment style configuration.
 # Note: the alternatives entries for java is made by the company who package the RPM, such as http://pkgs.fedoraproject.org/cgit/java-1.7.0-openjdk.git/tree/java-1.7.0-openjdk.spec?h=f17 for openjdk7 and http://pkgs.fedoraproject.org/cgit/java-1.8.0-openjdk.git/tree/java-1.8.0-openjdk.spec for openjdk8 (which can be useful for insights for this class)
 
-#Examples of java package
-#java-1.7.0-openjdk-devel-1.7.0.71-2.5.3.1.el6.x86_64
-#java-1.8.0-openjdk-1.8.0.25-4.b18.fc21
-#java-1.8.0-openjdk-devel-1.8.0.40-24.b25.fc21.x86_64
-#java-majorVersion-destribution-IsSDK-specificVersion.arch
-#specificVersion = MajorAndMinorVersion + ReleaseVersion + Repository
-
+# Examples of java package
+# java-1.7.0-openjdk-devel-1.7.0.71-2.5.3.1.el6.x86_64
+# java-1.8.0-openjdk-1.8.0.25-4.b18.fc21
+# java-1.8.0-openjdk-devel-1.8.0.40-24.b25.fc21.x86_64
+# java-majorVersion-destribution-IsSDK-specificVersion.arch
+# specificVersion = MajorAndMinorVersion + ReleaseVersion + Repository
 class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', $java_specific_version = undef) {
 
   $java_jre_location = $::architecture ? {
