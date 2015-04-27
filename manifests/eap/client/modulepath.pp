@@ -8,6 +8,12 @@ class lightblue::eap::client::modulepath {
         user    => 'jboss',
     }
 
+    # Certificate and password should be readable only by root and jboss
+    exec { "chmod_$module_path":
+        command => "chmod -R 440 $module_path",
+        require => Exec[$module_path]
+    }
+
     # The standard puppet way to create dirs recursively does not work when paths overlap
     # They do, because many modules are created in /usr/share/jbossas/modules/com...
 
@@ -20,7 +26,7 @@ class lightblue::eap::client::modulepath {
     #    ensure   => 'directory',
     #    owner    => 'jboss',
     #    group    => 'jboss',
-    #    mode     => '0755',
+    #    mode     => '0440',
     #}
 
 }
