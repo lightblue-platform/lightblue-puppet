@@ -40,13 +40,13 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   }
 
   package { 'java':
-    ensure => [installed,$java_package_jre_install],
+    ensure => $java_package_jre_install,
     name   => "${java_package_jre_install}",
     alias  =>"java",
   }
   ->
   package { 'java-devel':
-    ensure => [installed,$java_package_sdk_install],
+    ensure => $java_package_sdk_install,
     name   => "${java_package_sdk_install}",
     alias  =>"java-devel",
   }
