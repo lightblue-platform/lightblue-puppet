@@ -10,7 +10,7 @@ class lightblue::eap::client::modulepath {
 
     # Certificate and password should be readable only by root and jboss
     exec { "chmod_$module_path":
-        command => "chmod -R 440 $module_path",
+        command => "chmod -R 0550 $module_path",
         require => Exec[$module_path]
     }
 
