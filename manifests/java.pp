@@ -31,32 +31,23 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   $alternative_priority = 9000000
 
   if($java_specific_version == "latest" or $java_specific_version == "installed"){
-    $java_package_jre_install = $java_specific_version
+    $java_package_version = $java_specific_version
   }
   else{
-    $java_package_jre_install = $java_specific_version ? {
+    $java_package_version = $java_specific_version ? {
       undef       => "latest",
       default     => "${java_specific_version}"
     }
   }
-  if($java_specific_version == "latest" or $java_specific_version == "installed"){
-    $java_package_sdk_install = $java_specific_version
-  }
-  else{
-    $java_package_sdk_install = $java_specific_version ? {
-      undef   => "latest",
-      default => "${java_specific_version}"
-    }
-  }
 
   package { 'java':
-    ensure => $java_package_jre_install,
+    ensure => $java_package_version,
     name   => "java-${java_version}-${java_distribution}",
     alias  =>"java",
   }
   ->
   package { 'java-devel':
-    ensure => $java_package_sdk_install,
+    ensure => $java_package_version,
     name   => "java-${java_version}-${java_distribution}-devel",
     alias  =>"java-devel",
   }
