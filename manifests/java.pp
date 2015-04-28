@@ -36,7 +36,7 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   else{
     $java_package_jre_install = $java_specific_version ? {
       undef       => "latest",
-      default     => "${java_specific_version}.${::architecture}"
+      default     => "${java_specific_version}"
     }
   }
   if($java_specific_version == "latest" or $java_specific_version == "installed"){
@@ -45,7 +45,7 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   else{
     $java_package_sdk_install = $java_specific_version ? {
       undef   => "latest",
-      default => "${java_specific_version}.${::architecture}"
+      default => "${java_specific_version}"
     }
   }
 

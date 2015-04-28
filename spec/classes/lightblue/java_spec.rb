@@ -79,13 +79,13 @@ describe 'lightblue::java' do
     it do
       should contain_package('java').with(
         {
-          :ensure =>'1.8.0.40-24.b25.fc21.x86_64',
+          :ensure =>'1.8.0.40-24.b25.fc21',
           :name => 'java-1.8.0-openjdk',
         }
       )
       should contain_package('java-devel').with(
         {
-          :ensure =>'1.8.0.40-24.b25.fc21.x86_64',
+          :ensure =>'1.8.0.40-24.b25.fc21',
           :name => 'java-1.8.0-openjdk-devel',
         }
       )
@@ -200,13 +200,13 @@ describe 'lightblue::java' do
     it do
       should contain_package('java').with(
         {
-          :ensure => '1.8.0.40-24.b25.fc21.x86_64',
+          :ensure => '1.8.0.40-24.b25.fc21',
           :name => 'java-1.8.0-openjdk',
         }
       )
       should contain_package('java-devel').with(
         {
-          :ensure =>'1.8.0.40-24.b25.fc21.x86_64',
+          :ensure =>'1.8.0.40-24.b25.fc21',
           :name => 'java-1.8.0-openjdk-devel',
         }
       )
