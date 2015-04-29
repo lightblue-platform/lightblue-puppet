@@ -21,7 +21,7 @@ describe 'lightblue::client::configure' do
         'ensure' => 'file',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0644',
+        'mode'   => '0550',
       }) \
         .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
         .with_content(/^dataServiceURI=#{data_uri}/) \
