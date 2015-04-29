@@ -19,7 +19,6 @@ describe 'lightblue::eap::module' do
       should contain_file("#{module_dir}/datasources.json")
       should contain_file("#{module_dir}/module.xml")
       should contain_file("#{module_dir}/config.properties")
-      should contain_file("#{module_dir}/lb-metadata-mgmt.pkcs12")
       should contain_lightblue__service__cors__configure("#{module_dir}/lightblue-crud-cors.json") \
           .with({
             'url_patterns'      => ['/data/*'],
