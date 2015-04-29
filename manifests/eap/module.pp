@@ -195,26 +195,8 @@ class lightblue::eap::module (
         require => File[$directory],
     }
 
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/appconfig.properties':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        content => template('lightblue/properties/appconfig.properties.erb'),
-        notify  => Service['jbossas'],
-        require => File[$directory],
-    }
-
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-client.properties':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        content => template('lightblue/properties/appconfig.properties.erb'),
-        notify  => Service['jbossas'],
-        require => File[$directory],
-    }
-
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/config.properties':
-        mode    => '0644',
+        mode    => '0550',
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/config.properties.erb'),
@@ -238,26 +220,4 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File[$directory],
     }
-
-    # client-cert config
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/cacert.pem':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        links   => 'follow',
-        source  => $client_ca_source,
-        notify  => Service['jbossas'],
-        require => File[$directory],
-    }
-
-    file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/lb-metadata-mgmt.pkcs12':
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        links   => 'follow',
-        source  => $client_cert_source,
-        notify  => Service['jbossas'],
-        require => File[$directory],
-    }
-
 }
