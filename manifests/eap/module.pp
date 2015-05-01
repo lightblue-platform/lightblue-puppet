@@ -223,6 +223,7 @@ class lightblue::eap::module (
     # Ensure deprecated settings are removed from filesystem
     file { [ '/usr/share/jbossas/modules/com/redhat/lightblue/main/appconfig.properties',
         '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-client.properties',
+        '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-cilent.properties',
         '/usr/share/jbossas/modules/com/redhat/lightblue/main/cacert.pem',
         '/usr/share/jbossas/modules/com/redhat/lightblue/main/lb-metadata-mgmt.pkcs12']:
         ensure => absent,

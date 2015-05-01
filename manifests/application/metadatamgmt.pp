@@ -17,6 +17,14 @@
 class lightblue::application::metadatamgmt (
     $package_name = 'lightblue-metadata-mgmt',
     $package_ensure = latest,
+    $mgmt_app_data_service_uri,
+    $mgmt_app_metadata_service_uri,
+    $mgmt_app_use_cert_auth,
+    $mgmt_app_cert_file_path,
+    $mgmt_app_cert_password,
+    $mgmt_app_cert_alias,
+    $client_ca_source,
+    $client_cert_source,
 )
 inherits lightblue::application {
     include lightblue::base
@@ -31,16 +39,16 @@ inherits lightblue::application {
       include lightblue::authentication::saml
     }
 
-    # It would be prettier to rename all mgmt_app keys in hiera for lightblue::application::metadatamgmt class
     lightblue::eap::client { "metadata-mgmt":
-        data_service_uri => hiera('lightblue::endpoint::service::data'),
-        metadata_service_uri => hiera('lightblue::endpoint::service::metadata'),
-        use_cert_auth => hiera('lightblue::eap::module::mgmt_app_use_cert_auth'),
-        auth_cert_source => hiera('lightblue::eap::module::client_cert_source'),
-        auth_cert_password => hiera('lightblue::eap::module::mgmt_app_cert_password'),
-        auth_cert_file_path => hiera('lightblue::eap::module::mgmt_app_cert_file_path'),
-        auth_cert_alias => hiera('lightblue::eap::module::mgmt_app_cert_alias'),
-        ssl_ca_source => hiera('lightblue::client_ca_source'),
+        data_service_uri => $mgmt_app_data_service_uri,
+        metadata_service_uri => $mgmt_app_metadata_service_uri,
+        use_cert_auth => $mgmt_app_metadata_service_uri,
+        auth_cert_source => $client_cert_source,
+        auth_cert_password => $mgmt_app_cert_password,
+        auth_cert_file_path => $mgmt_app_cert_file_path,
+        auth_cert_alias => $mgmt_app_cert_alias,
+        ssl_ca_source => $client_ca_source
     }
+
 
 }
