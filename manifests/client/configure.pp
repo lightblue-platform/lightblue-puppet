@@ -43,7 +43,7 @@ define lightblue::client::configure (
 
     file { $title:
         ensure => 'file',
-        mode    => '0644',
+        mode    => '0440',
         owner   => $owner,
         group   => $group,
         content => template('lightblue/client/lightblue-client.properties.erb'),

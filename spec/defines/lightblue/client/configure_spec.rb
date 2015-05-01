@@ -21,7 +21,7 @@ describe 'lightblue::client::configure' do
         'ensure' => 'file',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0644',
+        'mode'   => '0440',
       }) \
         .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
         .with_content(/^dataServiceURI=#{data_uri}/) \
@@ -53,7 +53,7 @@ describe 'lightblue::client::configure' do
           'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
-          'mode'   => '0644',
+          'mode'   => '0440',
         }) \
           .with_content(/^metadataServiceURI=#{metadata_uri}$/) \
           .with_content(/^dataServiceURI=#{data_uri}/) \
@@ -84,7 +84,7 @@ describe 'lightblue::client::configure' do
           'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
-          'mode'   => '0644',
+          'mode'   => '0440',
         }) \
           .with_content(/^caFilePath=file:\/\/#{ca_file_path}/) \
           .with_content(/^certFilePath=file:\/\/#{cert_file_path}/)
