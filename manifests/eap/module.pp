@@ -38,22 +38,6 @@
 #
 # [*additional_backend_controllers*]
 #
-# [*mgmt_app_service_URI*]
-#
-# [*mgmt_app_use_cert_auth*]
-#
-# [*mgmt_app_ca_file_path*]
-#
-# [*mgmt_app_cert_file_path*]
-#
-# [*mgmt_app_cert_password*]
-#
-# [*mgmt_app_cert_alias*]
-#
-# [*client_ca_source*]
-#
-# [*client_cert_source*]
-#
 # [*data_cors_config*]
 #   Hash for configuring cross-origin resource sharing for the data service. All
 #   fields are optional, and the presence of an empty hash is enough to enable CORS
@@ -95,14 +79,6 @@ class lightblue::eap::module (
     $mongo_auth_username,
     $mongo_auth_password,
     $mongo_auth_source,
-    $mgmt_app_service_URI,
-    $mgmt_app_use_cert_auth,
-    $mgmt_app_ca_file_path,
-    $mgmt_app_cert_file_path,
-    $mgmt_app_cert_password,
-    $mgmt_app_cert_alias,
-    $client_ca_source,
-    $client_cert_source,
     $hystrix_command_default_execution_isolation_strategy = 'THREAD',
     $hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds = 60000,
     $hystrix_command_default_circuitBreaker_enabled = false,
