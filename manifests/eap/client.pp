@@ -82,7 +82,7 @@ define lightblue::eap::client (
         ensure   => 'directory',
         owner    => 'jboss',
         group    => 'jboss',
-        mode     => '0755',
+        mode     => '0440',
     }
 
     file { "${module_path}/module.xml":
@@ -95,7 +95,7 @@ define lightblue::eap::client (
     }
 
     file { "${module_path}/${ssl_ca_file_path}":
-        mode    => '0644',
+        mode    => '0440',
         owner   => 'jboss',
         group   => 'jboss',
         links   => 'follow',
@@ -107,7 +107,7 @@ define lightblue::eap::client (
     if $use_cert_auth {
         if $auth_cert_content {
             file { "${module_path}/${auth_cert_file_path}":
-                mode    => '0644',
+                mode    => '0440',
                 owner   => 'jboss',
                 group   => 'jboss',
                 links   => 'follow',
@@ -117,7 +117,7 @@ define lightblue::eap::client (
             }
         } elsif $auth_cert_source {
             file { "${module_path}/${auth_cert_file_path}":
-                mode    => '0644',
+                mode    => '0440',
                 owner   => 'jboss',
                 group   => 'jboss',
                 links   => 'follow',

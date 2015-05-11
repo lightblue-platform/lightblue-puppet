@@ -20,6 +20,7 @@
 	  <% if @ca_certificate_password && @ca_certificate_password != '' %>
 	     "ca-certificate-password" => "<%=ca_certificate_password%>",
 	  <% end -%>
+	     "verify-client" => "want",
 	}},
 	
 <% end -%>
