@@ -54,12 +54,12 @@ do_exec()
   jsvcCommand << "$MAIN_CLASS"
 
   if @arguments
-    @arguments.each do |key, value|
+    @arguments.sort.each do |key, value|
       jsvcCommand << "--#{key}=#{value}"
     end
   end
 -%>
-    <%= jsvcCommand.join " \\\n        " %>
+    <%= jsvcCommand.sort.join " \\\n        " %>
 }
 
 do_start()
