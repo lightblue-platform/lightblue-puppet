@@ -29,6 +29,8 @@
 # }
 #
 define lightblue::client::configure (
+    $lbclient_metadata_uri,
+    $lbclient_data_uri,
     $owner = 'root',
     $group = 'root',
     $lbclient_use_cert_auth = false,
@@ -37,8 +39,6 @@ define lightblue::client::configure (
     $lbclient_cert_password = undef,
     $lbclient_cert_alias = undef,
     $lbclient_use_physical_file = false,
-    $lbclient_metadata_uri,
-    $lbclient_data_uri,
 ) {
 
     file { $title:
