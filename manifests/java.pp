@@ -27,7 +27,7 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   }
   $jvm_dir = '/usr/lib/jvm/'
   $jvm_export = '/usr/lib/jvm-exports/'
-  $jre_location = '${jvm_dir}jre-${java_version_distribution}'
+  $jre_location = "${jvm_dir}jre-${java_version_distribution}"
   $alternative_priority = 9000000
 
   if($java_specific_version == 'latest' or $java_specific_version == 'installed'){
