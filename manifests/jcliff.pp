@@ -44,12 +44,12 @@ class lightblue::jcliff (
     }
 
     exec { 'configure-eap6' :
-        command      => "/usr/bin/jcliff --cli=${jboss_home}/bin/jboss-cli.sh --controller=${management_host}:${management_port} ${jcliff_log_dir_option} ${config_dir}/*.conf",
-        logoutput    => true,
-        timeout      => 0,
-        onlyif       => "ls ${config_dir}/*.conf",
-        require      => [ Class['lightblue::eap'], Service['jbossas'], Package['jcliff'], File[$log_dir] ],
-        notify       => [ Exec['deploy-apps'], Exec['reload-check'] ],
+        command   => "/usr/bin/jcliff --cli=${jboss_home}/bin/jboss-cli.sh --controller=${management_host}:${management_port} ${jcliff_log_dir_option} ${config_dir}/*.conf",
+        logoutput => true,
+        timeout   => 0,
+        onlyif    => "ls ${config_dir}/*.conf",
+        require   => [ Class['lightblue::eap'], Service['jbossas'], Package['jcliff'], File[$log_dir] ],
+        notify    => [ Exec['deploy-apps'], Exec['reload-check'] ],
     }
 
     if $deploy_apps {

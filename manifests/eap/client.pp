@@ -66,7 +66,7 @@ define lightblue::eap::client (
     $auth_cert_password=undef,
     $auth_cert_alias="lb-${name}",
     $ssl_ca_source=undef,
-    $ssl_ca_file_path="cacert.pem"
+    $ssl_ca_file_path='cacert.pem'
 )
 {
     require lightblue::eap::client::modulepath
@@ -79,10 +79,10 @@ define lightblue::eap::client (
     # mkdir -p equivalent in puppet is crazy :/
     # Setup the module directory
     file { $module_dirs :
-        ensure   => 'directory',
-        owner    => 'jboss',
-        group    => 'jboss',
-        mode     => '0440',
+        ensure => 'directory',
+        owner  => 'jboss',
+        group  => 'jboss',
+        mode   => '0440',
     }
 
     file { "${module_path}/module.xml":
@@ -126,7 +126,7 @@ define lightblue::eap::client (
                 require => File[$module_dirs],
             }
         } else {
-            fail("If using certificate authentication, a source certificate or certificate content must be provided.")
+            fail('If using certificate authentication, a source certificate or certificate content must be provided.')
         }
     }
 

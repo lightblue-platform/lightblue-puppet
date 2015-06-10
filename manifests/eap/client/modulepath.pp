@@ -4,7 +4,7 @@ class lightblue::eap::client::modulepath {
     $module_path = '/usr/share/jbossas/modules/com/redhat/lightblue/client'
 
     exec { $module_path:
-        command => "mkdir -p $module_path",
+        command => "mkdir -p ${module_path}",
         user    => 'jboss',
     }
 
