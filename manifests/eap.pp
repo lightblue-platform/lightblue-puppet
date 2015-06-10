@@ -41,11 +41,11 @@ class lightblue::eap (
   }
 
   file { [ '/etc/redhat', $config_dir ] :
-    ensure   => 'directory',
-    owner    => 'jboss',
-    group    => 'jboss',
-    mode     => '0755',
-    require  => Package[$package_name],
+    ensure  => 'directory',
+    owner   => 'jboss',
+    group   => 'jboss',
+    mode    => '0755',
+    require => Package[$package_name],
   }
 
   # bind jboss to the correct address
