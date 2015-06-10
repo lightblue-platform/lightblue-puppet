@@ -445,7 +445,7 @@ class lightblue::application::migrator (
       service_err_logfile => $service_log_path,
       java_home           => $java_home,
       jar_path            => $jar_path,
-      mainClass           => 'com.redhat.lightblue.migrator.consistency.ConsistencyCheckerDaemon',
+      mainClass           => 'com.redhat.lightblue.migrator.Main',
       arguments           => {
         name              => $checker_name,
         hostname          => $hostname,
