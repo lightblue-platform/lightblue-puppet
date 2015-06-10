@@ -1,3 +1,4 @@
+#
 class lightblue::eap::module::datasources (
     $directory,
     $mongo_auth_mechanism,
@@ -18,10 +19,10 @@ class lightblue::eap::module::datasources (
     }
 
     file { "${directory}/datasources.json":
+        ensure  => 'file',
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
-        ensure  => 'file',
         content => template('lightblue/properties/datasources.json.erb'),
         notify  => Service['jbossas'],
         require => File[$directory],

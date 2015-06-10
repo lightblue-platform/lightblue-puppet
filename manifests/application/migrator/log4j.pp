@@ -1,3 +1,4 @@
+#
 class lightblue::application::migrator::log4j(
   $log_level = 'INFO',
   $log_file_name = 'migrator.log',
@@ -10,8 +11,8 @@ class lightblue::application::migrator::log4j(
   $group,
 ) {
 
-  $log4j_config_file = "$config_dir/log4j.properties"
-  $log_file = "$log_dir/$log_file_name"
+  $log4j_config_file = "${config_dir}/log4j.properties"
+  $log_file = "${log_dir}/${log_file_name}"
 
   file{ $log4j_config_file:
     ensure  => 'file',
