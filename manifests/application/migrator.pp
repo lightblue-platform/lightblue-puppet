@@ -17,8 +17,6 @@
 # $service_log_name                  - File name for jsvc to log stdout/stderr message too.
 # $checker_name                      - Name of this consistency-checker.
 # $hostname                          - Hostname to pass into consistency-checker. Defaults to $(hostname)
-# $configuration_version             - Configuration version to pass into consistency-checker.
-# $job_version                       - Job version to pass into consistency-checker.
 # $serviceJvmOptions                 - JVM options to pass into the service. Defaults to {}. -X will be appended to keys.
 #
 # $primary_config_file               - (required) Lightblue Client configuration file for the Mongo backend used for scheduling jobs.
@@ -81,8 +79,6 @@ class lightblue::application::migrator (
     $hostname = '$(hostname)',
     $serviceJvmOptions = [],
     $checker_name,
-    $job_version,
-    $configuration_version,
 
     #primary lightblue client to be used as migrator backend
     $primary_client_metadata_uri,
@@ -454,10 +450,6 @@ class lightblue::application::migrator (
         name              => $checker_name,
         hostname          => $hostname,
         config            => $primary_config_file,
-        configversion     => $configuration_version,
-        jobversion        => $job_version,
-        sourceconfig      => $source_config_file,
-        destinationconfig => $destination_config_file,
       },
       jvmOptions          => union($log4j_jvm_options, $serviceJvmOptions),
     } ~>
