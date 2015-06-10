@@ -104,33 +104,33 @@ class lightblue::eap::module (
         '/usr/share/jbossas/modules/com/redhat',
         '/usr/share/jbossas/modules/com/redhat/lightblue',
         $directory ]:
-        ensure   => 'directory',
-        owner    => 'jboss',
-        group    => 'jboss',
-        mode     => '0755',
-        require  => Package[$lightblue::eap::package_name],
+        ensure  => 'directory',
+        owner   => 'jboss',
+        group   => 'jboss',
+        mode    => '0755',
+        require => Package[$lightblue::eap::package_name],
     }
 
     # class to deploy datasources.json
     class {'lightblue::eap::module::datasources':
-        directory               => $directory,
-        mongo_auth_mechanism    => $mongo_auth_mechanism,
-        mongo_auth_username     => $mongo_auth_username,
-        mongo_auth_password     => $mongo_auth_password,
-        mongo_auth_source       => $mongo_auth_source,
-        mongo_servers_cfg       => $mongo_servers_cfg,
-        mongo_ssl               => $mongo_ssl,
-        mongo_noCertValidation  => $mongo_noCertValidation,
-        rdbms_servers_cfg       => $rdbms_servers_cfg,
+        directory              => $directory,
+        mongo_auth_mechanism   => $mongo_auth_mechanism,
+        mongo_auth_username    => $mongo_auth_username,
+        mongo_auth_password    => $mongo_auth_password,
+        mongo_auth_source      => $mongo_auth_source,
+        mongo_servers_cfg      => $mongo_servers_cfg,
+        mongo_ssl              => $mongo_ssl,
+        mongo_noCertValidation => $mongo_noCertValidation,
+        rdbms_servers_cfg      => $rdbms_servers_cfg,
     }
 
     # class to deploy lightblue-metadata.json
     class {'lightblue::eap::module::metadata':
-        directory                   => $directory,
-        hook_configuration_parsers  => $hook_configuration_parsers,
-        backend_parsers             => $backend_parsers,
-        property_parsers            => $property_parsers,
-        metadata_roles              => $metadata_roles,
+        directory                  => $directory,
+        hook_configuration_parsers => $hook_configuration_parsers,
+        backend_parsers            => $backend_parsers,
+        property_parsers           => $property_parsers,
+        metadata_roles             => $lightblue::eap::module::metadata::metadata_roles,
     }
 
     if $data_cors_config != undef {
