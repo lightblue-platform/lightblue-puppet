@@ -9,9 +9,9 @@
 # $migrator_version                  - Version of consistency-checker rpm to install. Defaults to latest.
 # $generate_log4j                    - Boolean indicating if a log4j.properties file should be generated. Defaults to false
 # $jsvc_version                      - Version of the jsvc package to install. Defaults to latest.
-# $migrator_home_dir                 - Absolute home directory of the migrator installation. Defaults to '/usr/share/migrator'.
-# $migrator_config_dir               - Absolute config directory. Defaults to '/etc/migrator'.
-# $migrator_log_dir                  - Absolute log directory. Defaults to '/var/log/migrator'.
+# $migrator_home_dir                 - Absolute home directory of the migrator installation. Defaults to '/usr/share/lightblue-migrator'.
+# $migrator_config_dir               - Absolute config directory. Defaults to '/etc/lightblue-migrator'.
+# $migrator_log_dir                  - Absolute log directory. Defaults to '/var/log/lightblue-migrator'.
 # $java_home                         - (optional) Specify the java home directory. Defaults to JAVA_HOME.
 # $jar_path                          - (optional) Specify the path to the jar file to be wrapped in the service.
 # $service_log_name                  - File name for jsvc to log stdout/stderr message too.
@@ -70,9 +70,9 @@ class lightblue::application::migrator (
     $service_group = 'root',
     $migrator_version = 'latest',
     $jsvc_version = 'latest',
-    $migrator_home_dir = '/usr/share/migrator',
-    $migrator_config_dir = '/etc/migrator',
-    $migrator_log_dir = '/var/log/migrator',
+    $migrator_home_dir = '/usr/share/lightblue-migrator',
+    $migrator_config_dir = '/etc/lightblue-migrator',
+    $migrator_log_dir = '/var/log/lightblue-migrator',
     $generate_log4j = false,
     $java_home = undef,
     $migrator_package_name = 'lightblue-migrator',
