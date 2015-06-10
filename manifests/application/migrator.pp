@@ -75,6 +75,7 @@ class lightblue::application::migrator (
     $migrator_log_dir = '/var/log/migrator',
     $generate_log4j = false,
     $java_home = undef,
+    $migrator_package_name = 'lightblue-migrator',
     $jar_path = '/usr/share/lightblue-migrator/lightblue-migrator-*.jar',
     $service_log_name = 'console.log',
     $hostname = '$(hostname)',
@@ -122,7 +123,6 @@ class lightblue::application::migrator (
     require lightblue::java
 
     $migrator_service_name = 'migrator-service'
-    $migrator_package_name = 'lightblue-migrator'
 
     #migrator home directory
     file { $migrator_home_dir:
