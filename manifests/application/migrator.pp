@@ -75,7 +75,7 @@ class lightblue::application::migrator (
     $migrator_log_dir = '/var/log/migrator',
     $generate_log4j = false,
     $java_home = undef,
-    $jar_path = '/usr/share/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
+    $jar_path = '/usr/share/lightblue-migrator/lightblue-migrator-*.jar',
     $service_log_name = 'console.log',
     $hostname = '$(hostname)',
     $serviceJvmOptions = [],
@@ -122,7 +122,7 @@ class lightblue::application::migrator (
     require lightblue::java
 
     $migrator_service_name = 'migrator-service'
-    $migrator_package_name = 'lightblue-migrator-consistency-checker'
+    $migrator_package_name = 'lightblue-migrator'
 
     #migrator home directory
     file { $migrator_home_dir:
@@ -432,6 +432,10 @@ class lightblue::application::migrator (
       $log4j_jvm_options = []
     }
 
+    package {'lightblue-migrator-consistency-checker':
+      #old package for the migrator, it should be uninstalled.
+      ensure => 'absent'
+    } ->
     package { $migrator_package_name:
       ensure  => $migrator_version,
       notify  => [Service[$migrator_service_name]],
