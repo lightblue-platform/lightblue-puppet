@@ -6,11 +6,11 @@ define lightblue::jcliff::config (
   include lightblue::jcliff
 
   file{ "${lightblue::jcliff::jcliff_config_dir}/$name":
-    mode   => '0644',
-    owner  => 'jboss',
-    group  => 'jboss',
-    content=> $content,
-    notify => Exec['configure-eap6'],
-    require=> [ Package['jcliff'], Exec['clean-eap6-configs'] ],
+    mode    => '0644',
+    owner   => 'jboss',
+    group   => 'jboss',
+    content => $content,
+    notify  => Exec['configure-eap6'],
+    require => [ Package['jcliff'], Exec['clean-eap6-configs'] ],
   }
 }

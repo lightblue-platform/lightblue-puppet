@@ -42,7 +42,7 @@ define lightblue::client::configure (
 ) {
 
     file { $title:
-        ensure => 'file',
+        ensure  => 'file',
         mode    => '0440',
         owner   => $owner,
         group   => $group,

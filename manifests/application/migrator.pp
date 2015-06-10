@@ -126,48 +126,48 @@ class lightblue::application::migrator (
 
     #migrator home directory
     file { $migrator_home_dir:
-      ensure   => 'directory',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0755',
-      before   => Service[$migrator_service_name],
+      ensure => 'directory',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0755',
+      before => Service[$migrator_service_name],
     }
 
     #migrator logging directory
-    $service_log_path = "$migrator_log_dir/$service_log_name"
+    $service_log_path = "${migrator_log_dir}/${service_log_name}"
     file { $migrator_log_dir:
-      ensure   => 'directory',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0755',
-      before   => Service[$migrator_service_name],
+      ensure => 'directory',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0755',
+      before => Service[$migrator_service_name],
     } ->
     file { $service_log_path:
-      ensure   => 'file',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0644',
+      ensure => 'file',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0644',
     } ->
-    file { "$migrator_home_dir/log":
-      ensure   => 'link',
-      target   => $migrator_log_dir,
-      before   => Service[$migrator_service_name],
-      require  => File[$migrator_home_dir],
+    file { "${migrator_home_dir}/log":
+      ensure  => 'link',
+      target  => $migrator_log_dir,
+      before  => Service[$migrator_service_name],
+      require => File[$migrator_home_dir],
     }
 
     #migrator config directory
     file { $migrator_config_dir:
-      ensure   => 'directory',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0755',
-      before   => Service[$migrator_service_name],
+      ensure => 'directory',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0755',
+      before => Service[$migrator_service_name],
     } ->
-    file { "$migrator_home_dir/conf":
-      ensure   => 'link',
-      target   => $migrator_config_dir,
-      before   => Service[$migrator_service_name],
-      require  => File[$migrator_home_dir],
+    file { "${migrator_home_dir}/conf":
+      ensure  => 'link',
+      target  => $migrator_config_dir,
+      before  => Service[$migrator_service_name],
+      require => File[$migrator_home_dir],
     }
 
     #configure primary lightblue instance
@@ -178,7 +178,7 @@ class lightblue::application::migrator (
           $primary_client_ca = $primary_client_ca_file_path
         }
         else{
-          $primary_client_ca = "$migrator_config_dir/primary-lightblue.pem"
+          $primary_client_ca = "${migrator_config_dir}/primary-lightblue.pem"
         }
 
         file { $primary_client_ca:
@@ -206,7 +206,7 @@ class lightblue::application::migrator (
         }
         else{
           $primary_basename = basename($primary_client_cert_source)
-          $primary_client_cert = "$migrator_config_dir/$primary_basename"
+          $primary_client_cert = "${migrator_config_dir}/${primary_basename}"
         }
 
         file { $primary_client_cert:
@@ -232,7 +232,7 @@ class lightblue::application::migrator (
       $primary_client_cert = undef
     }
 
-    $primary_config_file = "$migrator_config_dir/primary-lightblue-client.properties"
+    $primary_config_file = "${migrator_config_dir}/primary-lightblue-client.properties"
     lightblue::client::configure { $primary_config_file:
       owner                   => $service_owner,
       group                   => $service_group,
@@ -263,7 +263,7 @@ class lightblue::application::migrator (
             $source_client_ca = $source_client_ca_file_path
           }
           else{
-            $source_client_ca = "$migrator_config_dir/source-lightblue.pem"
+            $source_client_ca = "${migrator_config_dir}/source-lightblue.pem"
           }
 
           file { $source_client_ca:
@@ -291,7 +291,7 @@ class lightblue::application::migrator (
           }
           else{
             $source_basename = basename($source_client_cert_source)
-            $source_client_cert = "$migrator_config_dir/$source_basename"
+            $source_client_cert = "${migrator_config_dir}/${source_basename}"
           }
 
           file { $source_client_cert:
@@ -317,7 +317,7 @@ class lightblue::application::migrator (
         $source_client_cert = undef
       }
 
-      $source_config_file = "$migrator_config_dir/source-lightblue-client.properties"
+      $source_config_file = "${migrator_config_dir}/source-lightblue-client.properties"
       lightblue::client::configure { $source_config_file:
         owner                   => $service_owner,
         group                   => $service_group,
@@ -348,7 +348,7 @@ class lightblue::application::migrator (
             $destination_client_ca = $destination_client_ca_file_path
           }
           else{
-            $destination_client_ca = "$migrator_config_dir/destination-lightblue.pem"
+            $destination_client_ca = "${migrator_config_dir}/destination-lightblue.pem"
           }
 
           file { $destination_client_ca:
@@ -376,7 +376,7 @@ class lightblue::application::migrator (
           }
           else{
             $destination_basename = basename($destination_client_cert_source)
-            $destination_client_cert = "$migrator_config_dir/$destination_basename"
+            $destination_client_cert = "${migrator_config_dir}/${destination_basename}"
           }
 
           file { $destination_client_cert:
@@ -402,7 +402,7 @@ class lightblue::application::migrator (
         $destination_client_cert = undef
       }
 
-      $destination_config_file = "$migrator_config_dir/destination-lightblue-client.properties"
+      $destination_config_file = "${migrator_config_dir}/destination-lightblue-client.properties"
       lightblue::client::configure { $destination_config_file:
         owner                   => $service_owner,
         group                   => $service_group,
@@ -420,11 +420,11 @@ class lightblue::application::migrator (
 
     if($generate_log4j){
       class{ 'lightblue::application::migrator::log4j':
-        config_dir   => $migrator_config_dir,
-        log_dir      => $migrator_log_dir,
-        owner        => $service_owner,
-        group        => $service_group,
-        require      => File[$migrator_config_dir],
+        config_dir => $migrator_config_dir,
+        log_dir    => $migrator_log_dir,
+        owner      => $service_owner,
+        group      => $service_group,
+        require    => File[$migrator_config_dir],
       }
       $log4j_jvm_options = ["Dlog4j.configuration=file:${::lightblue::application::migrator::log4j::log4j_config_file}"]
     }
@@ -433,8 +433,8 @@ class lightblue::application::migrator (
     }
 
     package { $migrator_package_name:
-      ensure  => $migrator_version,
-      notify  => [Service[$migrator_service_name]],
+      ensure => $migrator_version,
+      notify => [Service[$migrator_service_name]],
     } ->
     class { 'lightblue::application::migrator::daemon':
       jsvc_version        => $jsvc_version,

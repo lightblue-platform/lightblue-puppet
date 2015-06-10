@@ -68,8 +68,8 @@ class lightblue::application::migrator::daemon (
     }
 
     package { $jsvc_package_name:
-        ensure  => $jsvc_version,
-        notify  => [Service[$service_name]],
+        ensure => $jsvc_version,
+        notify => [Service[$service_name]],
     } ->
     file { "/etc/init.d/${service_name}":
         ensure  => 'file',
