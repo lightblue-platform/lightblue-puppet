@@ -130,7 +130,7 @@ class lightblue::eap::module (
         hook_configuration_parsers => $hook_configuration_parsers,
         backend_parsers            => $backend_parsers,
         property_parsers           => $property_parsers,
-        metadata_roles             => $metadata_roles,
+        metadata_roles             => $lightblue::eap::module::metadata::metadata_roles,
     }
 
     if $data_cors_config != undef {

@@ -36,7 +36,7 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   else{
     $java_package_version = $java_specific_version ? {
       undef       => 'latest',
-      default     => "${java_specific_version}"
+      default     => $java_specific_version
     }
   }
 

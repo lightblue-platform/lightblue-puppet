@@ -31,14 +31,14 @@
 define lightblue::client::configure (
     $owner = 'root',
     $group = 'root',
-    $lbclient_metadata_uri,
-    $lbclient_data_uri,
     $lbclient_use_cert_auth = false,
     $lbclient_ca_file_path = undef,
     $lbclient_cert_file_path = undef,
     $lbclient_cert_password = undef,
     $lbclient_cert_alias = undef,
     $lbclient_use_physical_file = false,
+    $lbclient_metadata_uri,
+    $lbclient_data_uri,
 ) {
 
     file { $title:
