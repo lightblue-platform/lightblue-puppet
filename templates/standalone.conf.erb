@@ -116,7 +116,7 @@ if [ "x$JAVA_OPTS" = "x" ]; then
   JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"
 <%- end -%>
 
-JAVA_OPTS="$JAVA_OPTS -Djavax.net.debug=ssl,handshake"
+JAVA_OPTS="$JAVA_OPTS -Djavax.net.debug=ssl:handshake"
 
 fi
 
