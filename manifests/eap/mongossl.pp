@@ -1,3 +1,4 @@
+#
 class lightblue::eap::mongossl (
     $certificate_file,
     $java_ks_password,
@@ -8,21 +9,21 @@ class lightblue::eap::mongossl (
     if ($certificate_source == '') {
         # no source is set, assume content is set
         file { $certificate_file:
-            ensure      => file,
-            owner       => 'jboss',
-            group       => 'jboss',
-            mode        => '0600',
-            require     => Package[$lightblue::eap::package_name],
-            content     => $certificate_content,
+            ensure  => file,
+            owner   => 'jboss',
+            group   => 'jboss',
+            mode    => '0600',
+            require => Package[$lightblue::eap::package_name],
+            content => $certificate_content,
         }
     } else {
         file { $certificate_file:
-            ensure      => file,
-            owner       => 'jboss',
-            group       => 'jboss',
-            mode        => '0600',
-            require     => Package[$lightblue::eap::package_name],
-            source      => $certificate_source,
+            ensure  => file,
+            owner   => 'jboss',
+            group   => 'jboss',
+            mode    => '0600',
+            require => Package[$lightblue::eap::package_name],
+            source  => $certificate_source,
         }
     }
 

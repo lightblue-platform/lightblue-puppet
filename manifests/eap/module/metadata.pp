@@ -1,3 +1,4 @@
+#
 class lightblue::eap::module::metadata (
     $directory,
     $hook_configuration_parsers = '',

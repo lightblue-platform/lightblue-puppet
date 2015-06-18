@@ -25,31 +25,31 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
     'i386'   => "${java_version}-${java_distribution}",
     'x86_64' => "${java_version}-${java_distribution}.${::architecture}"
   }
-  $jvm_dir = "/usr/lib/jvm/"
-  $jvm_export = "/usr/lib/jvm-exports/"
+  $jvm_dir = '/usr/lib/jvm/'
+  $jvm_export = '/usr/lib/jvm-exports/'
   $jre_location = "${jvm_dir}jre-${java_version_distribution}"
   $alternative_priority = 9000000
 
-  if($java_specific_version == "latest" or $java_specific_version == "installed"){
+  if($java_specific_version == 'latest' or $java_specific_version == 'installed'){
     $java_package_version = $java_specific_version
   }
   else{
     $java_package_version = $java_specific_version ? {
-      undef       => "latest",
-      default     => "${java_specific_version}"
+      undef       => 'latest',
+      default     => $java_specific_version
     }
   }
 
   package { 'java':
     ensure => $java_package_version,
     name   => "java-${java_version}-${java_distribution}",
-    alias  =>"java",
+    alias  => 'java',
   }
   ->
   package { 'java-devel':
     ensure => $java_package_version,
     name   => "java-${java_version}-${java_distribution}-devel",
-    alias  =>"java-devel",
+    alias  => 'java-devel',
   }
   ->
   file { '/etc/profile.d/java-env.sh':
@@ -60,51 +60,51 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   ->
 #jre section - begin
   exec { "configure jre_${java_version}":
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --set jre_${java_version} '${jre_location}'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
-    unless => "test /etc/alternatives/jre_${java_version} -ef ${jre_location} && /usr/sbin/alternatives --display jre_${java_version} | grep link | grep ${jre_location}",
+    unless  => "test /etc/alternatives/jre_${java_version} -ef ${jre_location} && /usr/sbin/alternatives --display jre_${java_version} | grep link | grep ${jre_location}",
   }
   ->
   exec { "configure jre_${java_distribution}":
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --set jre_${java_distribution} '${jre_location}'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
-    unless => "test /etc/alternatives/jre_${java_distribution} -ef ${jre_location} && /usr/sbin/alternatives --display jre_${java_distribution} | grep link | grep ${jre_location}",
+    unless  => "test /etc/alternatives/jre_${java_distribution} -ef ${jre_location} && /usr/sbin/alternatives --display jre_${java_distribution} | grep link | grep ${jre_location}",
   }
 #jre section - end
   ->
 #sdk section - begin
   exec { "configure java_sdk_${java_version}":
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --set java_sdk_${java_version} '${java_sdk_location}'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
-    unless => "test /etc/alternatives/java_sdk_${java_version} -ef ${java_sdk_location} && /usr/sbin/alternatives --display java_sdk_${java_version} | grep link | grep ${java_sdk_location}",
+    unless  => "test /etc/alternatives/java_sdk_${java_version} -ef ${java_sdk_location} && /usr/sbin/alternatives --display java_sdk_${java_version} | grep link | grep ${java_sdk_location}",
   }
   ->
   exec { "configure java_sdk_${java_distribution}":
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --set java_sdk_${java_distribution} '${java_sdk_location}'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
-    unless => "test /etc/alternatives/java_sdk_${java_distribution} -ef ${java_sdk_location} && /usr/sbin/alternatives --display java_sdk_${java_distribution} | grep link | grep ${java_sdk_location}",
+    unless  => "test /etc/alternatives/java_sdk_${java_distribution} -ef ${java_sdk_location} && /usr/sbin/alternatives --display java_sdk_${java_distribution} | grep link | grep ${java_sdk_location}",
   }
 #sdk section - end
   ->
 #java section - begin
   exec { 'configure java':
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --set java '${java_jre_location}'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java']],
-    unless => "test /etc/alternatives/java -ef ${java_jre_location} && /usr/sbin/alternatives --display java | grep link | grep ${java_jre_location}",
+    unless  => "test /etc/alternatives/java -ef ${java_jre_location} && /usr/sbin/alternatives --display java | grep link | grep ${java_jre_location}",
   }
 #java section - end
   ->
 #javac section - begin
   exec { 'configure javac':
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] ,
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --set javac '${java_sdk_location}/bin/javac'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
-    unless => "test /etc/alternatives/javac -ef ${java_sdk_location}/bin/javac && /usr/sbin/alternatives --display javac | grep link | grep ${java_sdk_location}/bin/javac",
+    unless  => "test /etc/alternatives/javac -ef ${java_sdk_location}/bin/javac && /usr/sbin/alternatives --display javac | grep link | grep ${java_sdk_location}/bin/javac",
   }
 #javac section - end
 }

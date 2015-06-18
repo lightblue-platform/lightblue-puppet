@@ -25,7 +25,9 @@ inherits lightblue::application {
 
     package { $package_name :
         ensure  => $package_ensure,
-        require => [ Class['lightblue::yumrepo::lightblue'], Class['lightblue::eap'] ],
+        require => [
+          Class['lightblue::yumrepo::lightblue'],
+          Class['lightblue::eap'] ],
     }
 
     if $package_name == 'lightblue-data-mgmt-saml-auth' {
