@@ -29,10 +29,10 @@
 # }
 #
 define lightblue::client::configure (
-    $owner = 'root',
-    $group = 'root',
     $lbclient_metadata_uri,
     $lbclient_data_uri,
+    $owner = 'root',
+    $group = 'root',
     $lbclient_use_cert_auth = false,
     $lbclient_ca_file_path = undef,
     $lbclient_cert_file_path = undef,
@@ -42,7 +42,7 @@ define lightblue::client::configure (
 ) {
 
     file { $title:
-        ensure => 'file',
+        ensure  => 'file',
         mode    => '0440',
         owner   => $owner,
         group   => $group,
