@@ -74,7 +74,7 @@ class lightblue::application::migrator (
     $generate_log4j = false,
     $java_home = undef,
     $migrator_package_name = 'lightblue-migrator',
-    $jar_path = '/usr/share/lightblue-migrator/lightblue-migrator-*.jar',
+    $jar_path = '/usr/share/lightblue-migrator/jdbc-migrators-*.jar',
     $service_log_name = 'console.log',
     $hostname = '$(hostname)',
     $serviceJvmOptions = [],
