@@ -25,12 +25,12 @@ class lightblue::authentication::saml (
 
     # Land key store on file system
     file { $key_store_url :
-        mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
-        links   => 'follow',
-        source  => $key_store_source,
-        notify  => Service['jbossas'],
+        mode   => '0644',
+        owner  => 'jboss',
+        group  => 'jboss',
+        links  => 'follow',
+        source => $key_store_source,
+        notify => Service['jbossas'],
     }
 
     lightblue::jcliff::config { 'lightblue-security-domain-saml.conf':
