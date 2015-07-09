@@ -14,4 +14,6 @@ class lightblue::eap::logging (
     lightblue::jcliff::config { 'authlogging.conf':
         content => template('lightblue/authlogging.conf.erb'),
     }
+
+    include lightblue::eap::access_log
 }
