@@ -11,4 +11,6 @@ class lightblue::eap::logging (
     }
 
     # setup access logging
+
+    include lightblue::eap::access_log
 }
