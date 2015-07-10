@@ -13,7 +13,7 @@ describe 'lightblue::eap::logging' do
   context 'defaults' do
     it do
       should contain_file("/jcliff/logging.conf")
-      should contain_file("/jcliff/accesslogging.conf")
+      should contain_file("/jcliff/web-access-log.conf")
     end
   end
 
