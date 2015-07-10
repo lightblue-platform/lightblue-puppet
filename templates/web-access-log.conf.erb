@@ -1,0 +1,21 @@
+{
+  "web" => {
+		"virtual-server" => {"default-host" =>{
+		"configuration" => {"access-log" => {
+
+                  <% if pattern and pattern != '' %>
+                    "pattern"  => "<%=pattern%>",
+		  <% end %>
+		  <% if rotate and rotate != '' %>
+                    "rotate"  => <%=rotate%>,
+		  <% end %>
+		  <% if prefix and prefix != '' %>
+                    "prefix"  => "<%=prefix%>",
+		  <% end %>
+                  <% if resolve_hosts and resolve_hosts != '' %>
+                    "resolve-hosts"  => <%=resolve_hosts%>,
+		  <% end %>
+		  }}
+		}}
+    }
+}
