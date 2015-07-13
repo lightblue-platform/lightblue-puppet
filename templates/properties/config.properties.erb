@@ -5,6 +5,9 @@ hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=<%=hyst
 # disable the circuit breaker, we deal with the errors
 hystrix.command.default.circuitBreaker.enabled=<%=hystrix_command_default_circuitBreaker_enabled%>
 
+# A workaround until https://github.com/lightblue-platform/lightblue-mongo/issues/125 is fixed
+hystrix.threadpool.default.coreSize=<%=hystrix_threadpool_mongodb_coreSize%>
+
 # Mongodb command settings
 hystrix.threadpool.mongodb.coreSize=<%=hystrix_threadpool_mongodb_coreSize%>
 

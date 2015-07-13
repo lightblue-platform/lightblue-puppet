@@ -37,11 +37,11 @@ class lightblue::eap::ssl (
 
     # pull certificate from the source
     file { $certificate_file:
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0600',
-        links   => 'follow',
-        source  => $certificate_source,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0600',
+        links  => 'follow',
+        source => $certificate_source,
     }
     #This will create the keystore at the target location, with the alias eap6 to the cert
     java_ks { "${keystore_alias}:keystore":

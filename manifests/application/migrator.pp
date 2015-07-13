@@ -9,16 +9,14 @@
 # $migrator_version                  - Version of consistency-checker rpm to install. Defaults to latest.
 # $generate_log4j                    - Boolean indicating if a log4j.properties file should be generated. Defaults to false
 # $jsvc_version                      - Version of the jsvc package to install. Defaults to latest.
-# $migrator_home_dir                 - Absolute home directory of the migrator installation. Defaults to '/usr/share/migrator'.
-# $migrator_config_dir               - Absolute config directory. Defaults to '/etc/migrator'.
-# $migrator_log_dir                  - Absolute log directory. Defaults to '/var/log/migrator'.
+# $migrator_home_dir                 - Absolute home directory of the migrator installation. Defaults to '/usr/share/lightblue-migrator'.
+# $migrator_config_dir               - Absolute config directory. Defaults to '/etc/lightblue-migrator'.
+# $migrator_log_dir                  - Absolute log directory. Defaults to '/var/log/lightblue-migrator'.
 # $java_home                         - (optional) Specify the java home directory. Defaults to JAVA_HOME.
 # $jar_path                          - (optional) Specify the path to the jar file to be wrapped in the service.
 # $service_log_name                  - File name for jsvc to log stdout/stderr message too.
 # $checker_name                      - Name of this consistency-checker.
 # $hostname                          - Hostname to pass into consistency-checker. Defaults to $(hostname)
-# $configuration_version             - Configuration version to pass into consistency-checker.
-# $job_version                       - Job version to pass into consistency-checker.
 # $serviceJvmOptions                 - JVM options to pass into the service. Defaults to {}. -X will be appended to keys.
 #
 # $primary_config_file               - (required) Lightblue Client configuration file for the Mongo backend used for scheduling jobs.
@@ -70,18 +68,17 @@ class lightblue::application::migrator (
     $service_group = 'root',
     $migrator_version = 'latest',
     $jsvc_version = 'latest',
-    $migrator_home_dir = '/usr/share/migrator',
-    $migrator_config_dir = '/etc/migrator',
-    $migrator_log_dir = '/var/log/migrator',
+    $migrator_home_dir = '/usr/share/lightblue-migrator',
+    $migrator_config_dir = '/etc/lightblue-migrator',
+    $migrator_log_dir = '/var/log/lightblue-migrator',
     $generate_log4j = false,
     $java_home = undef,
-    $jar_path = '/usr/share/jbossas/standalone/deployments/lightblue-migrator-consistency-checker-*.jar',
+    $migrator_package_name = 'lightblue-migrator',
+    $jar_path = '/usr/share/lightblue-migrator/lightblue-migrator-*.jar',
     $service_log_name = 'console.log',
     $hostname = '$(hostname)',
     $serviceJvmOptions = [],
     $checker_name,
-    $job_version,
-    $configuration_version,
 
     #primary lightblue client to be used as migrator backend
     $primary_client_metadata_uri,
@@ -122,52 +119,51 @@ class lightblue::application::migrator (
     require lightblue::java
 
     $migrator_service_name = 'migrator-service'
-    $migrator_package_name = 'lightblue-migrator-consistency-checker'
 
     #migrator home directory
     file { $migrator_home_dir:
-      ensure   => 'directory',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0755',
-      before   => Service[$migrator_service_name],
+      ensure => 'directory',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0755',
+      before => Service[$migrator_service_name],
     }
 
     #migrator logging directory
-    $service_log_path = "$migrator_log_dir/$service_log_name"
+    $service_log_path = "${migrator_log_dir}/${service_log_name}"
     file { $migrator_log_dir:
-      ensure   => 'directory',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0755',
-      before   => Service[$migrator_service_name],
+      ensure => 'directory',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0755',
+      before => Service[$migrator_service_name],
     } ->
     file { $service_log_path:
-      ensure   => 'file',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0644',
+      ensure => 'file',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0644',
     } ->
-    file { "$migrator_home_dir/log":
-      ensure   => 'link',
-      target   => $migrator_log_dir,
-      before   => Service[$migrator_service_name],
-      require  => File[$migrator_home_dir],
+    file { "${migrator_home_dir}/log":
+      ensure  => 'link',
+      target  => $migrator_log_dir,
+      before  => Service[$migrator_service_name],
+      require => File[$migrator_home_dir],
     }
 
     #migrator config directory
     file { $migrator_config_dir:
-      ensure   => 'directory',
-      owner    => $service_owner,
-      group    => $service_group,
-      mode     => '0755',
-      before   => Service[$migrator_service_name],
+      ensure => 'directory',
+      owner  => $service_owner,
+      group  => $service_group,
+      mode   => '0755',
+      before => Service[$migrator_service_name],
     } ->
-    file { "$migrator_home_dir/conf":
-      ensure   => 'link',
-      target   => $migrator_config_dir,
-      before   => Service[$migrator_service_name],
-      require  => File[$migrator_home_dir],
+    file { "${migrator_home_dir}/conf":
+      ensure  => 'link',
+      target  => $migrator_config_dir,
+      before  => Service[$migrator_service_name],
+      require => File[$migrator_home_dir],
     }
 
     #configure primary lightblue instance
@@ -178,7 +174,7 @@ class lightblue::application::migrator (
           $primary_client_ca = $primary_client_ca_file_path
         }
         else{
-          $primary_client_ca = "$migrator_config_dir/primary-lightblue.pem"
+          $primary_client_ca = "${migrator_config_dir}/primary-lightblue.pem"
         }
 
         file { $primary_client_ca:
@@ -206,7 +202,7 @@ class lightblue::application::migrator (
         }
         else{
           $primary_basename = basename($primary_client_cert_source)
-          $primary_client_cert = "$migrator_config_dir/$primary_basename"
+          $primary_client_cert = "${migrator_config_dir}/${primary_basename}"
         }
 
         file { $primary_client_cert:
@@ -232,15 +228,15 @@ class lightblue::application::migrator (
       $primary_client_cert = undef
     }
 
-    $primary_config_file = "$migrator_config_dir/primary-lightblue-client.properties"
+    $primary_config_file = "${migrator_config_dir}/primary-lightblue-client.properties"
     lightblue::client::configure { $primary_config_file:
       owner                   => $service_owner,
       group                   => $service_group,
       lbclient_metadata_uri   => $primary_client_metadata_uri,
       lbclient_data_uri       => $primary_client_data_uri,
       lbclient_use_cert_auth  => $primary_client_use_cert_auth,
-      lbclient_ca_file_path   => $primary_client_ca,
-      lbclient_cert_file_path => $primary_client_cert,
+      lbclient_ca_file_path   => "file://${primary_client_ca}",
+      lbclient_cert_file_path => "file://${primary_client_cert}",
       lbclient_cert_password  => $primary_client_cert_password,
       lbclient_cert_alias     => $primary_client_cert_alias,
       require                 => File[$migrator_config_dir],
@@ -263,7 +259,7 @@ class lightblue::application::migrator (
             $source_client_ca = $source_client_ca_file_path
           }
           else{
-            $source_client_ca = "$migrator_config_dir/source-lightblue.pem"
+            $source_client_ca = "${migrator_config_dir}/source-lightblue.pem"
           }
 
           file { $source_client_ca:
@@ -291,7 +287,7 @@ class lightblue::application::migrator (
           }
           else{
             $source_basename = basename($source_client_cert_source)
-            $source_client_cert = "$migrator_config_dir/$source_basename"
+            $source_client_cert = "${migrator_config_dir}/${source_basename}"
           }
 
           file { $source_client_cert:
@@ -317,7 +313,7 @@ class lightblue::application::migrator (
         $source_client_cert = undef
       }
 
-      $source_config_file = "$migrator_config_dir/source-lightblue-client.properties"
+      $source_config_file = "${migrator_config_dir}/source-lightblue-client.properties"
       lightblue::client::configure { $source_config_file:
         owner                   => $service_owner,
         group                   => $service_group,
@@ -348,7 +344,7 @@ class lightblue::application::migrator (
             $destination_client_ca = $destination_client_ca_file_path
           }
           else{
-            $destination_client_ca = "$migrator_config_dir/destination-lightblue.pem"
+            $destination_client_ca = "${migrator_config_dir}/destination-lightblue.pem"
           }
 
           file { $destination_client_ca:
@@ -376,7 +372,7 @@ class lightblue::application::migrator (
           }
           else{
             $destination_basename = basename($destination_client_cert_source)
-            $destination_client_cert = "$migrator_config_dir/$destination_basename"
+            $destination_client_cert = "${migrator_config_dir}/${destination_basename}"
           }
 
           file { $destination_client_cert:
@@ -402,7 +398,7 @@ class lightblue::application::migrator (
         $destination_client_cert = undef
       }
 
-      $destination_config_file = "$migrator_config_dir/destination-lightblue-client.properties"
+      $destination_config_file = "${migrator_config_dir}/destination-lightblue-client.properties"
       lightblue::client::configure { $destination_config_file:
         owner                   => $service_owner,
         group                   => $service_group,
@@ -420,11 +416,11 @@ class lightblue::application::migrator (
 
     if($generate_log4j){
       class{ 'lightblue::application::migrator::log4j':
-        config_dir   => $migrator_config_dir,
-        log_dir      => $migrator_log_dir,
-        owner        => $service_owner,
-        group        => $service_group,
-        require      => File[$migrator_config_dir],
+        config_dir => $migrator_config_dir,
+        log_dir    => $migrator_log_dir,
+        owner      => $service_owner,
+        group      => $service_group,
+        require    => File[$migrator_config_dir],
       }
       $log4j_jvm_options = ["Dlog4j.configuration=file:${::lightblue::application::migrator::log4j::log4j_config_file}"]
     }
@@ -432,9 +428,13 @@ class lightblue::application::migrator (
       $log4j_jvm_options = []
     }
 
+    package {'lightblue-migrator-consistency-checker':
+      #old package for the migrator, it should be uninstalled.
+      ensure => 'absent'
+    } ->
     package { $migrator_package_name:
-      ensure  => $migrator_version,
-      notify  => [Service[$migrator_service_name]],
+      ensure => $migrator_version,
+      notify => [Service[$migrator_service_name]],
     } ->
     class { 'lightblue::application::migrator::daemon':
       jsvc_version        => $jsvc_version,
@@ -445,15 +445,11 @@ class lightblue::application::migrator (
       service_err_logfile => $service_log_path,
       java_home           => $java_home,
       jar_path            => $jar_path,
-      mainClass           => 'com.redhat.lightblue.migrator.consistency.ConsistencyCheckerDaemon',
+      mainClass           => 'com.redhat.lightblue.migrator.Main',
       arguments           => {
         name              => $checker_name,
         hostname          => $hostname,
         config            => $primary_config_file,
-        configversion     => $configuration_version,
-        jobversion        => $job_version,
-        sourceconfig      => $source_config_file,
-        destinationconfig => $destination_config_file,
       },
       jvmOptions          => union($log4j_jvm_options, $serviceJvmOptions),
     } ~>
