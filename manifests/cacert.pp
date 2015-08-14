@@ -22,17 +22,20 @@ class lightblue::cacert (
     $ca_location,
     $ca_file,
 ) {
-    file { $ca_location:
-        ensure => directory,
-        owner  => 'root',
-        group  => 'root',
-    }
-    file { "${ca_location}/${ca_file}":
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0600',
-        links   => 'follow',
-        source  => $ca_source,
-        require => File[$ca_location],
+    # not perfect, but if this file is already defined don't do it again
+    if ! defined (File["${ca_location}/${ca_file}"]) {
+        file { $ca_location:
+            ensure => directory,
+            owner  => 'root',
+            group  => 'root',
+        }
+        file { "${ca_location}/${ca_file}":
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0600',
+            links   => 'follow',
+            source  => $ca_source,
+            require => File[$ca_location],
+        }
     }
 }
