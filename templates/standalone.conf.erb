@@ -142,6 +142,9 @@ fi
 
 JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDetails"
 
+# Enforce strong key for DH cipher
+JAVA_OPTS="$JAVA_OPTS -Djdk.tls.ephemeralDHKeySize=2048"
+
 <%- if @jvm_args -%>
    JAVA_OPTS="$JAVA_OPTS <%= @jvm_args %>"
 <%- end -%>
