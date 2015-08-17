@@ -172,7 +172,7 @@ class lightblue::eap::module (
     }
 
     file { '/usr/share/jbossas/modules/com/redhat/lightblue/main/config.properties':
-        mode    => '0644',
+        mode    => '0550',
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/config.properties.erb'),
@@ -196,7 +196,6 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File[$directory],
     }
-
     # Ensure deprecated settings are removed from filesystem
     file { [ '/usr/share/jbossas/modules/com/redhat/lightblue/main/appconfig.properties',
         '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-client.properties',
