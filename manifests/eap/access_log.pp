@@ -3,7 +3,7 @@ class lightblue::eap::access_log (
     $pattern = '\%h \%l \%u \%t \\\u0034\%r\\\u0034 \%s \%b \\\u0034\%{Referer}i\\\u0034 \\\u0034\%{User-Agent}i\\\u0034 \%D \%S',
     $rotate  = false,
     $prefix  = 'access_log',
-    $resolve_hosts = 'false'
+    $resolve_hosts = false
 ) {
     lightblue::jcliff::config { 'web-access-log.conf':
         content => template('lightblue/web-access-log.conf.erb'),
