@@ -115,9 +115,6 @@ if [ "x$JAVA_OPTS" = "x" ]; then
 <%- if @remote_debugging == true and @eap6repo == 'JBEAP-610' -%>
   JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"
 <%- end -%>
-
-JAVA_OPTS="$JAVA_OPTS -Djavax.net.debug=ssl,handshake"
-
 fi
 
 <%- if classes.include?('tracelytics::java') -%>
