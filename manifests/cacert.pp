@@ -13,6 +13,10 @@
 # [*ca_file*]
 #   File name for the ca cert.  Assumes does not include location.
 #
+#
+# [*ca_apply*]
+#   If true will attempt to deploy the cacert (default).  If false, the class does nothing.
+#
 # === Variables
 #
 # Module requires no global variables.
@@ -21,9 +25,9 @@ class lightblue::cacert (
     $ca_source,
     $ca_location,
     $ca_file,
+    $ca_apply = true
 ) {
-    # not perfect, but if this file is already defined don't do it again
-    if ! defined (File["${ca_location}/${ca_file}"]) {
+    if $ca_apply {
         file { $ca_location:
             ensure => directory,
             owner  => 'root',
