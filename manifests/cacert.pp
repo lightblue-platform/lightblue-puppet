@@ -16,14 +16,16 @@
 # === Variables
 #
 # [*create_lightblue_cacert*]
-#   If true will attempt to deploy the cacert.  If false, the class does nothing.
+#   If true, deploy the cacert.
+#   If false, do nothing.
+#   If undef, treat as true and deploy the cacert.
 #
 class lightblue::cacert (
     $ca_source,
     $ca_location,
     $ca_file,
 ) {
-    if $::create_lightblue_cacert {
+    if $::create_lightblue_cacert==undef or $::create_lightblue_cacert {
         file { $ca_location:
             ensure => directory,
             owner  => 'root',
