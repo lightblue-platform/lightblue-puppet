@@ -15,15 +15,17 @@
 #
 # === Variables
 #
-# Module requires no global variables.
+# [*create_lightblue_cacert*]
+#   If true, deploy the cacert.
+#   If false, do nothing.
+#   If undef, treat as true and deploy the cacert.
 #
 class lightblue::cacert (
     $ca_source,
     $ca_location,
     $ca_file,
 ) {
-    # not perfect, but if this file is already defined don't do it again
-    if ! defined (File["${ca_location}/${ca_file}"]) {
+    if $::create_lightblue_cacert==undef or $::create_lightblue_cacert {
         file { $ca_location:
             ensure => directory,
             owner  => 'root',
