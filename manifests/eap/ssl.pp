@@ -14,12 +14,19 @@
 # [*keystore_password*]
 #   Password to keystore (and truststore).
 #
-# [*certificate_source*]
-#   Location for certificate.  Is used as 'source' in a 'file' entry.
+# [*server_certificate_source*]
+#   Location for server certificate.  Is used as 'source' in a 'file' entry.
 #   Recommend referencing a file in a separate (and secure) puppet module for managing certs.
 #
-# [*certificate_file*]
-#   Full path and filename for the certificate.
+# [*server_certificate_file*]
+#   Full path and filename for the server certificate.
+#
+# [*identity_certificate_source*]
+#   Location for identity certificate.  Is used as 'source' in a 'file' entry.
+#   Recommend referencing a file in a separate (and secure) puppet module for managing certs.
+#
+# [*identity_certificate_file*]
+#   Full path and filename for the identity certificate.
 #
 # === Variables
 #
@@ -29,37 +36,44 @@ class lightblue::eap::ssl (
     $keystore_alias,
     $keystore_location,
     $keystore_password,
-    $certificate_source,
-    $certificate_file,
+    $server_certificate_source,
+    $server_certificate_file,
+    $identity_certificate_source,
+    $identity_certificate_file,
 )
 {
-    include lightblue::cacert
-
-    # pull certificate from the source
-    file { $certificate_file:
+    # pull certificates from the source
+    file { $server_certificate_file:
         owner  => 'root',
         group  => 'root',
         mode   => '0600',
         links  => 'follow',
-        source => $certificate_source,
+        source => $server_certificate_source,
+    }
+    file { $identity_certificate_file:
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0600',
+        links  => 'follow',
+        source => $identity_certificate_source,
     }
     #This will create the keystore at the target location, with the alias eap6 to the cert
     java_ks { "${keystore_alias}:keystore":
         ensure       => latest,
-        certificate  => $certificate_file,
-        private_key  => $certificate_file,
+        certificate  => $server_certificate_file,
+        private_key  => $server_certificate_file,
         target       => "${keystore_location}/eap6.keystore",
         password     => $keystore_password,
         trustcacerts => true,
-        require      => [ File[$certificate_file], File["${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}"], Package[$lightblue::eap::package_name] ],
+        require      => [ File[$server_certificate_file], Package[$lightblue::eap::package_name] ],
     }
     java_ks { "${keystore_alias}:truststore":
         ensure       => latest,
-        certificate  => "${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}",
+        certificate  => $identity_certificate_file,
         target       => "${keystore_location}/eap6trust.keystore",
         password     => $keystore_password,
         trustcacerts => true,
-        require      => [ File["${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}"], Package[$lightblue::eap::package_name] ],
+        require      => [ File[$identity_certificate_file], Package[$lightblue::eap::package_name] ],
     }
     file {"${keystore_location}/eap6.keystore":
         owner   => 'jboss',
