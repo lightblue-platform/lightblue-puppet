@@ -29,8 +29,6 @@ lightblue::authentication::saml::validating_alias_value: MyCompanyIdp
 lightblue::eap::truststore::keystore_alias: keystore
 lightblue::eap::truststore::keystore_location: /keystore
 lightblue::eap::truststore::keystore_password: password
-lightblue::eap::truststore::identity_certificate_source: /tmp/idsource
-lightblue::eap::truststore::identity_certificate_file: /idcertfile
 
 lightblue::eap::module::data_cors_config:
   url_patterns:
