@@ -13,9 +13,6 @@ lightblue::eap::module::mgmt_app_cert_password: ''
 lightblue::eap::module::mgmt_app_cert_alias: lb-metadata-mgmt
 lightblue::eap::module::client_ca_source: ///client_ca_source/
 lightblue::eap::module::client_cert_source: ///client_cert_source/
-lightblue::cacert::ca_source: ///ca_source/
-lightblue::cacert::ca_location: /etc/openldap/cacerts
-lightblue::cacert::ca_file: cacert.pem
 lightblue::java::java_home: /home/java
 lightblue::eap::package_name: jbossas-standalone
 lightblue::jcliff::config_dir: /jcliff
