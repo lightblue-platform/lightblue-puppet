@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'lightblue::application::migrator' do
   service_name = 'migrator-service'
-  client_config = '/etc/migrator/primary-lightblue-client.properties'
+  client_config = '/etc/lightblue-migrator/primary-lightblue-client.properties'
   metadata_uri = 'fake.metadata.uri'
   data_uri = 'fake.data.uri'
   
@@ -132,21 +132,21 @@ describe 'lightblue::application::migrator' do
   end
   
   context 'with optional source and destination clients' do
-    source_config = '/etc/migrator/source-lightblue-client.properties'
-    destination_config = '/etc/migrator/destination-lightblue-client.properties'
+    source_config = '/etc/lightblue-migrator/source-lightblue-client.properties'
+    destination_config = '/etc/lightblue-migrator/destination-lightblue-client.properties'
     
     describe 'both present' do
       source_metadata_url = 'fake.src.metadata.uri'
       source_data_url = 'fake.src.data.uri'
-      source_ca_path = '/etc/migrator/source-lightblue.pem'
-      source_cert_path = '/etc/migrator/source.cert'
+      source_ca_path = '/etc/lightblue-migrator/source-lightblue.pem'
+      source_cert_path = '/etc/lightblue-migrator/source.cert'
       source_ca_content = 'fake source ca content'
       source_cert_content = '/path/to/source.cert'
       
       destination_metadata_url = 'fake.dest.metadata.uri'
       destination_data_url = 'fake.dest.data.uri'
-      destination_ca_path = '/etc/migrator/destination-lightblue.pem'
-      destination_cert_path = '/etc/migrator/destination.cert'
+      destination_ca_path = '/etc/lightblue-migrator/destination-lightblue.pem'
+      destination_cert_path = '/etc/lightblue-migrator/destination.cert'
       destination_ca_content = 'fake destination ca content'
       destination_cert_content = '/path/to/destination.cert'
       
