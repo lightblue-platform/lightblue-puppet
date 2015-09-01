@@ -244,8 +244,6 @@ describe 'lightblue::application::migrator' do
         
         should contain_file("/etc/init.d/#{service_name}") \
           .with_content(/--config=#{client_config}/) \
-          .with_content(/--sourceconfig=#{source_config}/) \
-          .with_content(/--destinationconfig=#{destination_config}/) \
           .that_notifies("Service[#{service_name}]")
         
         should contain_class('lightblue::application::migrator::daemon').with({
