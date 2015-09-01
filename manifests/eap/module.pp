@@ -68,6 +68,21 @@
 #
 #   For details of what these fields control, see lightblue::service::cors::configure.
 #
+# [*extensions*]
+#   Hash where the key is the name of the extension type and the value is a list of configurations for that extension.
+#   Each extension configuration is a hash of configuration options specific to that extension
+#
+#   Example:
+#      {
+#        "locking": [
+#          {
+#            "domain":"MyDomainName",
+#            "datasource":"datasource",
+#            "collection":"collectionName"
+#          }
+#        ]
+#      }
+#
 # === Variables
 #
 # None
@@ -94,6 +109,7 @@ class lightblue::eap::module (
     $additional_backend_controllers = undef,
     $data_cors_config=undef,
     $metadata_cors_config=undef,
+    $extensions = undef,
 )
 {
     include lightblue::eap
