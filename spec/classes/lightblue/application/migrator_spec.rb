@@ -442,7 +442,7 @@ describe 'lightblue::application::migrator' do
         :owner => 'root',
         :group => 'root',
       }) \
-        .that_requires('File[/etc/migrator]')
+        .that_requires('File[/etc/lightblue-migrator]')
       
       #TODO rspec always thinks jvmOptions is [], not sure why
       should contain_class('lightblue::application::migrator::daemon').with({
