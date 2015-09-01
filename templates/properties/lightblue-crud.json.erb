@@ -4,10 +4,10 @@
         "backend" : "mongo",
         "controllerFactory" : "com.redhat.lightblue.mongo.config.MongoCRUDFactory"
         
-        <% if extensions -%>
+        <% if @extensions -%>
         ,
         "extensions": {
-        	<% extensions.each_with_index do |(extension, configs), extensions_index| -%>
+        	<% @extensions.each_with_index do |(extension, configs), extensions_index| -%>
         	"<%= extension %>": [
         		<% configs.each_with_index do |config, configs_index| -%>
         		{
