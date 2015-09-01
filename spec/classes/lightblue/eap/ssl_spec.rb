@@ -18,6 +18,8 @@ describe 'lightblue::eap::ssl' do
         :keystore_password => 'password',
         :server_certificate_source => '/tmp/source',
         :server_certificate_file => '/certfile'
+        :identity_certificate_source => '/tmp/idsource',
+        :identity_certificate_file => '/idcertfile'
       }
     end
 
