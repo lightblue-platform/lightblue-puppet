@@ -45,8 +45,6 @@ describe 'lightblue::application::migrator' do
         .with_content(/--name=#{checker_name}/) \
         .with_content(/--hostname=#{hostname}/) \
         .with_content(/--config=#{client_config}/) \
-        .with_content(/--configversion=#{configuration_version}/) \
-        .with_content(/--jobversion=#{job_version}/) \
         .with_content(/--sourceconfig=#{client_config}/) \
         .with_content(/--destinationconfig=#{client_config}/) \
         .that_notifies("Service[#{service_name}]")
@@ -85,8 +83,8 @@ describe 'lightblue::application::migrator' do
         should contain_lightblue__client__configure(client_config) \
           .with({
             :lbclient_use_cert_auth  => true,
-            :lbclient_ca_file_path   => ca_path,
-            :lbclient_cert_file_path => cert_path,
+            :lbclient_ca_file_path   => "file://" + ca_path,
+            :lbclient_cert_file_path => "file://" + cert_path,
           }) \
           .that_notifies("Service[#{service_name}]")
       end
