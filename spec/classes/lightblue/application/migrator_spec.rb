@@ -45,8 +45,6 @@ describe 'lightblue::application::migrator' do
         .with_content(/--name=#{checker_name}/) \
         .with_content(/--hostname=#{hostname}/) \
         .with_content(/--config=#{client_config}/) \
-        .with_content(/--sourceconfig=#{client_config}/) \
-        .with_content(/--destinationconfig=#{client_config}/) \
         .that_notifies("Service[#{service_name}]")
       
       should contain_class('lightblue::application::migrator::daemon').with({
@@ -441,8 +439,8 @@ describe 'lightblue::application::migrator' do
     
     it do
       should contain_class('lightblue::application::migrator::log4j').with({
-        :config_dir => '/etc/migrator',
-        :log_dir => '/var/log/migrator',
+        :config_dir => '/etc/lightblue-migrator',
+        :log_dir => '/var/log/lightblue-migrator',
         :owner => 'root',
         :group => 'root',
       }) \
