@@ -3,7 +3,6 @@
       {
         "backend" : "mongo",
         "controllerFactory" : "com.redhat.lightblue.mongo.config.MongoCRUDFactory"
-        
         <% unless @extensions.nil? -%>
         ,
         "extensions": {
@@ -28,7 +27,6 @@
         {
        "backend" : "<%=controller['backend']%>",
        "controllerFactory" : "<%=controller['controllerFactory']%>"
-       
        <% if controller['extensions'] -%>
         ,
         "extensions": {
