@@ -68,20 +68,18 @@
 #
 #   For details of what these fields control, see lightblue::service::cors::configure.
 #
-# [*extensions*]
-#   Hash where the key is the name of the extension type and the value is a list of configurations for that extension.
-#   Each extension configuration is a hash of configuration options specific to that extension
+# [*locking*]
+#  Configures the locking extension
 #
 #   Example:
-#      {
-#        "locking": [
+#        [
 #          {
 #            "domain":"MyDomainName",
 #            "datasource":"datasource",
 #            "collection":"collectionName"
-#          }
+#          },
+#          ...
 #        ]
-#      }
 #
 # === Variables
 #
