@@ -12,6 +12,10 @@
 #
 # [*mongo_auth_source*]
 #
+# [*mongo_metadata_readPreference*]
+#
+# [*mongo_data_readPreference*]
+#
 # [*hystrix_command_default_execution_isolation_strategy*]
 #
 # [*hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds*]
@@ -87,6 +91,8 @@ class lightblue::eap::module (
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
     $mongo_noCertValidation = false,
+    $mongo_metadata_readPreference = 'primary',
+    $mongo_data_readPreference = 'primary',
     $rdbms_servers_cfg = undef,
     $hook_configuration_parsers = '',
     $backend_parsers = undef,
@@ -113,15 +119,17 @@ class lightblue::eap::module (
 
     # class to deploy datasources.json
     class {'lightblue::eap::module::datasources':
-        directory              => $directory,
-        mongo_auth_mechanism   => $mongo_auth_mechanism,
-        mongo_auth_username    => $mongo_auth_username,
-        mongo_auth_password    => $mongo_auth_password,
-        mongo_auth_source      => $mongo_auth_source,
-        mongo_servers_cfg      => $mongo_servers_cfg,
-        mongo_ssl              => $mongo_ssl,
-        mongo_noCertValidation => $mongo_noCertValidation,
-        rdbms_servers_cfg      => $rdbms_servers_cfg,
+        directory                     => $directory,
+        mongo_auth_mechanism          => $mongo_auth_mechanism,
+        mongo_auth_username           => $mongo_auth_username,
+        mongo_auth_password           => $mongo_auth_password,
+        mongo_auth_source             => $mongo_auth_source,
+        mongo_metadata_readPreference => $mongo_metadata_readPreference,
+        mongo_data_readPreference     => $mongo_data_readPreference,
+        mongo_servers_cfg             => $mongo_servers_cfg,
+        mongo_ssl                     => $mongo_ssl,
+        mongo_noCertValidation        => $mongo_noCertValidation,
+        rdbms_servers_cfg             => $rdbms_servers_cfg,
     }
 
     # class to deploy lightblue-metadata.json
