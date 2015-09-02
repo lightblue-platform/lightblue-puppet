@@ -67,12 +67,12 @@ describe 'lightblue::eap::module' do
   context 'with crud extensions' do
     let :params do
       {
-        :extensions => {
-          :locking => [
+        'extensions' => {
+          'locking' => [
             {
-              :domain => 'MyDomainName',
-              :datasource => 'datasource',
-              :collection => 'collectionName'
+              'domain' => 'MyDomainName',
+              'datasource' => 'datasource',
+              'collection' => 'collectionName'
             }
           ]
         }
