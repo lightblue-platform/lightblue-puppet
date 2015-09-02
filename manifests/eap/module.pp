@@ -115,7 +115,7 @@ class lightblue::eap::module (
     $additional_backend_controllers = undef,
     $data_cors_config=undef,
     $metadata_cors_config=undef,
-    $extensions = undef,
+    $locking = undef,
 )
 {
     include lightblue::eap
