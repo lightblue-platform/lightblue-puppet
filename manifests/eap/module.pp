@@ -72,6 +72,19 @@
 #
 #   For details of what these fields control, see lightblue::service::cors::configure.
 #
+# [*locking*]
+#  Configures the locking extension
+#
+#   Example:
+#        [
+#          {
+#            "domain":"MyDomainName",
+#            "datasource":"datasource",
+#            "collection":"collectionName"
+#          },
+#          ...
+#        ]
+#
 # === Variables
 #
 # None
@@ -100,6 +113,7 @@ class lightblue::eap::module (
     $additional_backend_controllers = undef,
     $data_cors_config=undef,
     $metadata_cors_config=undef,
+    $locking = undef,
 )
 {
     include lightblue::eap
