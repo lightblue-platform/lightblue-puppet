@@ -119,17 +119,17 @@ class lightblue::eap::module (
 
     # class to deploy datasources.json
     class {'lightblue::eap::module::datasources':
-        directory                       => $directory,
-        mongo_auth_mechanism            => $mongo_auth_mechanism,
-        mongo_auth_username             => $mongo_auth_username,
-        mongo_auth_password             => $mongo_auth_password,
-        mongo_auth_source               => $mongo_auth_source,
-        mongo_metadata_readPreference   => $mongo_metadata_readPreference,
-        mongo_data_readPreference       => $mongo_data_readPreference,
-        mongo_servers_cfg               => $mongo_servers_cfg,
-        mongo_ssl                       => $mongo_ssl,
-        mongo_noCertValidation          => $mongo_noCertValidation,
-        rdbms_servers_cfg               => $rdbms_servers_cfg,
+        directory                     => $directory,
+        mongo_auth_mechanism          => $mongo_auth_mechanism,
+        mongo_auth_username           => $mongo_auth_username,
+        mongo_auth_password           => $mongo_auth_password,
+        mongo_auth_source             => $mongo_auth_source,
+        mongo_metadata_readPreference => $mongo_metadata_readPreference,
+        mongo_data_readPreference     => $mongo_data_readPreference,
+        mongo_servers_cfg             => $mongo_servers_cfg,
+        mongo_ssl                     => $mongo_ssl,
+        mongo_noCertValidation        => $mongo_noCertValidation,
+        rdbms_servers_cfg             => $rdbms_servers_cfg,
     }
 
     # class to deploy lightblue-metadata.json
