@@ -81,11 +81,11 @@ describe 'lightblue::eap::module' do
     
     it do
       should contain_file("#{module_dir}/lightblue-crud.json") \
-       .with_content(/"extensions"\: \{/) \
-       .with_content(/"locking"\: \[/) \
-       .with_content(/"domain"\: "MyDomainName"/) \
-       .with_content(/"datasource"\: "datasource"/) \
-       .with_content(/"collection"\: "collectionName"/)
+       .with_content(/"extensions": \{/) \
+       .with_content(/"locking": \[/) \
+       .with_content(/"domain": "MyDomainName"/) \
+       .with_content(/"datasource": "datasource"/) \
+       .with_content(/"collection": "collectionName"/)
     end
   end
 
