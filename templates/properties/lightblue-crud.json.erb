@@ -3,6 +3,23 @@
       {
         "backend" : "mongo",
         "controllerFactory" : "com.redhat.lightblue.mongo.config.MongoCRUDFactory"
+        
+        <% if @extensions -%>
+        ,
+        "extensions": {
+        	<% @extensions.each_with_index do |(extension, configs), extensions_index| -%>
+        	"<%= extension %>": [
+        		<% configs.each_with_index do |config, configs_index| -%>
+        		{
+        			<% config.each_with_index do |(key, value), config_index| -%>
+        			"<%= key %>": "<%= value %>"<%= ',' if config_index < (config.size - 1) %>
+        			<% end -%>
+        		}<%= ',' if configs_index < (configs.size - 1) %>
+        		<% end -%>
+        	]<%= ',' if extensions_index < (extensions.size - 1) %>
+        	<% end -%>
+        }
+        <% end -%>
       }
       
       <% if additional_backend_controllers != '' && additional_backend_controllers.kind_of?(Array) -%>   
@@ -11,8 +28,25 @@
         {
        "backend" : "<%=controller['backend']%>",
        "controllerFactory" : "<%=controller['controllerFactory']%>"
+       
+       <% if controller['extensions'] -%>
+        ,
+        "extensions": {
+        	<% extensions.each_with_index do |(extension, configs), extensions_index| -%>
+        	"<%= extension %>": [
+        		<% configs.each_with_index do |config, configs_index| -%>
+        		{
+        			<% config.each_with_index do |(key, value), config_index| -%>
+        			"<%= key %>": "<%= value %>"<%= ',' if config_index < (config.size - 1) %>
+        			<% end -%>
+        		}<%= ',' if configs_index < (configs.size - 1) %>
+        		<% end -%>
+        	]<%= ',' if extensions_index < (extensions.size - 1) %>
+        	<% end -%>
         }
         <% end -%>
-      <% end -%> 
+        }
+        <% end -%>
+      <% end -%>
    ]
 }
