@@ -32,6 +32,9 @@
 #
 # [*mongo_noCertValidation*]
 #
+# [*ldap_config*]
+#   Hash containing all configuration for the ldap controller.  Optional.
+#
 # [*rdbms_servers_cfg*]
 #
 # [*hook_configuration_parsers*]
@@ -106,6 +109,7 @@ class lightblue::eap::module (
     $mongo_noCertValidation = false,
     $mongo_metadata_readPreference = 'primary',
     $mongo_data_readPreference = 'primary',
+    $ldap_config = undef,
     $rdbms_servers_cfg = undef,
     $hook_configuration_parsers = '',
     $backend_parsers = undef,
@@ -143,6 +147,7 @@ class lightblue::eap::module (
         mongo_servers_cfg             => $mongo_servers_cfg,
         mongo_ssl                     => $mongo_ssl,
         mongo_noCertValidation        => $mongo_noCertValidation,
+        ldap_config                   => $ldap_config,
         rdbms_servers_cfg             => $rdbms_servers_cfg,
     }
 

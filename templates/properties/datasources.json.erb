@@ -112,6 +112,44 @@
      }
    }
 
+<% if ldap_config.kind_of?(Array) -%>
+   ,
+   <%
+   a = ldap_config.length
+   ldap_config.each do |ldap|
+   -%>
+   "<%=ldap['datasourceName']%>": {
+      "type" : "com.redhat.lightblue.config.ldap.LdapDataSourceConfiguration",
+      "database" : "<%=ldap['database']%>",
+      "bindabledn" : "<%=ldap['bindabledn']%>%>",
+      "password" : "<%=ldap['password']%>",
+      "numberOfInitialConnections" : <%=ldap['numberOfInitialConnections']%>,
+      "maxNumberOfConnections" : <%=ldap['maxNumberOfConnections']%>,
+      "servers" : [
+         <%
+         i = ldap['servers'].length
+         ldap['servers'].each do |server|
+         -%>
+         {
+            "host" : "<%=server['host']%>",
+            "port" : "<%=server['port']%>"
+         }
+         <% if i > 1 then -%>
+         ,
+         <%
+            end
+            i = i - 1
+         -%>
+         <% end -%>
+      ]
+   }
+   <%
+      end
+      a = a - 1
+   -%>
+   <% end -%>
+<% end -%>
+
 <% if rdbms_servers_cfg.kind_of?(Array) -%>   
    ,
     "rdbms" : {
