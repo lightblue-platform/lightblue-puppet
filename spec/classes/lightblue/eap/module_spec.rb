@@ -67,25 +67,23 @@ describe 'lightblue::eap::module' do
   context 'with crud extensions' do
     let :params do
       {
-        :extensions => {
-          :locking => [
-            {
-              :domain => 'MyDomainName',
-              :datasource => 'datasource',
-              :collection => 'collectionName'
-            }
-          ]
-        }
+        'locking' => [
+          {
+            'domain' => 'MyDomainName',
+            'datasource' => 'datasource',
+            'collection' => 'collectionName'
+          }
+        ]
       }
     end
     
     it do
       should contain_file("#{module_dir}/lightblue-crud.json") \
-       .with_content(/"extensions"\: \{/) \
-       .with_content(/"locking"\: \[/) \
-       .with_content(/"domain"\: "MyDomainName"/) \
-       .with_content(/"datasource"\: "datasource"/) \
-       .with_content(/"collection"\: "collectionName"/)
+       .with_content(/"extensions": \{/) \
+       .with_content(/"locking": \[/) \
+       .with_content(/"domain": "MyDomainName"/) \
+       .with_content(/"datasource": "datasource"/) \
+       .with_content(/"collection": "collectionName"/)
     end
   end
 
