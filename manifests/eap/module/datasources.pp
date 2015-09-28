@@ -27,7 +27,6 @@ class lightblue::eap::module::datasources (
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/datasources.json.erb'),
-        notify  => Service['jbossas'],
         require => File[$directory],
     }
 }

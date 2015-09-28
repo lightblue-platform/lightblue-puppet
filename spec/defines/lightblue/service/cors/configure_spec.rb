@@ -35,7 +35,6 @@ describe 'lightblue::service::cors::configure' do
         .with_content(/^\s*"allowCredentials": true,$/) \
         .with_content(/^\s*"preflightMaxAge": 1000,$/) \
         .with_content(/^\s*"enableLogging": true,$/)
-        .with_notify('Service[jbossas]') \
     end
   end
 
@@ -56,7 +55,6 @@ describe 'lightblue::service::cors::configure' do
         .with_content(/^\s*"allowCredentials": false,$/) \
         .with_content(/^\s*"preflightMaxAge": 1800,$/) \
         .with_content(/^\s*"enableLogging": false,$/)
-        .with_notify('Service[jbossas]') \
     end
   end
 

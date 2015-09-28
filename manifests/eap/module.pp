@@ -194,7 +194,6 @@ class lightblue::eap::module (
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/module.xml.erb'),
-        notify  => Service['jbossas'],
         require => File[$directory],
     }
 
@@ -203,7 +202,6 @@ class lightblue::eap::module (
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/config.properties.erb'),
-        notify  => Service['jbossas'],
         require => File[$directory],
     }
 
@@ -220,7 +218,6 @@ class lightblue::eap::module (
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/lightblue-crud.json.erb'),
-        notify  => Service['jbossas'],
         require => File[$directory],
     }
     # Ensure deprecated settings are removed from filesystem
