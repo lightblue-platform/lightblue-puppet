@@ -50,15 +50,8 @@
           i = i - 1
         -%>
 <% end -%>
-     ],
+     ]
 <% end -%>
-     "driverOptions": {
-     <% if defined? @mongo_metadata_readPreference -%>
-        "readPreference": "<%=@mongo_metadata_readPreference%>"
-     <% else -%>
-        "readPreference": "primary"
-     <% end -%>
-     }
    },
    "mongodata" : {
      "type" : "com.redhat.lightblue.mongo.config.MongoConfiguration",
@@ -101,15 +94,8 @@
           i = i - 1
         -%>
 <% end -%>
-     ],
+     ]
 <% end -%>
-     "driverOptions": {
-     <% if defined? @mongo_data_readPreference -%>
-        "readPreference": "<%=@mongo_data_readPreference%>"
-     <% else -%>
-        "readPreference": "primary"
-     <% end -%>
-     }
    }
 
 <% if rdbms_servers_cfg.kind_of?(Array) -%>   
@@ -135,6 +121,8 @@
         -%>
         <% end -%>
         ]
-    }
 <% end -%>  
+    }
+   
+   
 }

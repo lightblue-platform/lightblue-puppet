@@ -16,7 +16,7 @@ LIBS=<%= lib_dir %>
 <% end -%>
 
 MAIN_CLASS=<%= mainClass %>
-PID=/var/run/<%= service_name %>.pid
+PID=/tmp/<%= service_name %>.pid
 
 LOG_OUT=<%= service_out_logfile %>
 LOG_ERR=<%= service_err_logfile %>

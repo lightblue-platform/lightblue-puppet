@@ -9,17 +9,17 @@
 #   alias to the keystore
 #
 # [*keystore_location*]
-#   Directory where keystore is saved.
+#   Directory where keystore (and truststore) are saved.
 #
 # [*keystore_password*]
-#   Password to keystore.
+#   Password to keystore (and truststore).
 #
-# [*server_certificate_source*]
-#   Location for server certificate.  Is used as 'source' in a 'file' entry.
+# [*certificate_source*]
+#   Location for certificate.  Is used as 'source' in a 'file' entry.
 #   Recommend referencing a file in a separate (and secure) puppet module for managing certs.
 #
-# [*server_certificate_file*]
-#   Full path and filename for the server certificate.
+# [*certificate_file*]
+#   Full path and filename for the certificate.
 #
 # === Variables
 #
@@ -29,35 +29,49 @@ class lightblue::eap::ssl (
     $keystore_alias,
     $keystore_location,
     $keystore_password,
-    $server_certificate_source,
-    $server_certificate_file,
+    $certificate_source,
+    $certificate_file,
 )
 {
-    include lightblue::eap::truststore
+    include lightblue::cacert
 
     # pull certificate from the source
-    file { $server_certificate_file:
+    file { $certificate_file:
         owner  => 'root',
         group  => 'root',
         mode   => '0600',
         links  => 'follow',
-        source => $server_certificate_source,
+        source => $certificate_source,
     }
     #This will create the keystore at the target location, with the alias eap6 to the cert
     java_ks { "${keystore_alias}:keystore":
         ensure       => latest,
-        certificate  => $server_certificate_file,
-        private_key  => $server_certificate_file,
+        certificate  => $certificate_file,
+        private_key  => $certificate_file,
         target       => "${keystore_location}/eap6.keystore",
         password     => $keystore_password,
         trustcacerts => true,
-        require      => [ File[$server_certificate_file], Package[$lightblue::eap::package_name] ],
+        require      => [ File[$certificate_file], File["${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}"], Package[$lightblue::eap::package_name] ],
+    }
+    java_ks { "${keystore_alias}:truststore":
+        ensure       => latest,
+        certificate  => "${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}",
+        target       => "${keystore_location}/eap6trust.keystore",
+        password     => $keystore_password,
+        trustcacerts => true,
+        require      => [ File["${lightblue::cacert::ca_location}/${lightblue::cacert::ca_file}"], Package[$lightblue::eap::package_name] ],
     }
     file {"${keystore_location}/eap6.keystore":
         owner   => 'jboss',
         group   => 'jboss',
         mode    => '0600',
         require => Java_ks["${keystore_alias}:keystore"],
+    }
+    file {"${keystore_location}/eap6trust.keystore":
+        owner   => 'jboss',
+        group   => 'jboss',
+        mode    => '0600',
+        require => Java_ks["${keystore_alias}:truststore"],
     }
 
     # setup thread_pool (params loaded from hiera)

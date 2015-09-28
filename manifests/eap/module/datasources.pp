@@ -5,8 +5,6 @@ class lightblue::eap::module::datasources (
     $mongo_auth_username,
     $mongo_auth_password,
     $mongo_auth_source,
-    $mongo_metadata_readPreference = 'primary',
-    $mongo_data_readPreference = 'primary',
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
     $mongo_noCertValidation = false,
@@ -15,8 +13,8 @@ class lightblue::eap::module::datasources (
 {
 
     if !$mongo_noCertValidation {
-        # deploy truststore and mongossl
-        include lightblue::eap::truststore
+        # deploy cacert and mongossl
+        include lightblue::cacert
         include lightblue::eap::mongossl
     }
 
