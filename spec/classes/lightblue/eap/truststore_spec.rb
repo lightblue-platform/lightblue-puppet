@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'lightblue::eap::ssl' do
+describe 'lightblue::eap::truststore' do
 
   let(:hiera_config){ 'spec/fixtures/hiera/hiera.yaml' }
 

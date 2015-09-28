@@ -26,9 +26,13 @@ lightblue::authentication::saml::signing_key_pass: my_signing_key_pass
 lightblue::authentication::saml::signing_key_alias: my_signing_key_alias
 lightblue::authentication::saml::validating_key_alias: saml.mycompany.com
 lightblue::authentication::saml::validating_alias_value: MyCompanyIdp
+lightblue::eap::ssl::server_certificate_source: ///server_certificate_source/
+lightblue::eap::ssl::server_certificate_file: ///server_certificate_file/
 lightblue::eap::truststore::keystore_alias: keystore
 lightblue::eap::truststore::keystore_location: /keystore
 lightblue::eap::truststore::keystore_password: password
+lightblue::eap::truststore::identity_certificate_source: ///identity_certificate_source/
+lightblue::eap::truststore::identity_certificate_file: ///identity_certificate_file/
 
 lightblue::eap::module::data_cors_config:
   url_patterns:
