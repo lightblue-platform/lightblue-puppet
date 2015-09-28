@@ -8,8 +8,8 @@
 	        "locking": [
 	        		<% locking.each_with_index do |locks, locks_index| -%>
 	        		{
-	        			<% locks.each_with_index do |(key, value), lock_index| -%>
-	        			"<%= key %>": "<%= value %>"<%= ',' if lock_index < (locks.size - 1) %>
+					<% locks.keys.sort.each_with_index do |key, lock_index| -%>
+					"<%= key %>": "<%= locks[key] %>"<%= ',' if lock_index < (locks.size - 1) %>
 	        			<% end -%>
 	        		}<%= ',' if locks_index < (locking.size - 1) %>
 	        		<% end -%>
@@ -29,8 +29,8 @@
 	        "locking": [
 	        		<% locking.each_with_index do |locks, locks_index| -%>
 	        		{
-	        			<% locks.each_with_index do |(key, value), lock_index| -%>
-	        			"<%= key %>": "<%= value %>"<%= ',' if lock_index < (locks.size - 1) %>
+					<% locks.keys.sort.each_with_index do |key, lock_index| -%>
+					"<%= key %>": "<%= locks[key] %>"<%= ',' if lock_index < (locks.size - 1) %>
 	        			<% end -%>
 	        		}<%= ',' if locks_index < (locking.size - 1) %>
 	        		<% end -%>
