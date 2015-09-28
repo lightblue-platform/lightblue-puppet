@@ -30,7 +30,6 @@ class lightblue::authentication::saml (
         group  => 'jboss',
         links  => 'follow',
         source => $key_store_source,
-        notify => Service['jbossas'],
     }
 
     lightblue::jcliff::config { 'lightblue-security-domain-saml.conf':

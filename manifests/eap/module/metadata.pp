@@ -13,7 +13,6 @@ class lightblue::eap::module::metadata (
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/lightblue-metadata.json.erb'),
-        notify  => Service['jbossas'],
         require => File[$directory],
     }
 }
