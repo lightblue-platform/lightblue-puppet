@@ -12,6 +12,10 @@
 #
 # [*mongo_auth_source*]
 #
+# [*mongo_metadata_readPreference*]
+#
+# [*mongo_data_readPreference*]
+#
 # [*hystrix_command_default_execution_isolation_strategy*]
 #
 # [*hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds*]
@@ -68,6 +72,19 @@
 #
 #   For details of what these fields control, see lightblue::service::cors::configure.
 #
+# [*locking*]
+#  Configures the locking extension
+#
+#   Example:
+#        [
+#          {
+#            "domain":"MyDomainName",
+#            "datasource":"datasource",
+#            "collection":"collectionName"
+#          },
+#          ...
+#        ]
+#
 # === Variables
 #
 # None
@@ -87,6 +104,8 @@ class lightblue::eap::module (
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
     $mongo_noCertValidation = false,
+    $mongo_metadata_readPreference = 'primary',
+    $mongo_data_readPreference = 'primary',
     $rdbms_servers_cfg = undef,
     $hook_configuration_parsers = '',
     $backend_parsers = undef,
@@ -94,6 +113,7 @@ class lightblue::eap::module (
     $additional_backend_controllers = undef,
     $data_cors_config=undef,
     $metadata_cors_config=undef,
+    $locking = undef,
 )
 {
     include lightblue::eap
@@ -113,15 +133,17 @@ class lightblue::eap::module (
 
     # class to deploy datasources.json
     class {'lightblue::eap::module::datasources':
-        directory              => $directory,
-        mongo_auth_mechanism   => $mongo_auth_mechanism,
-        mongo_auth_username    => $mongo_auth_username,
-        mongo_auth_password    => $mongo_auth_password,
-        mongo_auth_source      => $mongo_auth_source,
-        mongo_servers_cfg      => $mongo_servers_cfg,
-        mongo_ssl              => $mongo_ssl,
-        mongo_noCertValidation => $mongo_noCertValidation,
-        rdbms_servers_cfg      => $rdbms_servers_cfg,
+        directory                     => $directory,
+        mongo_auth_mechanism          => $mongo_auth_mechanism,
+        mongo_auth_username           => $mongo_auth_username,
+        mongo_auth_password           => $mongo_auth_password,
+        mongo_auth_source             => $mongo_auth_source,
+        mongo_metadata_readPreference => $mongo_metadata_readPreference,
+        mongo_data_readPreference     => $mongo_data_readPreference,
+        mongo_servers_cfg             => $mongo_servers_cfg,
+        mongo_ssl                     => $mongo_ssl,
+        mongo_noCertValidation        => $mongo_noCertValidation,
+        rdbms_servers_cfg             => $rdbms_servers_cfg,
     }
 
     # class to deploy lightblue-metadata.json
@@ -181,8 +203,8 @@ class lightblue::eap::module (
     }
 
     if !$mongo_noCertValidation {
-        # deploy cacert and mongossl
-        include lightblue::cacert
+        # deploy truststore and mongossl
+        include lightblue::eap::truststore
         include lightblue::eap::mongossl
     }
 
@@ -196,7 +218,6 @@ class lightblue::eap::module (
         notify  => Service['jbossas'],
         require => File[$directory],
     }
-
     # Ensure deprecated settings are removed from filesystem
     file { [ '/usr/share/jbossas/modules/com/redhat/lightblue/main/appconfig.properties',
         '/usr/share/jbossas/modules/com/redhat/lightblue/main/lightblue-client.properties',

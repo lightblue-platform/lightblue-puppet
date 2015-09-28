@@ -58,6 +58,15 @@ class lightblue::eap (
     notify  => Service['jbossas'],
   }
 
+  # define log dir so it's 1) a resource in puppet 2) permissions are set correctly
+  file { '/var/log/jbossas/standalone/':
+    owner   => 'jboss',
+    group   => 'jboss',
+    mode    => '0755',
+    require => Package[$package_name],
+    before  => Service['jbossas'],
+  }
+
   # fix logs dir to symlink correctly
   file { '/var/lib/jbossas/standalone/log/':
     ensure  => 'link',
