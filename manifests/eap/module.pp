@@ -206,8 +206,8 @@ class lightblue::eap::module (
     }
 
     if !$mongo_noCertValidation {
-        # deploy cacert and mongossl
-        include lightblue::cacert
+        # deploy truststore and mongossl
+        include lightblue::eap::truststore
         include lightblue::eap::mongossl
     }
 
