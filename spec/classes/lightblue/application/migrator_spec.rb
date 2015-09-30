@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'lightblue::application::migrator' do
   service_name = 'migrator-service'
-  client_config = '/etc/migrator/primary-lightblue-client.properties'
+  client_config = '/etc/lightblue-migrator/primary-lightblue-client.properties'
   metadata_uri = 'fake.metadata.uri'
   data_uri = 'fake.data.uri'
   
@@ -19,8 +19,6 @@ describe 'lightblue::application::migrator' do
   context 'defaults' do
     hostname = 'localhost'
     checker_name = 'test1'
-    job_version = 1
-    configuration_version = 1
     
     let :params do
       {
@@ -28,8 +26,6 @@ describe 'lightblue::application::migrator' do
         :primary_client_data_uri => data_uri,
         :checker_name => checker_name,
         :hostname => hostname,
-        :job_version => job_version,
-        :configuration_version => configuration_version
       }
     end
     
@@ -49,10 +45,6 @@ describe 'lightblue::application::migrator' do
         .with_content(/--name=#{checker_name}/) \
         .with_content(/--hostname=#{hostname}/) \
         .with_content(/--config=#{client_config}/) \
-        .with_content(/--configversion=#{configuration_version}/) \
-        .with_content(/--jobversion=#{job_version}/) \
-        .with_content(/--sourceconfig=#{client_config}/) \
-        .with_content(/--destinationconfig=#{client_config}/) \
         .that_notifies("Service[#{service_name}]")
       
       should contain_class('lightblue::application::migrator::daemon').with({
@@ -79,8 +71,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => data_uri,
           :checker_name => 'fakename',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :primary_client_use_cert_auth => true,
           :primary_client_ca_file_path => ca_path,
           :primary_client_cert_file_path => cert_path,
@@ -91,8 +81,8 @@ describe 'lightblue::application::migrator' do
         should contain_lightblue__client__configure(client_config) \
           .with({
             :lbclient_use_cert_auth  => true,
-            :lbclient_ca_file_path   => ca_path,
-            :lbclient_cert_file_path => cert_path,
+            :lbclient_ca_file_path   => "file://" + ca_path,
+            :lbclient_cert_file_path => "file://" + cert_path,
           }) \
           .that_notifies("Service[#{service_name}]")
       end
@@ -105,8 +95,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => data_uri,
           :checker_name => 'fakename',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :primary_client_use_cert_auth => true,
           :primary_client_cert_file_path => '/my/own.cert',
         }
@@ -126,8 +114,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => data_uri,
           :checker_name => 'fakename',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :primary_client_use_cert_auth => true,
           :primary_client_ca_file_path => '/my/own.ca',
         }
@@ -142,21 +128,21 @@ describe 'lightblue::application::migrator' do
   end
   
   context 'with optional source and destination clients' do
-    source_config = '/etc/migrator/source-lightblue-client.properties'
-    destination_config = '/etc/migrator/destination-lightblue-client.properties'
+    source_config = '/etc/lightblue-migrator/source-lightblue-client.properties'
+    destination_config = '/etc/lightblue-migrator/destination-lightblue-client.properties'
     
     describe 'both present' do
       source_metadata_url = 'fake.src.metadata.uri'
       source_data_url = 'fake.src.data.uri'
-      source_ca_path = '/etc/migrator/source-lightblue.pem'
-      source_cert_path = '/etc/migrator/source.cert'
+      source_ca_path = '/etc/lightblue-migrator/source-lightblue.pem'
+      source_cert_path = '/etc/lightblue-migrator/source.cert'
       source_ca_content = 'fake source ca content'
       source_cert_content = '/path/to/source.cert'
       
       destination_metadata_url = 'fake.dest.metadata.uri'
       destination_data_url = 'fake.dest.data.uri'
-      destination_ca_path = '/etc/migrator/destination-lightblue.pem'
-      destination_cert_path = '/etc/migrator/destination.cert'
+      destination_ca_path = '/etc/lightblue-migrator/destination-lightblue.pem'
+      destination_cert_path = '/etc/lightblue-migrator/destination.cert'
       destination_ca_content = 'fake destination ca content'
       destination_cert_content = '/path/to/destination.cert'
       
@@ -166,8 +152,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => 'fake.data.uri',
           :checker_name => 'test2',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :is_source_same_as_primary => false,
           :source_client_metadata_uri => source_metadata_url,
           :source_client_data_uri => source_data_url,
@@ -260,8 +244,6 @@ describe 'lightblue::application::migrator' do
         
         should contain_file("/etc/init.d/#{service_name}") \
           .with_content(/--config=#{client_config}/) \
-          .with_content(/--sourceconfig=#{source_config}/) \
-          .with_content(/--destinationconfig=#{destination_config}/) \
           .that_notifies("Service[#{service_name}]")
         
         should contain_class('lightblue::application::migrator::daemon').with({
@@ -280,8 +262,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => 'fake.data.uri',
           :checker_name => 'test2',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :is_source_same_as_primary => false,
           :source_client_metadata_uri => 'fake.src.metadata.uri',
           :source_client_data_uri => 'fake.src.data.uri',
@@ -304,8 +284,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => 'fake.data.uri',
           :checker_name => 'test2',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :is_source_same_as_primary => false,
           :source_client_metadata_uri => 'fake.src.metadata.uri',
           :source_client_data_uri => 'fake.src.data.uri',
@@ -328,8 +306,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => 'fake.data.uri',
           :checker_name => 'test2',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :is_destination_same_as_primary => false,
           :destination_client_metadata_uri => 'fake.dest.metadata.uri',
           :destination_client_data_uri => 'fake.dest.data.uri',
@@ -352,8 +328,6 @@ describe 'lightblue::application::migrator' do
           :primary_client_data_uri => 'fake.data.uri',
           :checker_name => 'test2',
           :hostname => 'localhost',
-          :job_version => 1,
-          :configuration_version => 1,
           :is_destination_same_as_primary => false,
           :destination_client_metadata_uri => 'fake.dest.metadata.uri',
           :destination_client_data_uri => 'fake.dest.data.uri',
@@ -378,8 +352,6 @@ describe 'lightblue::application::migrator' do
         :primary_client_data_uri => 'fake.data.uri',
         :checker_name => 'test2',
         :hostname => 'localhost',
-        :job_version => 1,
-        :configuration_version => 1,
         :is_source_same_as_primary => false,
         :source_client_data_uri => 'some uri'
       }
@@ -399,8 +371,6 @@ describe 'lightblue::application::migrator' do
         :primary_client_data_uri => 'fake.data.uri',
         :checker_name => 'test2',
         :hostname => 'localhost',
-        :job_version => 1,
-        :configuration_version => 1,
         :is_source_same_as_primary => false,
         :source_client_metadata_uri => 'some uri'
       }
@@ -420,8 +390,6 @@ describe 'lightblue::application::migrator' do
         :primary_client_data_uri => 'fake.data.uri',
         :checker_name => 'test2',
         :hostname => 'localhost',
-        :job_version => 1,
-        :configuration_version => 1,
         :is_destination_same_as_primary => false,
         :destination_client_data_uri => 'some uri'
       }
@@ -441,8 +409,6 @@ describe 'lightblue::application::migrator' do
         :primary_client_data_uri => 'fake.data.uri',
         :checker_name => 'test2',
         :hostname => 'localhost',
-        :job_version => 1,
-        :configuration_version => 1,
         :is_destination_same_as_primary => false,
         :destination_client_metadata_uri => 'some uri'
       }
@@ -464,8 +430,6 @@ describe 'lightblue::application::migrator' do
         :primary_client_data_uri => 'fake.data.uri',
         :checker_name => 'test2',
         :hostname => 'localhost',
-        :job_version => 1,
-        :configuration_version => 1,
         :generate_log4j => true,
         :serviceJvmOptions => [existing_jvm_option]
       }
@@ -473,12 +437,12 @@ describe 'lightblue::application::migrator' do
     
     it do
       should contain_class('lightblue::application::migrator::log4j').with({
-        :config_dir => '/etc/migrator',
-        :log_dir => '/var/log/migrator',
+        :config_dir => '/etc/lightblue-migrator',
+        :log_dir => '/var/log/lightblue-migrator',
         :owner => 'root',
         :group => 'root',
       }) \
-        .that_requires('File[/etc/migrator]')
+        .that_requires('File[/etc/lightblue-migrator]')
       
       #TODO rspec always thinks jvmOptions is [], not sure why
       should contain_class('lightblue::application::migrator::daemon').with({

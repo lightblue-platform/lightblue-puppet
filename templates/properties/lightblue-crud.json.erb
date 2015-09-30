@@ -2,17 +2,43 @@
    "controllers" : [
       {
         "backend" : "mongo",
-        "controllerFactory" : "com.redhat.lightblue.mongo.config.MongoCRUDFactory"
+        "controllerFactory" : "com.redhat.lightblue.mongo.config.MongoCRUDFactory",
+        "extensions": {
+	        <% unless @locking.nil? -%>
+	        "locking": [
+	        		<% locking.each_with_index do |locks, locks_index| -%>
+	        		{
+					<% locks.keys.sort.each_with_index do |key, lock_index| -%>
+					"<%= key %>": "<%= locks[key] %>"<%= ',' if lock_index < (locks.size - 1) %>
+	        			<% end -%>
+	        		}<%= ',' if locks_index < (locking.size - 1) %>
+	        		<% end -%>
+	        	]
+	        <% end -%>
+        }
       }
       
       <% if additional_backend_controllers != '' && additional_backend_controllers.kind_of?(Array) -%>   
         <% additional_backend_controllers.each do |controller| -%>
         ,   
         {
-       "backend" : "<%=controller['backend']%>",
-       "controllerFactory" : "<%=controller['controllerFactory']%>"
+          "backend" : "<%=controller['backend']%>",
+          "controllerFactory" : "<%=controller['controllerFactory']%>",
+          "extensions": {
+	        <% unless @controller['locking'].nil? -%>
+	        "locking": [
+	        		<% locking.each_with_index do |locks, locks_index| -%>
+	        		{
+					<% locks.keys.sort.each_with_index do |key, lock_index| -%>
+					"<%= key %>": "<%= locks[key] %>"<%= ',' if lock_index < (locks.size - 1) %>
+	        			<% end -%>
+	        		}<%= ',' if locks_index < (locking.size - 1) %>
+	        		<% end -%>
+	        	]
+	        <% end -%>
+          }
         }
         <% end -%>
-      <% end -%> 
+      <% end -%>
    ]
 }
