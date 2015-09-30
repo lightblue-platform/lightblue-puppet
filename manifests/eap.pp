@@ -55,7 +55,6 @@ class lightblue::eap (
     group   => 'jboss',
     mode    => '0644',
     require => Package[$package_name],
-    notify  => Service['jbossas'],
   }
 
   # define log dir so it's 1) a resource in puppet 2) permissions are set correctly
