@@ -21,6 +21,5 @@ class lightblue::limits (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    before  => Package[$package_name],
   }
 }
