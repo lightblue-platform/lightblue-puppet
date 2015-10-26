@@ -4,7 +4,7 @@ describe 'lightblue::limits' do
 
   context 'no limits' do
     it do
-      should contain_file("/etc/security/limits.d/10-nproc.conf") \
+      should contain_file("/etc/security/limits.d/10-lightblue.conf") \
         .with({
             'ensure'  => 'file',
             'owner'   => 'root',
@@ -24,7 +24,7 @@ describe 'lightblue::limits' do
     end
 
     it do
-      should contain_file("/etc/security/limits.d/10-nproc.conf") \
+      should contain_file("/etc/security/limits.d/10-lightblue.conf") \
         .with_content(/^jboss soft nproc 1234$/) \
         .without_content(/^jboss hard/) \
         .with({
@@ -45,7 +45,7 @@ describe 'lightblue::limits' do
     end
 
     it do
-      should contain_file("/etc/security/limits.d/10-nproc.conf") \
+      should contain_file("/etc/security/limits.d/10-lightblue.conf") \
         .without_content(/^jboss soft/) \
         .with_content(/^jboss hard nproc 9876$/) \
         .with({
@@ -67,7 +67,7 @@ describe 'lightblue::limits' do
     end
 
     it do
-      should contain_file("/etc/security/limits.d/10-nproc.conf") \
+      should contain_file("/etc/security/limits.d/10-lightblue.conf") \
         .with_content(/^jboss soft nproc 1234$/) \
         .with_content(/^jboss hard nproc 9876$/) \
         .with({
