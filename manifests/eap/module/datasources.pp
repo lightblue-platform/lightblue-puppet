@@ -10,6 +10,7 @@ class lightblue::eap::module::datasources (
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
     $mongo_noCertValidation = false,
+    $ldap_config = undef,
     $rdbms_servers_cfg = undef,
 )
 {
@@ -26,7 +27,6 @@ class lightblue::eap::module::datasources (
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/datasources.json.erb'),
-        notify  => Service['jbossas'],
         require => File[$directory],
     }
 }

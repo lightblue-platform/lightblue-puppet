@@ -90,7 +90,6 @@ define lightblue::eap::client (
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/moduleclient.xml.erb'),
-        notify  => Service['jbossas'],
         require => File[$module_dirs],
     }
 
@@ -100,7 +99,6 @@ define lightblue::eap::client (
         group   => 'jboss',
         links   => 'follow',
         source  => $ssl_ca_source,
-        notify  => Service['jbossas'],
         require => File[$module_dirs],
     }
 
@@ -112,7 +110,6 @@ define lightblue::eap::client (
                 group   => 'jboss',
                 links   => 'follow',
                 content => $auth_cert_content,
-                notify  => Service['jbossas'],
                 require => File[$module_dirs],
             }
         } elsif $auth_cert_source {
@@ -122,7 +119,6 @@ define lightblue::eap::client (
                 group   => 'jboss',
                 links   => 'follow',
                 source  => $auth_cert_source,
-                notify  => Service['jbossas'],
                 require => File[$module_dirs],
             }
         } else {
@@ -140,7 +136,6 @@ define lightblue::eap::client (
         lbclient_cert_file_path => $auth_cert_file_path,
         lbclient_cert_password  => $auth_cert_password,
         lbclient_cert_alias     => $auth_cert_alias,
-        notify                  => Service['jbossas'],
         require                 => File[$module_dirs],
     }
 }
