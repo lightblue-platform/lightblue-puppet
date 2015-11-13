@@ -19,6 +19,9 @@
      "noCertValidation" : <%=mongo_noCertValidation%>,
 <% end -%>
      "database" : "metadata",
+<% if defined? @mongo_metadata_writeConcern -%>
+     "writeConcern": "<%=@mongo_metadata_writeConcern%>",
+<% end %>
 <% if defined? @mongo_auth_mechanism -%>
      "credentials" : {
        "mechanism": "<%=@mongo_auth_mechanism%>", 
@@ -70,6 +73,9 @@
      "noCertValidation" : <%=mongo_noCertValidation%>,
 <% end -%>
      "database" : "data",
+<% if defined? @mongo_data_writeConcern -%>
+     "writeConcern": "<%=@mongo_data_writeConcern%>",
+<% end %>
 <% if defined? @mongo_auth_mechanism -%>
      "credentials" : {
        "mechanism": "<%=@mongo_auth_mechanism%>", 
