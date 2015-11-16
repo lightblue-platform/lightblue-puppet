@@ -7,6 +7,8 @@ class lightblue::eap::module::datasources (
     $mongo_auth_source,
     $mongo_metadata_readPreference = 'primary',
     $mongo_data_readPreference = 'primary',
+    $mongo_metadata_writeConcern = undef,
+    $mongo_data_writeConcern = undef,
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
     $mongo_noCertValidation = false,

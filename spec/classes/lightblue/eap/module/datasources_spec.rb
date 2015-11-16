@@ -26,10 +26,101 @@ describe 'lightblue::eap::module::datasources' do
               'group'   => 'jboss',
               'mode'    => '0644'
             }
-          )
+          ) \
+          .without_content(/"writeConcern"/)
       end
 
     end
+
+    describe 'metadata writeConcern' do
+
+      let :params do
+        {
+          :directory => '/tmp',
+          :mongo_noCertValidation => true,
+          :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
+          :mongo_auth_source => 'admin',
+          :mongo_auth_username => 'lightblue',
+          :mongo_auth_password => 'nothing',
+          :mongo_ssl => false,
+          :mongo_metadata_writeConcern => 'majority'
+        }
+      end
+
+      it do
+        should contain_file('/tmp/datasources.json') \
+          .with({
+              'ensure'  => 'file',
+              'owner'   => 'jboss',
+              'group'   => 'jboss',
+              'mode'    => '0644'
+            }
+          ) \
+          .with_content(/"writeConcern": "majority"/) 
+      end
+
+    end
+
+    describe 'data writeConcern' do
+
+      let :params do
+        {
+          :directory => '/tmp',
+          :mongo_noCertValidation => true,
+          :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
+          :mongo_auth_source => 'admin',
+          :mongo_auth_username => 'lightblue',
+          :mongo_auth_password => 'nothing',
+          :mongo_ssl => false,
+          :mongo_data_writeConcern => 'majority'
+        }
+      end
+
+      it do
+        should contain_file('/tmp/datasources.json') \
+          .with({
+              'ensure'  => 'file',
+              'owner'   => 'jboss',
+              'group'   => 'jboss',
+              'mode'    => '0644'
+            }
+          ) \
+          .with_content(/"writeConcern": "majority"/) 
+      end
+
+    end
+
+    describe 'metadata and data writeConcern' do
+
+      let :params do
+        {
+          :directory => '/tmp',
+          :mongo_noCertValidation => true,
+          :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
+          :mongo_auth_source => 'admin',
+          :mongo_auth_username => 'lightblue',
+          :mongo_auth_password => 'nothing',
+          :mongo_ssl => false,
+          :mongo_metadata_writeConcern => 'majority',
+          :mongo_data_writeConcern => 'fsynced'
+        }
+      end
+
+      it do
+        should contain_file('/tmp/datasources.json') \
+          .with({
+              'ensure'  => 'file',
+              'owner'   => 'jboss',
+              'group'   => 'jboss',
+              'mode'    => '0644'
+            }
+          ) \
+          .with_content(/"writeConcern": "majority"/) \
+          .with_content(/"writeConcern": "fsynced"/) 
+      end
+
+    end
+
 
     describe 'ldap' do
 
