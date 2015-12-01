@@ -22,7 +22,10 @@
    },
     "logger" => {
        "com.redhat" => {
-         "level" => "<%= lightblue_log_level %>",
+         "level" => "<%= lightblue_log_level %>"
+       },
+       "com.redhat.lightblue.crud.mongo.slowresults" => {
+         "level" => "<%= slow_query_log_level %>"
        }
    },
     "root-logger" => {
