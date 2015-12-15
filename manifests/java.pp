@@ -61,7 +61,7 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
 #jre section - begin
   exec { "configure jre_${java_version}":
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
-    command => "/usr/sbin/alternatives --set jre '${jre_location}'",
+    command => "/usr/sbin/alternatives --set java '${jre_location}/bin/java'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless  => "test /etc/alternatives/jre_${java_version} -ef ${jre_location} && /usr/sbin/alternatives --display jre_${java_version} | grep link | grep ${jre_location}",
   }
@@ -95,7 +95,7 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --set java '${java_jre_location}'",
     require => [File['/etc/profile.d/java-env.sh'],Package['java']],
-    unless  => "test /etc/alternatives/java -ef ${java_jre_location} && /usr/sbin/alternatives --display java | grep link | grep ${java_jre_location}",
+    unless  => "test /etc/alternatives/jre_${java_version} -ef ${java_jre_location} && /usr/sbin/alternatives --display java | grep link | grep ${java_jre_location}",
   }
 #java section - end
   ->
