@@ -3,6 +3,7 @@ class lightblue::eap::logging (
     $access_logging_format = '%d [%t] %-5p [%c] %m%n',
     $root_log_level = WARN,
     $lightblue_log_level = WARN,
+    $slow_query_log_level = WARN,
 )
 {
     # setup eap6 logging
