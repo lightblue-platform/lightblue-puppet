@@ -167,8 +167,8 @@ class lightblue::eap::module (
     # class to deploy lightblue-external-resources.json
     if($external_resources != undef){
       class {'lightblue::eap::module::external_resources':
-         directory          => $directory,
-         external_resources => $external_resources
+        directory          => $directory,
+        external_resources => $external_resources
       }
     }
 
