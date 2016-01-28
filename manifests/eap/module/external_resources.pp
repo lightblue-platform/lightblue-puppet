@@ -2,7 +2,7 @@
 class lightblue::eap::module::external_resources (
   $directory,
   $external_resources = undef,
-  $file_name = "lightblue-external-resources.json",
+  $file_name = 'lightblue-external-resources.json',
 )
 {
     $path = "${directory}/${file_name}"
