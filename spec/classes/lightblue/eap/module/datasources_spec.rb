@@ -61,6 +61,36 @@ describe 'lightblue::eap::module::datasources' do
 
     end
 
+    describe 'metadata maxResultSetSize' do
+
+      let :params do
+        {
+          :directory => '/tmp',
+          :mongo_noCertValidation => true,
+          :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
+          :mongo_auth_source => 'admin',
+          :mongo_auth_username => 'lightblue',
+          :mongo_auth_password => 'nothing',
+          :mongo_ssl => false,
+          :mongo_maxResultSetSize => 999,
+          :mongo_metadata_writeConcern => 'majority'
+        }
+      end
+
+      it do
+        should contain_file('/tmp/datasources.json') \
+          .with({
+              'ensure'  => 'file',
+              'owner'   => 'jboss',
+              'group'   => 'jboss',
+              'mode'    => '0644'
+            }
+          ) \
+          .with_content(/"maxResultSetSize" : 999/)
+      end
+
+    end
+
     describe 'data writeConcern' do
 
       let :params do

@@ -30,6 +30,8 @@
 #
 # [*mongo_ssl*]
 #
+# [*mongo_maxResultSetSize*]
+#
 # [*mongo_noCertValidation*]
 #
 # [*ldap_config*]
@@ -106,6 +108,7 @@ class lightblue::eap::module (
     $hystrix_threadpool_mongodb_coreSize = 30,
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
+    $mongo_maxResultSetSize = 15000,
     $mongo_noCertValidation = false,
     $mongo_metadata_readPreference = 'primary',
     $mongo_data_readPreference = 'primary',
@@ -145,6 +148,7 @@ class lightblue::eap::module (
         mongo_metadata_readPreference => $mongo_metadata_readPreference,
         mongo_data_readPreference     => $mongo_data_readPreference,
         mongo_servers_cfg             => $mongo_servers_cfg,
+        mongo_maxResultSetSize        => $mongo_maxResultSetSize,
         mongo_ssl                     => $mongo_ssl,
         mongo_noCertValidation        => $mongo_noCertValidation,
         ldap_config                   => $ldap_config,
