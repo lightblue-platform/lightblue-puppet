@@ -12,6 +12,7 @@
      ],
      "type" : "com.redhat.lightblue.mongo.config.MongoConfiguration",
      "metadataDataStoreParser" : "com.redhat.lightblue.mongo.metadata.MongoDataStoreParser",
+     "maxResultSetSize" : <%=mongo_maxResultSetSize%>,
 <% if mongo_ssl -%>
      "ssl" : <%=mongo_ssl%>,
 <% end -%>
