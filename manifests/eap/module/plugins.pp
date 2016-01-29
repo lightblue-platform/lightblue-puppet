@@ -1,19 +1,19 @@
-# creates the external resources configuration file
-class lightblue::eap::module::external_resources (
+# creates the plugins configuration file
+class lightblue::eap::module::plugins (
   $directory,
-  $external_resources = undef,
-  $file_name = 'lightblue-external-resources.json',
+  $plugins = undef,
+  $file_name = 'lightblue-plugins.json',
 )
 {
     $path = "${directory}/${file_name}"
 
-    if($external_resources != undef){
+    if($plugins != undef){
       file {$path :
           ensure  => 'file',
           mode    => '0644',
           owner   => 'jboss',
           group   => 'jboss',
-          content => template('lightblue/properties/lightblue-external-resources.json.erb'),
+          content => template('lightblue/properties/lightblue-plugins.json.erb'),
           require => File[$directory],
       }
     }
