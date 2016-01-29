@@ -6,7 +6,7 @@ class lightblue::eap::module::external_resources (
 )
 {
     $path = "${directory}/${file_name}"
-  
+
     if($external_resources != undef){
       file {$path :
           ensure  => 'file',
@@ -22,5 +22,5 @@ class lightblue::eap::module::external_resources (
           ensure  => 'absent',
       }
     }
-    
+
 }

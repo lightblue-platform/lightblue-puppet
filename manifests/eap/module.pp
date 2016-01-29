@@ -167,7 +167,7 @@ class lightblue::eap::module (
         property_parsers           => $property_parsers,
         metadata_roles             => $lightblue::eap::module::metadata::metadata_roles,
     }
-    
+
     # class to deploy lightblue-external-resources.json
     class {'lightblue::eap::module::external_resources':
       directory          => $directory,
