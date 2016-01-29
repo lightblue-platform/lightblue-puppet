@@ -89,14 +89,14 @@ class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', 
   ->
   exec { 'configure java':
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
-    command => "/usr/sbin/alternatives --auto java",
+    command => '/usr/sbin/alternatives --auto java',
     require => [File['/etc/profile.d/java-env.sh'],Package['java']],
     unless  => "test /usr/sbin/alternatives --display java | grep 'status is auto'",
   }
   ->
   exec { 'configure javac':
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
-    command => "/usr/sbin/alternatives --auto javac",
+    command => '/usr/sbin/alternatives --auto javac',
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless  => "test /usr/sbin/alternatives --display javac | grep 'status is auto'",
   }

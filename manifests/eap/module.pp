@@ -30,6 +30,8 @@
 #
 # [*mongo_ssl*]
 #
+# [*mongo_maxResultSetSize*]
+#
 # [*mongo_noCertValidation*]
 #
 # [*ldap_config*]
