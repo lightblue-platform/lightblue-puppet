@@ -80,6 +80,9 @@
 # [*locking*]
 #  Configures the locking extension
 #
+# [*external_resources*]
+#  List of external jar file or directory paths.
+#
 #   Example:
 #        [
 #          {
@@ -121,6 +124,7 @@ class lightblue::eap::module (
     $data_cors_config=undef,
     $metadata_cors_config=undef,
     $locking = undef,
+    $external_resources = undef,
 )
 {
     include lightblue::eap
@@ -162,6 +166,12 @@ class lightblue::eap::module (
         backend_parsers            => $backend_parsers,
         property_parsers           => $property_parsers,
         metadata_roles             => $lightblue::eap::module::metadata::metadata_roles,
+    }
+    
+    # class to deploy lightblue-external-resources.json
+    class {'lightblue::eap::module::external_resources':
+      directory          => $directory,
+      external_resources => $external_resources
     }
 
     if $data_cors_config != undef {
