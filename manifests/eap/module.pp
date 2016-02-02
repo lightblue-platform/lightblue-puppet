@@ -90,6 +90,9 @@
 #          ...
 #        ]
 #
+# [*plugins*]
+#  List of external jar file or directories of jars.
+#
 # === Variables
 #
 # None
@@ -121,6 +124,7 @@ class lightblue::eap::module (
     $data_cors_config=undef,
     $metadata_cors_config=undef,
     $locking = undef,
+    $plugins = undef,
 )
 {
     include lightblue::eap
@@ -162,6 +166,12 @@ class lightblue::eap::module (
         backend_parsers            => $backend_parsers,
         property_parsers           => $property_parsers,
         metadata_roles             => $lightblue::eap::module::metadata::metadata_roles,
+    }
+
+    # class to deploy lightblue-external-resources.json
+    class {'lightblue::eap::module::plugins':
+      directory => $directory,
+      plugins   => $plugins
     }
 
     if $data_cors_config != undef {
