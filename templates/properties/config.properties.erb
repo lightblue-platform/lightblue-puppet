@@ -8,7 +8,3 @@ hystrix.command.default.circuitBreaker.enabled=false
 hystrix.threadpool.default.coreSize=200
 hystrix.threadpool.default.maxQueueSize=200
 hystrix.threadpool.default.queueSizeRejectionThreshold=200
-
-<% if hystrix_execution_timeout_enabled -%>
-execution.timeout.enabled=<%=hystrix_execution_timeout_enabled%>
-<% end -%>
