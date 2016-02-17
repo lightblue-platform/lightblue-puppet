@@ -4,6 +4,9 @@ hystrix.command.default.execution.isolation.strategy=<%=hystrix_command_default_
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=<%=hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds%>
 # disable the circuit breaker, we deal with the errors
 hystrix.command.default.circuitBreaker.enabled=<%=hystrix_command_default_circuitBreaker_enabled%>
+<% if hystrix_execution_timeout_enabled -%>
+hystrix.command.default.execution.timeout.enabled=<%=hystrix_execution_timeout_enabled%>
+<% end -%>
 
 # Mongodb command settings
 hystrix.threadpool.mongodb.coreSize=<%=hystrix_threadpool_mongodb_coreSize%>
