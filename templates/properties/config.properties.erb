@@ -4,6 +4,9 @@ hystrix.command.default.execution.isolation.strategy=THREAD
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=300000
 # disable the circuit breaker, we deal with the errors
 hystrix.command.default.circuitBreaker.enabled=false
+<% if hystrix_execution_timeout_enabled -%>
+hystrix.command.default.execution.timeout.enabled=<%=hystrix_execution_timeout_enabled%>
+<% end -%>
 
 hystrix.threadpool.default.coreSize=200
 hystrix.threadpool.default.maxQueueSize=200
