@@ -1,0 +1,5 @@
+[
+<% @plugins.each_with_index do |plugin, idx| -%>
+  "<%= plugin %>"<%= ',' if idx < (@plugins.size - 1) %>
+<% end -%>
+]

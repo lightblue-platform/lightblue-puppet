@@ -30,6 +30,8 @@
 #
 # [*mongo_ssl*]
 #
+# [*mongo_maxResultSetSize*]
+#
 # [*mongo_noCertValidation*]
 #
 # [*ldap_config*]
@@ -88,6 +90,9 @@
 #          ...
 #        ]
 #
+# [*plugins*]
+#  List of external jar file or directories of jars.
+#
 # === Variables
 #
 # None
@@ -104,8 +109,10 @@ class lightblue::eap::module (
     $hystrix_command_default_circuitBreaker_enabled = false,
     $hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds = 50000,
     $hystrix_threadpool_mongodb_coreSize = 30,
+    $hystrix_execution_timeout_enabled = undef,
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
+    $mongo_maxResultSetSize = 15000,
     $mongo_noCertValidation = false,
     $mongo_metadata_readPreference = 'primary',
     $mongo_data_readPreference = 'primary',
@@ -118,6 +125,7 @@ class lightblue::eap::module (
     $data_cors_config=undef,
     $metadata_cors_config=undef,
     $locking = undef,
+    $plugins = undef,
 )
 {
     include lightblue::eap
@@ -145,6 +153,7 @@ class lightblue::eap::module (
         mongo_metadata_readPreference => $mongo_metadata_readPreference,
         mongo_data_readPreference     => $mongo_data_readPreference,
         mongo_servers_cfg             => $mongo_servers_cfg,
+        mongo_maxResultSetSize        => $mongo_maxResultSetSize,
         mongo_ssl                     => $mongo_ssl,
         mongo_noCertValidation        => $mongo_noCertValidation,
         ldap_config                   => $ldap_config,
@@ -158,6 +167,12 @@ class lightblue::eap::module (
         backend_parsers            => $backend_parsers,
         property_parsers           => $property_parsers,
         metadata_roles             => $lightblue::eap::module::metadata::metadata_roles,
+    }
+
+    # class to deploy lightblue-external-resources.json
+    class {'lightblue::eap::module::plugins':
+      directory => $directory,
+      plugins   => $plugins
     }
 
     if $data_cors_config != undef {
