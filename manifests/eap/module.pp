@@ -109,7 +109,7 @@ class lightblue::eap::module (
     $hystrix_command_default_circuitBreaker_enabled = false,
     $hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds = 50000,
     $hystrix_threadpool_mongodb_coreSize = 30,
-    $hystrix_execution_timeout_enabled,
+    $hystrix_execution_timeout_enabled = undef,
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
     $mongo_maxResultSetSize = 15000,
