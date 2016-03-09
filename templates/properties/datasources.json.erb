@@ -19,9 +19,6 @@
      "noCertValidation" : <%=mongo_noCertValidation%>,
 <% end -%>
      "database" : "metadata",
-<% if defined? @mongo_metadata_writeConcern -%>
-     "writeConcern": "<%=@mongo_metadata_writeConcern%>",
-<% end %>
 <% if defined? @mongo_auth_mechanism -%>
      "credentials" : {
        "mechanism": "<%=@mongo_auth_mechanism%>", 
@@ -56,10 +53,11 @@
      ],
 <% end -%>
      "driverOptions": {
+     <% if defined? @mongo_metadata_writeConcern -%>
+        "writeConcern": "<%=@mongo_metadata_writeConcern%>",
+     <% end %>
      <% if defined? @mongo_metadata_readPreference -%>
         "readPreference": "<%=@mongo_metadata_readPreference%>"
-     <% else -%>
-        "readPreference": "primary"
      <% end -%>
      }
    },
@@ -77,9 +75,6 @@
      "noCertValidation" : <%=mongo_noCertValidation%>,
 <% end -%>
      "database" : "data",
-<% if defined? @mongo_data_writeConcern -%>
-     "writeConcern": "<%=@mongo_data_writeConcern%>",
-<% end %>
 <% if defined? @mongo_auth_mechanism -%>
      "credentials" : {
        "mechanism": "<%=@mongo_auth_mechanism%>", 
@@ -114,11 +109,16 @@
      ],
 <% end -%>
      "driverOptions": {
+        "maxResultSetSize" : <%=mongo_maxResultSetSize%>,
+     <% if defined? @mongo_data_writeConcern -%>
+        "writeConcern": "<%=@mongo_data_writeConcern%>",
+     <% end %>
      <% if defined? @mongo_data_readPreference -%>
         "readPreference": "<%=@mongo_data_readPreference%>"
-     <% else -%>
-        "readPreference": "primary"
      <% end -%>
+     <% if defined? @mongo_data_maxQueryTimeMS -%>
+        "maxQueryTimeMS": "<%=@mongo_data_maxQueryTimeMS%>",
+     <% end %>
      }
    }
 
