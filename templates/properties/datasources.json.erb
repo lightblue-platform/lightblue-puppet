@@ -109,16 +109,16 @@
      ],
 <% end -%>
      "driverOptions": {
-        "maxResultSetSize" : <%=mongo_maxResultSetSize%>,
      <% if defined? @mongo_data_writeConcern -%>
         "writeConcern": "<%=@mongo_data_writeConcern%>",
      <% end %>
      <% if defined? @mongo_data_readPreference -%>
-        "readPreference": "<%=@mongo_data_readPreference%>"
+        "readPreference": "<%=@mongo_data_readPreference%>",
      <% end -%>
      <% if defined? @mongo_data_maxQueryTimeMS -%>
         "maxQueryTimeMS": "<%=@mongo_data_maxQueryTimeMS%>",
      <% end %>
+        "maxResultSetSize" : <%=mongo_maxResultSetSize%>
      }
    }
 
