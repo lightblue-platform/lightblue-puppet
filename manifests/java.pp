@@ -10,7 +10,7 @@
 # java-1.8.0-openjdk-devel-1.8.0.40-24.b25.fc21.x86_64
 # java-majorVersion-destribution-IsSDK-specificVersion.arch
 # specificVersion = MajorAndMinorVersion + ReleaseVersion + Repository
-class lightblue::java ($java_version = '1.7.0', $java_distribution = 'openjdk', $java_specific_version = undef) {
+class lightblue::java ($java_version = '1.8.0', $java_distribution = 'openjdk', $java_specific_version = undef) {
 
   $java_jre_location = $::architecture ? {
     'i386'   => "/usr/lib/jvm/jre-${java_version}-${java_distribution}/bin/java",
