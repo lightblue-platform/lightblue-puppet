@@ -15,13 +15,13 @@ describe 'lightblue::java' do
       should contain_package('java').with(
         {
           :ensure => 'latest',
-          :name => 'java-1.7.0-openjdk',
+          :name => 'java-1.8.0-openjdk',
         }
       )
       should contain_package('java-devel').with(
         {
           :ensure => 'latest',
-          :name => 'java-1.7.0-openjdk-devel',
+          :name => 'java-1.8.0-openjdk-devel',
         }
       )
     end
@@ -105,13 +105,13 @@ describe 'lightblue::java' do
       should contain_package('java').with(
         {
           :ensure => 'latest',
-          :name => 'java-1.7.0-openjdk',
+          :name => 'java-1.8.0-openjdk',
         }
       )
       should contain_package('java-devel').with(
         {
           :ensure => 'latest',
-          :name => 'java-1.7.0-openjdk-devel',
+          :name => 'java-1.8.0-openjdk-devel',
         }
       )
     end
@@ -168,13 +168,13 @@ describe 'lightblue::java' do
       should contain_package('java').with(
         {
           :ensure => 'installed',
-          :name => 'java-1.7.0-openjdk',
+          :name => 'java-1.8.0-openjdk',
         }
       )
       should contain_package('java-devel').with(
         {
           :ensure => 'installed',
-          :name => 'java-1.7.0-openjdk-devel',
+          :name => 'java-1.8.0-openjdk-devel',
         }
       )
     end
