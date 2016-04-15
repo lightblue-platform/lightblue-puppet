@@ -447,9 +447,9 @@ class lightblue::application::migrator (
       jar_path            => $jar_path,
       mainClass           => 'com.redhat.lightblue.migrator.Main',
       arguments           => {
-        name              => $checker_name,
-        hostname          => $hostname,
-        config            => $primary_config_file,
+        name     => $checker_name,
+        hostname => $hostname,
+        config   => $primary_config_file,
       },
       jvmOptions          => union($log4j_jvm_options, $serviceJvmOptions),
     } ~>
