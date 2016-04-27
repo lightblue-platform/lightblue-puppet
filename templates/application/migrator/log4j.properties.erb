@@ -9,3 +9,15 @@ log4j.appender.file.MaxFileSize=<%= @log_max_file_size %>
 log4j.appender.file.MaxBackupIndex=<%= @log_max_backups_to_keep %>
 log4j.appender.file.layout=org.apache.log4j.PatternLayout
 log4j.appender.file.layout.ConversionPattern=<%= @log_pattern %>
+
+<% if @inconsistency_file -%>
+# Direct inconsistencies to a separate file
+log4j.appender.inc=org.apache.log4j.RollingFileAppender
+log4j.appender.inc.File=<%=@inconsistency_file%>
+log4j.appender.inc.MaxFileSize=<%= @log_max_file_size %>
+log4j.appender.inc.MaxBackupIndex=<%= @log_max_backups_to_keep %>
+log4j.appender.inc.layout=org.apache.log4j.PatternLayout
+log4j.appender.inc.layout.ConversionPattern=<%= @log_pattern %>
+
+log4j.logger.inconsistency=WARN,inc
+<% end -%>
