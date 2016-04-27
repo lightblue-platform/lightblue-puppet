@@ -17,7 +17,7 @@ class lightblue::application::migrator::log4j(
 
   if $inconsistency_file_name != '' {
       $inconsistency_file = "${log_dir}/${inconsistency_file_name}"
-  } 
+  }
 
   file{ $log4j_config_file:
     ensure  => 'file',
