@@ -4,7 +4,7 @@
 #
 # === Parameters
 #
-class lightblue::application::migrator (
+class lightblue::application::healthcheck (
     $package_name = 'lightblue-healthcheck',
     $package_ensure = latest,
     $data_service_uri,
