@@ -5,8 +5,6 @@
 # === Parameters
 #
 class lightblue::application::healthcheck (
-    $package_name = 'lightblue-healthcheck',
-    $package_ensure = latest,
     $data_service_uri,
     $metadata_service_uri,
     $use_cert_auth,
@@ -15,6 +13,8 @@ class lightblue::application::healthcheck (
     $cert_alias,
     $client_ca_source,
     $client_cert_source,
+    $package_name = 'lightblue-healthcheck',
+    $package_ensure = latest,
 ) {
 
     package { $package_name :
