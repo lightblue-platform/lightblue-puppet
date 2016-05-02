@@ -24,7 +24,7 @@ class lightblue::application::healthcheck (
             Class['lightblue::eap'] ],
     }
 
-    lightblue::eap::client { 'test':
+    lightblue::eap::client { 'healthcheck':
         data_service_uri     => $data_service_uri,
         metadata_service_uri => $metadata_service_uri,
         use_cert_auth        => $use_cert_auth,
