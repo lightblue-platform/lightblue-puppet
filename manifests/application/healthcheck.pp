@@ -16,14 +16,14 @@ class lightblue::application::healthcheck (
     $client_ca_source,
     $client_cert_source,
 ) {
-  
+
     package { $package_name :
         ensure  => $package_ensure,
         require => [
             Class['lightblue::yumrepo::lightblue'],
             Class['lightblue::eap'] ],
     }
-    
+
     lightblue::eap::client { 'test':
         data_service_uri     => $data_service_uri,
         metadata_service_uri => $metadata_service_uri,
@@ -34,5 +34,5 @@ class lightblue::application::healthcheck (
         auth_cert_alias      => $cert_alias,
         ssl_ca_source        => $client_ca_source
     }
-  
+
 }
