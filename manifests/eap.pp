@@ -30,6 +30,7 @@ class lightblue::eap (
     $package_ensure = latest,
     $java_Xms = '786m',
     $java_Xmx = '1572m',
+    $expose_management_interface = false,
 ) {
   include lightblue::yumrepo::jbeap
   include lightblue::yumrepo::jbeaptools
