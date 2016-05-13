@@ -1,4 +1,4 @@
-# == Class: lightblue::application::migrator
+# == Class: lightblue::application::healthcheck
 #
 # Deploys lightblue healthcheck application.
 #
