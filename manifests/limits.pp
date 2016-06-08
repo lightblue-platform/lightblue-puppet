@@ -10,13 +10,21 @@
 # [*hard_nproc*]
 #   The hard nproc limit for user jboss.
 #
+# [*soft_nofile*]
+#   The soft nofile limit for user jboss.
+#
+# [*hard_nofile*]
+#   The hard nofile limit for user jboss.
+#
 # === Variables
 #
 # Module requires no global variables.
 #
 class lightblue::limits (
     $soft_nproc = undef,
-    $hard_nproc = undef
+    $hard_nproc = undef,
+    $soft_nofile = undef,
+    $hard_nofile = undef
 ) {
   file { '/etc/security/limits.d/10-lightblue.conf':
     ensure  => 'file',

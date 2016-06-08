@@ -4,3 +4,10 @@ jboss soft nproc <%= @soft_nproc %>
 <% if defined? @hard_nproc -%>
 jboss hard nproc <%= @hard_nproc %>
 <% end %>
+
+<% if defined? @soft_nofile -%>
+jboss soft nofile <%= @soft_nofile %>
+<% end %>
+<% if defined? @hard_nofile -%>
+jboss hard nofile <%= @hard_nofile %>
+<% end %>

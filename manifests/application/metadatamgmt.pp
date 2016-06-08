@@ -52,5 +52,4 @@ inherits lightblue::application {
         ssl_ca_source        => $client_ca_source
     }
 
-
 }
