@@ -22,7 +22,7 @@ class lightblue::eap::access_log (
     # log rotate can't use logrotate::tmpwatch because it checks atime
     # which gets reset on updatedb
     cron { 'tmpwatch-jboss-access-logs':
-        command => '/usr/sbin/tmpwatch -m 1424 /var/log/jbossas/standalone/default-host',
+        command => '/usr/sbin/tmpwatch -m 14d /var/log/jbossas/standalone/default-host',
         hour    => '4',
         minute  => '0',
     }
