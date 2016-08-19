@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'lightblue::eap::ssl' do
+describe 'lightblue::eap::ssl_file' do
 
   let(:hiera_config){ 'spec/fixtures/hiera/hiera.yaml' }
 
@@ -11,6 +11,7 @@ describe 'lightblue::eap::ssl' do
   end
 
   context 'defaults' do
+
     let :certificates do
       {
           "name" => "lightblue.io",
@@ -20,15 +21,12 @@ describe 'lightblue::eap::ssl' do
     end
     let :params do
       {
-        :keystore_alias => 'keystore',
-        :keystore_location => '/keystore',
-        :keystore_password => 'password',
-        :certificates => certificates
+        :name => certificates
       }
     end
 
     it do
-      #should contain_file("/certfile")
+      #should contain_file("/lightblue.io")
       #should contain_file("/keystore/eap6.keystore")
     end
   end

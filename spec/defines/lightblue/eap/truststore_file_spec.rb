@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'lightblue::eap::truststore' do
+describe 'lightblue::eap::truststore_file' do
 
   let(:hiera_config){ 'spec/fixtures/hiera/hiera.yaml' }
 
@@ -11,6 +11,7 @@ describe 'lightblue::eap::truststore' do
   end
 
   context 'defaults' do
+
     let :certificates do
       {
           "name" => "cacert",
@@ -20,10 +21,7 @@ describe 'lightblue::eap::truststore' do
     end
     let :params do
       {
-        :keystore_alias => 'keystore',
-        :keystore_location => '/keystore',
-        :keystore_password => 'password',
-        :certificates => certificates
+        :name => certificates
       }
     end
 
