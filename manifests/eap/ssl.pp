@@ -40,20 +40,12 @@ class lightblue::eap::ssl (
         notify  => Service['jbossas']
     }
 
-    #### START Puppet iteration black magic
     # TODO change this to use new Puppet iteration Syntax
     # when we upgrade to Puppet 4 i.e. $certificates.each
 
-    # Parse certificate hash into an array of hashes
-    $certificate_data = keys($certificates)
-
-    # For each certificate in certificate_data:
+    # For each certificate in $certificates:
     # Add it to the keystore used for SSL
-    lightblue::eap::ssl_keystore_file {$certificate_data:
-        certificates => $certificates
-    }
-
-    #### END Puppet iteration black magic
+    create_resources(lightblue::eap::ssl_keystore_file, $certificates)
 
     # setup thread_pool (params loaded from hiera)
     include lightblue::eap::thread_pool

@@ -12,16 +12,11 @@ describe 'lightblue::eap::truststore_file' do
 
   context 'defaults' do
 
-    let :certificates do
-      {
-          "name" => "cacert",
-          "source" => "puppet:///modules/certificates/cacert",
-          "file" => "/cacert"
-      }
-    end
     let :params do
       {
-        :name => certificates
+          :name   => "cacert",
+          :source => "puppet:///modules/certificates/cacert",
+          :file   => "/cacert"
       }
     end
 

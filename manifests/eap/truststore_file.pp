@@ -14,26 +14,24 @@
 #
 # Module requires no global variables.
 #
-define lightblue::eap::truststore_file ($certificates) {
-
-    $certificate = $certificates[$name]
+define lightblue::eap::truststore_file ($source, $file) {
 
     # pull certificate from the source
-    file { $certificate["file"]:
+    file { $file :
         owner  => 'root',
         group  => 'root',
         mode   => '0600',
         links  => 'follow',
-        source => $certificate["source"],
+        source => $source,
     }
 
     #This will create the truststore at the target location
     java_ks { "${name}:${lightblue::eap::truststore::keystore_location}/eap6trust.keystore" :
         ensure       => latest,
-        certificate  => $certificate["file"],
+        certificate  => $file,
         password     => $lightblue::eap::truststore::keystore_password,
         trustcacerts => true,
-        require      => [ File[$certificate["file"]]],
+        require      => [ File[$file]],
     }
 
 }

@@ -37,18 +37,11 @@ class lightblue::eap::truststore (
         notify  => Service['jbossas']
     }
 
-    #### START Puppet iteration black magic
     # TODO change this to use new Puppet iteration Syntax
     # when we upgrade to Puppet 4 i.e. $certificates.each
 
-    # Parse certificate hash into an array of hashes
-    $certificate_data = keys($certificates)
-
-    # For each certificate in certificate_data:
+    # For each certificate in $certificates:
     # Add it to the keystore used for truststore
-    lightblue::eap::truststore_file {$certificate_data:
-        certificates => $certificates
-    }
+    create_resources(lightblue::eap::truststore_file, $certificates)
 
-    #### END Puppet iteration black magic
 }
