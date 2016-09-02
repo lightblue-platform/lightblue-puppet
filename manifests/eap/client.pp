@@ -159,7 +159,7 @@ define lightblue::eap::client (
         lbclient_cert_file_path     => $auth_cert_file_path,
         lbclient_cert_password      => $auth_cert_password,
         lbclient_cert_alias         => $auth_cert_alias,
-        lbclient_ca_certificates    => $ca_certificates,
+        lbclient_ca_certificates    => $ca_cert_files,
         require                     => File[$module_dirs],
     }
 }
