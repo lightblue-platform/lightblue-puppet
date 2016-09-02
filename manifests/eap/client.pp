@@ -41,6 +41,11 @@
 #   The destination file path inside the JBoss module to put the SSL
 #   certificate authority file. Defaults to 'cacert.pem'.
 #
+# [*ca_certificates*]
+#   List of The destination file path inside the JBoss module to put the SSL
+#   certificate authority file. Defaults to the values provided in the
+#   $ssl_ca_file_path and $ssl_ca_source variables for backwards compatibility.
+#
 # === Variables
 #
 # None
@@ -54,6 +59,8 @@
 #        auth_cert_source     => 'puppet:///path/to/your/lb-myapp.pkcs12',
 #        auth_cert_password   => hiera('myapp::lightblue::pass'),
 #        ssl_ca_source        => 'puppet:///path/to/your/cacert.pem',
+#        ssl_ca_file_path     => 'cacert.pem',
+#        ca_certificates      => {'cacert.pem' => {'source' => 'puppet:///path/to/your/cacert.pem', 'file' => 'cacert.pem'}}
 #    }
 #
 define lightblue::eap::client (
@@ -66,7 +73,8 @@ define lightblue::eap::client (
     $auth_cert_password=undef,
     $auth_cert_alias="lb-${name}",
     $ssl_ca_source=undef,
-    $ssl_ca_file_path='cacert.pem'
+    $ssl_ca_file_path='cacert.pem',
+    $ca_certificates = undef,
 )
 {
     require lightblue::eap::client::modulepath
@@ -93,14 +101,29 @@ define lightblue::eap::client (
         require => File[$module_dirs],
     }
 
-    file { "${module_path}/${ssl_ca_file_path}":
-        mode    => '0440',
-        owner   => 'jboss',
-        group   => 'jboss',
-        links   => 'follow',
-        source  => $ssl_ca_source,
-        require => File[$module_dirs],
+    if ',' in $ssl_ca_file_path or ',' in $ssl_ca_source {
+        fail('If using multiple CA certificates, specify them as a hash in the $ca_certificates parameter')
     }
+
+    if $ca_certificates == undef {
+        $ca_cert_files = {
+            "${ssl_ca_file_path}" => {
+                source  => $ssl_ca_source,
+                file    => $ssl_ca_file_path },
+        }
+    } else {
+        $ca_cert_files = $ca_certificates
+    }
+
+    $ca_cert_file_defaults = {
+        'module_path'   => $module_path,
+        'mode'          => '0440',
+        'owner'         => 'jboss',
+        'group'         => 'jboss',
+        'links'         => 'follow',
+    }
+
+    create_resources(lightblue::eap::client_ca_cert_file, $ca_cert_files, $ca_cert_file_defaults)
 
     if $use_cert_auth {
         if $auth_cert_content {
@@ -127,15 +150,16 @@ define lightblue::eap::client (
     }
 
     lightblue::client::configure{ "${module_path}/lightblue-client.properties":
-        owner                   => 'jboss',
-        group                   => 'jboss',
-        lbclient_metadata_uri   => $metadata_service_uri,
-        lbclient_data_uri       => $data_service_uri,
-        lbclient_use_cert_auth  => $use_cert_auth,
-        lbclient_ca_file_path   => $ssl_ca_file_path,
-        lbclient_cert_file_path => $auth_cert_file_path,
-        lbclient_cert_password  => $auth_cert_password,
-        lbclient_cert_alias     => $auth_cert_alias,
-        require                 => File[$module_dirs],
+        owner                       => 'jboss',
+        group                       => 'jboss',
+        lbclient_metadata_uri       => $metadata_service_uri,
+        lbclient_data_uri           => $data_service_uri,
+        lbclient_use_cert_auth      => $use_cert_auth,
+        lbclient_ca_file_path       => $ssl_ca_file_path,
+        lbclient_cert_file_path     => $auth_cert_file_path,
+        lbclient_cert_password      => $auth_cert_password,
+        lbclient_cert_alias         => $auth_cert_alias,
+        lbclient_ca_certificates    => $ca_certificates,
+        require                     => File[$module_dirs],
     }
 }

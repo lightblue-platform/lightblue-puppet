@@ -25,6 +25,7 @@ class lightblue::application::metadatamgmt (
     $mgmt_app_cert_alias,
     $client_ca_source,
     $client_cert_source,
+    $ca_certificates = undef,
 )
 inherits lightblue::application {
     include lightblue::base
@@ -49,6 +50,7 @@ inherits lightblue::application {
         auth_cert_password   => $mgmt_app_cert_password,
         auth_cert_file_path  => $mgmt_app_cert_file_path,
         auth_cert_alias      => $mgmt_app_cert_alias,
-        ssl_ca_source        => $client_ca_source
+        ssl_ca_source        => $client_ca_source,
+        ca_certificates      => $ca_certificates
     }
 }
