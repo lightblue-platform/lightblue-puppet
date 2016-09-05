@@ -51,6 +51,6 @@ inherits lightblue::application {
         auth_cert_file_path  => $mgmt_app_cert_file_path,
         auth_cert_alias      => $mgmt_app_cert_alias,
         ssl_ca_source        => $client_ca_source,
-        ca_certificates      => $ca_certificates
+        ssl_ca_certificates      => $ca_certificates
     }
 }
