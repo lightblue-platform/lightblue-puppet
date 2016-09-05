@@ -18,8 +18,8 @@
 #                               on the file system.
 #                               (defaults to false)
 # $lbclient_ca_certificates   - List of The destination file path inside the JBoss module to put the SSL
-#                             - certificate authority file. Defaults to the values provided in the
-#                             - $ssl_ca_file_path and $ssl_ca_source variables for backwards compatibility.
+#                               certificate authority file. Defaults to the values provided in the
+#                               $ssl_ca_file_path and $ssl_ca_source variables for backwards compatibility.
 #
 #
 # === Variables
