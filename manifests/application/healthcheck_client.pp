@@ -7,11 +7,11 @@
 # $module_path              Path to modules directory where client config files will be created
 # $data_service_uri         URI to lightblue data service
 # $metadata_service_uri     URI to lightblue metadata service
-# $use_cert_auth,
-# $source,
-# $file,
-# $password,
-# $ca_certificates,
+# $use_cert_auth            Boolean to determine whether cert auth is being used or not
+# $source                   Source for client certificate
+# $file                     File name that will be generated on the host
+# $password                 Password for client certificate
+# $ca_certificates          CA certificate(s) to be used in client config
 #
 # === Variables
 #
