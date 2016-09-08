@@ -46,10 +46,6 @@ define lightblue::client::configure (
     $lbclient_ca_certificates = undef,
 ) {
 
-    notify {"Using these CA certs for lightblue::client::configure: \$lbclient_ca_certificates ${$lbclient_ca_certificates} ":
-        withpath => true,
-    }
-
     file { $title:
         ensure  => 'file',
         mode    => '0440',
