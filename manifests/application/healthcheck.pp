@@ -42,7 +42,7 @@ class lightblue::application::healthcheck (
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
-        content => template('lightblue/properties/moduleclient.xml.erb'),
+        content => template('lightblue/properties/modulehealthcheckclient.xml.erb'),
         require => File[$module_dirs],
     }
 
