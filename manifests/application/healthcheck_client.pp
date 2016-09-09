@@ -40,6 +40,14 @@ define lightblue::application::healthcheck_client (
     $ca_certificates,
 ) {
 
+    file { "${module_path}/${file}":
+        mode    => '0440',
+        owner   => 'jboss',
+        group   => 'jboss',
+        links   => 'follow',
+        source  => $source,
+    }
+
     $config_file_suffix = ".properties"
 
     lightblue::client::configure{ "${module_path}/${name}${config_file_suffix}":
