@@ -45,6 +45,7 @@ class lightblue::authentication::certificate (
     $ldap_search_base,
     $ldap_username,
     $ldap_password,
+    $environment,
     $keystore_password,
     $keystore_url,
     $truststore_password,
