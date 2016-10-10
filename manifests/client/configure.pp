@@ -17,6 +17,10 @@
 #                               however toggling to true provides the ability for the files to be physically located
 #                               on the file system.
 #                               (defaults to false)
+# $lbclient_ca_certificates   - List of The destination file path inside the JBoss module to put the SSL
+#                               certificate authority file. Defaults to the values provided in the
+#                               $ssl_ca_file_path and $ssl_ca_source variables for backwards compatibility.
+#
 #
 # === Variables
 #
@@ -39,6 +43,7 @@ define lightblue::client::configure (
     $lbclient_cert_password = undef,
     $lbclient_cert_alias = undef,
     $lbclient_use_physical_file = false,
+    $lbclient_ca_certificates = undef,
 ) {
 
     file { $title:

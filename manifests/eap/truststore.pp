@@ -13,12 +13,11 @@
 # [*keystore_password*]
 #   Password to keystore (truststore).
 #
-# [*identity_certificate_source*]
-#   Location for identity certificate.  Is used as 'source' in a 'file' entry.
-#   Recommend referencing a file in a separate (and secure) puppet module for managing certs.
-#
-# [*identity_certificate_file*]
-#   Full path and filename for the identity certificate.
+# [*certificates*]
+#   Hash of multiple certificates containing the alias, source and file path for each one.
+#   name: Name for cert that will be used as alias in keystore, i.e. 'cacert':
+#   source: Is used as 'source' in a 'file' entry, i.e. "puppet:///modules/certificates/cacert"
+#   file: Full path and filename for the server certificate., i.e. "/cacert"
 #
 # === Variables
 #
@@ -28,31 +27,21 @@ class lightblue::eap::truststore (
     $keystore_alias,
     $keystore_location,
     $keystore_password,
-    $identity_certificate_source,
-    $identity_certificate_file,
+    $certificates = undef,
 )
 {
-    # pull certificate from the source
-    file { $identity_certificate_file:
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0600',
-        links  => 'follow',
-        source => $identity_certificate_source,
-    }
-    #This will create the keystore at the target location, with the alias eap6trust to the cert
-    java_ks { "${keystore_alias}:truststore":
-        ensure       => latest,
-        certificate  => $identity_certificate_file,
-        target       => "${keystore_location}/eap6trust.keystore",
-        password     => $keystore_password,
-        trustcacerts => true,
-        require      => [ File[$identity_certificate_file], Package[$lightblue::eap::package_name] ],
-    }
-    file {"${keystore_location}/eap6trust.keystore":
+    file {"${lightblue::eap::truststore::keystore_location}/eap6trust.keystore":
         owner   => 'jboss',
         group   => 'jboss',
         mode    => '0600',
-        require => Java_ks["${keystore_alias}:truststore"],
+        notify  => Service['jbossas']
     }
+
+    # TODO change this to use new Puppet iteration Syntax
+    # when we upgrade to Puppet 4 i.e. $certificates.each
+
+    # For each certificate in $certificates:
+    # Add it to the keystore used for truststore
+    create_resources(lightblue::eap::truststore_file, $certificates)
+
 }
