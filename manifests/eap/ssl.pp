@@ -34,10 +34,10 @@ class lightblue::eap::ssl (
     include lightblue::eap::truststore
 
     file {"${keystore_location}/eap6.keystore":
-        owner   => 'jboss',
-        group   => 'jboss',
-        mode    => '0600',
-        notify  => Service['jbossas']
+        owner  => 'jboss',
+        group  => 'jboss',
+        mode   => '0600',
+        notify => Service['jbossas']
     }
 
     # TODO change this to use new Puppet iteration Syntax

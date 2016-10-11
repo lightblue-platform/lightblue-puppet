@@ -41,25 +41,25 @@ define lightblue::application::healthcheck_client (
 ) {
 
     file { "${module_path}/${file}":
-        mode    => '0440',
-        owner   => 'jboss',
-        group   => 'jboss',
-        links   => 'follow',
-        source  => $source,
+        mode   => '0440',
+        owner  => 'jboss',
+        group  => 'jboss',
+        links  => 'follow',
+        source => $source,
     }
 
-    $config_file_suffix = ".properties"
+    $config_file_suffix = '.properties'
 
     lightblue::client::configure{ "${module_path}/${name}${config_file_suffix}":
-        owner                       => 'jboss',
-        group                       => 'jboss',
-        lbclient_metadata_uri       => $metadata_service_uri,
-        lbclient_data_uri           => $data_service_uri,
-        lbclient_use_cert_auth      => $use_cert_auth,
-        lbclient_cert_file_path     => $file,
-        lbclient_cert_password      => $password,
-        lbclient_cert_alias         => $name,
-        lbclient_ca_certificates    => $ca_certificates,
+        owner                    => 'jboss',
+        group                    => 'jboss',
+        lbclient_metadata_uri    => $metadata_service_uri,
+        lbclient_data_uri        => $data_service_uri,
+        lbclient_use_cert_auth   => $use_cert_auth,
+        lbclient_cert_file_path  => $file,
+        lbclient_cert_password   => $password,
+        lbclient_cert_alias      => $name,
+        lbclient_ca_certificates => $ca_certificates,
     }
 
 }
