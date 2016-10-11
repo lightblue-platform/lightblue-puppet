@@ -172,16 +172,16 @@ define lightblue::eap::client (
     }
 
     lightblue::client::configure{ "${module_path}/lightblue-client.properties":
-        owner                       => 'jboss',
-        group                       => 'jboss',
-        lbclient_metadata_uri       => $metadata_service_uri,
-        lbclient_data_uri           => $data_service_uri,
-        lbclient_use_cert_auth      => $use_cert_auth,
-        lbclient_ca_file_path       => $ssl_ca_file_path,
-        lbclient_cert_file_path     => $auth_cert_file_path,
-        lbclient_cert_password      => $auth_cert_password,
-        lbclient_cert_alias         => $auth_cert_alias,
-        lbclient_ca_certificates    => $ssl_ca_cert_files,
-        require                     => File[$module_dirs],
+        owner                    => 'jboss',
+        group                    => 'jboss',
+        lbclient_metadata_uri    => $metadata_service_uri,
+        lbclient_data_uri        => $data_service_uri,
+        lbclient_use_cert_auth   => $use_cert_auth,
+        lbclient_ca_file_path    => $ssl_ca_file_path,
+        lbclient_cert_file_path  => $auth_cert_file_path,
+        lbclient_cert_password   => $auth_cert_password,
+        lbclient_cert_alias      => $auth_cert_alias,
+        lbclient_ca_certificates => $ssl_ca_cert_files,
+        require                  => File[$module_dirs],
     }
 }

@@ -39,11 +39,11 @@ define lightblue::eap::client_ca_cert_file (
 ) {
 
     file { "${module_path}/${file}":
-        mode    => $mode,
-        owner   => $owner,
-        group   => $group,
-        links   => $links,
-        source  => $source,
+        mode   => $mode,
+        owner  => $owner,
+        group  => $group,
+        links  => $links,
+        source => $source,
     }
 
 }
