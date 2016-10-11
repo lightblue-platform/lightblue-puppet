@@ -31,10 +31,10 @@ class lightblue::eap::truststore (
 )
 {
     file {"${lightblue::eap::truststore::keystore_location}/eap6trust.keystore":
-        owner   => 'jboss',
-        group   => 'jboss',
-        mode    => '0600',
-        notify  => Service['jbossas']
+        owner  => 'jboss',
+        group  => 'jboss',
+        mode   => '0600',
+        notify => Service['jbossas']
     }
 
     # TODO change this to use new Puppet iteration Syntax

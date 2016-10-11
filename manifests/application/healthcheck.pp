@@ -27,8 +27,8 @@ class lightblue::application::healthcheck (
 
     require lightblue::eap::client::modulepath
 
-    $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck/main"
-    $module_dirs = ["/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck", $module_path]
+    $module_path = '/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck/main'
+    $module_dirs = ['/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck', $module_path]
 
     # Setup the module directory
     file { $module_dirs :
@@ -70,10 +70,10 @@ class lightblue::application::healthcheck (
     $clients_config_file_path = "${module_path}/${clients_config_file_name}"
 
     concat { $clients_config_file_path :
-        ensure  => present,
-        mode    => '0440',
-        owner   => 'jboss',
-        group   => 'jboss',
+        ensure => present,
+        mode   => '0440',
+        owner  => 'jboss',
+        group  => 'jboss',
     }
 
     $client_cert_keys = keys($client_certificates)

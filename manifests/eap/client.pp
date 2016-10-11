@@ -122,6 +122,14 @@ define lightblue::eap::client (
     }
 
     if $ssl_ca_certificates == undef {
+        file { "${module_path}/${ssl_ca_file_path}":
+            mode    => '0440',
+            owner   => 'jboss',
+            group   => 'jboss',
+            links   => 'follow',
+            source  => $ssl_ca_source,
+            require => File[$module_dirs],
+        }
         $ssl_ca_cert_files = {
             "${ssl_ca_file_path}" => {
                 source  => $ssl_ca_source,
@@ -129,17 +137,15 @@ define lightblue::eap::client (
         }
     } else {
         $ssl_ca_cert_files = $ssl_ca_certificates
+        $ssl_ca_cert_file_defaults = {
+            'module_path'   => $module_path,
+            'mode'          => '0440',
+            'owner'         => 'jboss',
+            'group'         => 'jboss',
+            'links'         => 'follow',
+        }
+        create_resources(lightblue::eap::client_ca_cert_file, $ssl_ca_cert_files, $ssl_ca_cert_file_defaults)
     }
-
-    $ssl_ca_cert_file_defaults = {
-        'module_path'   => $module_path,
-        'mode'          => '0440',
-        'owner'         => 'jboss',
-        'group'         => 'jboss',
-        'links'         => 'follow',
-    }
-
-    create_resources(lightblue::eap::client_ca_cert_file, $ssl_ca_cert_files, $ssl_ca_cert_file_defaults)
 
     if $use_cert_auth {
         if $auth_cert_content {
@@ -166,16 +172,16 @@ define lightblue::eap::client (
     }
 
     lightblue::client::configure{ "${module_path}/lightblue-client.properties":
-        owner                       => 'jboss',
-        group                       => 'jboss',
-        lbclient_metadata_uri       => $metadata_service_uri,
-        lbclient_data_uri           => $data_service_uri,
-        lbclient_use_cert_auth      => $use_cert_auth,
-        lbclient_ca_file_path       => $ssl_ca_file_path,
-        lbclient_cert_file_path     => $auth_cert_file_path,
-        lbclient_cert_password      => $auth_cert_password,
-        lbclient_cert_alias         => $auth_cert_alias,
-        lbclient_ca_certificates    => $ssl_ca_cert_files,
-        require                     => File[$module_dirs],
+        owner                    => 'jboss',
+        group                    => 'jboss',
+        lbclient_metadata_uri    => $metadata_service_uri,
+        lbclient_data_uri        => $data_service_uri,
+        lbclient_use_cert_auth   => $use_cert_auth,
+        lbclient_ca_file_path    => $ssl_ca_file_path,
+        lbclient_cert_file_path  => $auth_cert_file_path,
+        lbclient_cert_password   => $auth_cert_password,
+        lbclient_cert_alias      => $auth_cert_alias,
+        lbclient_ca_certificates => $ssl_ca_cert_files,
+        require                  => File[$module_dirs],
     }
 }
