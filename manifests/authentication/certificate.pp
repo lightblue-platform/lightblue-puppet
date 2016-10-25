@@ -21,6 +21,9 @@
 # [*ldap_password*]
 #   password for the user
 #
+# [*ldap_use_tls*]
+#   boolean to represent whether or not TLS should be used to connect to LDAP
+#
 # [*keystore_password*]
 #   keystore password
 #
