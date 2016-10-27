@@ -7,9 +7,13 @@
 #   EAP configuration directory
 #   i.e. /usr/share/jbossas/standalone/configuration
 #
-# [*ldap_ad_server*]
-#   ldap active directory server
-#   i.e. ldap://ldap.mycompany.com
+# [*ldap_server*]
+#   ldap server
+#   i.e. ldap.mycompany.com (do not add ldap://)
+#
+# [*ldap_port*]
+#   ldap port
+#   i.e. 389
 #
 # [*ldap_search_base*]
 #   base query for getting at lightblue group data
@@ -23,6 +27,9 @@
 #
 # [*ldap_use_tls*]
 #   boolean to represent whether or not TLS should be used to connect to LDAP
+#
+# [*ldap_pool_size*]
+#   integer to represent the LDAP connection pool size
 #
 # [*keystore_password*]
 #   keystore password
@@ -44,11 +51,13 @@
 # Setup certificate base authentication.
 class lightblue::authentication::certificate (
     $config_dir,
-    $ldap_ad_server,
+    $ldap_server,
+    $ldap_port,
     $ldap_search_base,
     $ldap_username,
     $ldap_password,
     $ldap_use_tls=false,
+    $ldap_pool_size,
     $environment,
     $keystore_password,
     $keystore_url,
