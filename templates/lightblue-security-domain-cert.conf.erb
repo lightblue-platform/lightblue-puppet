@@ -14,10 +14,15 @@
                   "verifier" => "org.jboss.security.auth.certs.AnyCertVerifier",
                   "rolesProperties" => "deleted",
                   "authRoleName" => "authenticated",
-                  "ldapServer" => "<%= ldap_ad_server %>",
+                  "ldapServer" => "<%= ldap_server %>",
+                  "port" => "<%= ldap_port %>",
                   "searchBase" => "<%= ldap_search_base %>",
                   "bindDn" => "<%= ldap_username %>",
                   "bindPassword" => "<%= ldap_password %>",
+                  "useSSL" => "<%= ldap_use_tls %>",
+                  "poolSize" => "<%= ldap_pool_size %>",
+                  "trustStore" => "<%= truststore_url %>",
+                  "trustStorePassword" => "<%= truststore_password %>",
                   "environment" => "<%= environment %>"
                 }
               }
