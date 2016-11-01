@@ -21,7 +21,7 @@
                   "bindPassword" => "<%= ldap_password %>",
                   "useSSL" => "<%= ldap_use_tls %>",
                   "poolSize" => "<%= ldap_pool_size %>",
-                  "trustStore" => "<%= truststore_url %>",
+                  "trustStore" => expression "<%= truststore_url %>",
                   "trustStorePassword" => "<%= truststore_password %>",
                   "environment" => "<%= environment %>"
                 }
@@ -34,11 +34,11 @@
              "client-auth" => true,
              "keystore" => {
                         "password" => "<%= keystore_password %>",
-                        "url" => "file://<%= keystore_url %>"
+                        "url" => expression "file://<%= keystore_url %>"
                     },
              "truststore" => {
                         "password" => "<%= truststore_password %>",
-                        "url" => "file://<%= truststore_url %>"
+                        "url" => expression "file://<%= truststore_url %>"
                     }
             }
          }
