@@ -23,7 +23,11 @@
                   "poolSize" => "<%= ldap_pool_size %>",
                   "trustStore" => "<%= truststore_url %>",
                   "trustStorePassword" => "<%= truststore_password %>",
-                  "environment" => "<%= environment %>"
+                  "environment" => "<%= environment %>",
+                  "debug" => "<%= @debug %>",
+                  "keepAlive" => "<%= @keepAlive %>",
+                  "connectionTimeoutMS" => "<%= @connectionTimeoutMS %>",
+                  "responseTimeoutMS" => "<%= @responseTimeoutMS %>",
                 }
               }
             }

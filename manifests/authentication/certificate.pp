@@ -63,6 +63,10 @@ class lightblue::authentication::certificate (
     $keystore_url,
     $truststore_password,
     $truststore_url,
+    $connectionTimeoutMS,
+    $responseTimeoutMS,
+    $debug,
+    $keepAlive
 ) {
     include lightblue::eap
 
