@@ -44,6 +44,21 @@
 # [*truststore_url*]
 #   URL to truststore.
 #
+# [*connectionTimeoutMS*]
+#   LDAP Connection establish timeout.
+#
+# [*responseTimeoutMS*]
+#   LDAP response timeout.
+#
+# [*debug*]
+#   Debug logs from unboundID.
+#
+# [*keepAlive*]
+#   LDAP connection keep alive.
+#
+# [*poolMaxConnectionAgeMS*]
+#   Max LDAP connection age in the pool.
+#
 # === Variables
 #
 # Module requires no global variables.
@@ -63,6 +78,11 @@ class lightblue::authentication::certificate (
     $keystore_url,
     $truststore_password,
     $truststore_url,
+    $connectionTimeoutMS=3000,
+    $responseTimeoutMS=3000,
+    $debug=false,
+    $keepAlive=true,
+    $poolMaxConnectionAgeMS=15000,
 ) {
     include lightblue::eap
 
