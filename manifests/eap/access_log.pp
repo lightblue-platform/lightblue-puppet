@@ -9,7 +9,7 @@ class lightblue::eap::access_log (
         content => template('lightblue/web-access-log.conf.erb'),
     }
     logrotate::file { 'jboss-access-logs':
-        log     => '/var/log/jbossas/standalone/default-host/access_log',
+        log     => '/var/log/jbossas/standalone/default-host/access_log*',
         options => ['compress',
                     'copytruncate',
                     'daily',
