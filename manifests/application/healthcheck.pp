@@ -39,10 +39,11 @@ class lightblue::application::healthcheck (
 
     # Setup the module directory
     file { $module_dirs :
-        ensure => 'directory',
-        owner  => 'jboss',
-        group  => 'jboss',
-        mode   => '0440',
+        ensure  => 'directory',
+        owner   => 'jboss',
+        group   => 'jboss',
+        mode    => '0440',
+        require => Exec[$client_module_base_path],
     }
 
     file { "${module_path}/module.xml":

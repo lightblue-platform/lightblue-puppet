@@ -114,10 +114,11 @@ define lightblue::eap::client (
     # mkdir -p equivalent in puppet is crazy :/
     # Setup the module directory
     file { $module_dirs :
-        ensure => 'directory',
-        owner  => $owner,
-        group  => $group,
-        mode   => '0440',
+        ensure  => 'directory',
+        owner   => $owner,
+        group   => $group,
+        mode    => '0440',
+        require => Exec[$client_module_base_path],
     }
 
     file { "${module_path}/module.xml":
