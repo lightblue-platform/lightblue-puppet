@@ -96,9 +96,9 @@ define lightblue::eap::client (
 {
     require lightblue::eap::client::modulepath
 
-    $module_path = "${$modules_home_path}/com/redhat/lightblue/client/${name}/main"
+    $module_path = "${modules_home_path}/com/redhat/lightblue/client/${name}/main"
 
-    $module_dirs = ["${$modules_home_path}/com/redhat/lightblue/client/${name}", $module_path]
+    $module_dirs = ["${modules_home_path}/com/redhat/lightblue/client/${name}", $module_path]
 
     # Setup the properties directory
     # mkdir -p equivalent in puppet is crazy :/
