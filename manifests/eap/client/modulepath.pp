@@ -1,7 +1,7 @@
 # Setting up common module path for lightblue::eap::client resource
-class lightblue::eap::client::modulepath {
-
-    $module_path = '/usr/share/jbossas/modules/com/redhat/lightblue/client'
+class lightblue::eap::client::modulepath (
+  $module_path = '/usr/share/jbossas/modules/com/redhat/lightblue/client',
+) {
 
     exec { $module_path:
         command => "mkdir -p ${module_path}",
