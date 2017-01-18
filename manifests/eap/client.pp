@@ -91,13 +91,14 @@ define lightblue::eap::client (
     $ssl_ca_source=undef,
     $ssl_ca_file_path='cacert.pem',
     $ssl_ca_certificates = undef,
+    $modules_home_path = '/usr/share/jbossas/modules',
 )
 {
     require lightblue::eap::client::modulepath
 
-    $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
+    $module_path = "${$modules_home_path}/com/redhat/lightblue/client/${name}/main"
 
-    $module_dirs = ["/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", $module_path]
+    $module_dirs = ["${$modules_home_path}/com/redhat/lightblue/client/${name}", $module_path]
 
     # Setup the properties directory
     # mkdir -p equivalent in puppet is crazy :/
