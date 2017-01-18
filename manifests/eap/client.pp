@@ -118,7 +118,8 @@ define lightblue::eap::client (
         require => File[$module_dirs],
     }
 
-    if ',' in $ssl_ca_file_path or ',' in $ssl_ca_source {
+    if ($ssl_ca_file_path and ',' in $ssl_ca_file_path)
+            or ($ssl_ca_source and ',' in $ssl_ca_source) {
         fail('If using multiple CA certificates, specify them as a hash in the $ssl_ca_certificates parameter')
     }
 
