@@ -25,7 +25,12 @@ class lightblue::application::healthcheck (
             Class['lightblue::eap'] ],
     }
 
-    require lightblue::eap::client::modulepath
+    # The standard puppet way to create dirs recursively does not work when paths overlap
+    # They do, because many modules are created in /usr/share/jbossas/modules/com...
+    exec { $module_path:
+        command => "mkdir -p ${module_path}",
+        user    => 'jboss',
+    }
 
     $module_path = '/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck/main'
     $module_dirs = ['/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck', $module_path]
