@@ -118,7 +118,7 @@ define lightblue::eap::client (
         owner   => $owner,
         group   => $group,
         mode    => '0440',
-        require => Exec[$client_module_base_path],
+        #require => Exec[$client_module_base_path],
     }
 
     file { "${module_path}/module.xml":
