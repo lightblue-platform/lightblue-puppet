@@ -102,6 +102,7 @@ define lightblue::eap::client (
     # They do, because many modules are created in /usr/share/jbossas/modules/com...
     exec { $client_module_base_path:
         command => "mkdir -p ${client_module_base_path}",
+        creates => $client_module_base_path,
         user    => $owner,
         group   => $group,
     }
