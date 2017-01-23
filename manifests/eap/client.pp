@@ -98,12 +98,15 @@ define lightblue::eap::client (
 {
     $client_module_base_path = "${modules_home_path}/com/redhat/lightblue/client"
 
-    # The standard puppet way to create dirs recursively does not work when paths overlap
-    # They do, because many modules are created in /usr/share/jbossas/modules/com...
-    exec { $client_module_base_path:
-        command => "mkdir -p ${client_module_base_path}",
-        user    => $owner,
-        group   => $group,
+    if !defined(Exec[$client_module_base_path]) {
+      # The standard puppet way to create dirs recursively does not work when paths overlap
+      # They do, because many modules are created in /usr/share/jbossas/modules/com...
+      exec { $client_module_base_path:
+          command => "mkdir -p ${client_module_base_path}",
+          creates => $client_module_base_path,
+          user    => $owner,
+          group   => $group,
+      }
     }
 
     $module_path = "${client_module_base_path}/${name}/main"
