@@ -25,17 +25,25 @@ class lightblue::application::healthcheck (
             Class['lightblue::eap'] ],
     }
 
-    require lightblue::eap::client::modulepath
+    $client_module_base_path = '/usr/share/jbossas/modules/com/redhat/lightblue/client'
 
-    $module_path = '/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck/main'
-    $module_dirs = ['/usr/share/jbossas/modules/com/redhat/lightblue/client/healthcheck', $module_path]
+    # The standard puppet way to create dirs recursively does not work when paths overlap
+    # They do, because many modules are created in /usr/share/jbossas/modules/com...
+    exec { $client_module_base_path:
+        command => "mkdir -p ${client_module_base_path}",
+        user    => 'jboss',
+    }
+
+    $module_path = "${client_module_base_path}/healthcheck/main"
+    $module_dirs = ["${client_module_base_path}/healthcheck", $module_path]
 
     # Setup the module directory
     file { $module_dirs :
-        ensure => 'directory',
-        owner  => 'jboss',
-        group  => 'jboss',
-        mode   => '0440',
+        ensure  => 'directory',
+        owner   => 'jboss',
+        group   => 'jboss',
+        mode    => '0440',
+        require => Exec[$client_module_base_path],
     }
 
     file { "${module_path}/module.xml":
