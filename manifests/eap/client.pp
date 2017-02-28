@@ -91,41 +91,57 @@ define lightblue::eap::client (
     $ssl_ca_source=undef,
     $ssl_ca_file_path='cacert.pem',
     $ssl_ca_certificates = undef,
+    $modules_home_path = '/usr/share/jbossas/modules',
+    $owner = 'jboss',
+    $group = 'jboss',
 )
 {
-    require lightblue::eap::client::modulepath
+    $client_module_base_path = "${modules_home_path}/com/redhat/lightblue/client"
 
-    $module_path = "/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}/main"
+    if !defined(Exec[$client_module_base_path]) {
+      # The standard puppet way to create dirs recursively does not work when paths overlap
+      # They do, because many modules are created in /usr/share/jbossas/modules/com...
+      exec { $client_module_base_path:
+          command => "mkdir -p ${client_module_base_path}",
+          creates => $client_module_base_path,
+          user    => $owner,
+          group   => $group,
+      }
+    }
 
-    $module_dirs = ["/usr/share/jbossas/modules/com/redhat/lightblue/client/${name}", $module_path]
+    $module_path = "${client_module_base_path}/${name}/main"
+
+    $module_dirs = ["${client_module_base_path}/${name}", $module_path]
 
     # Setup the properties directory
     # mkdir -p equivalent in puppet is crazy :/
     # Setup the module directory
     file { $module_dirs :
-        ensure => 'directory',
-        owner  => 'jboss',
-        group  => 'jboss',
-        mode   => '0440',
+        ensure  => 'directory',
+        owner   => $owner,
+        group   => $group,
+        mode    => '0440',
+        require => Exec[$client_module_base_path],
     }
 
     file { "${module_path}/module.xml":
         mode    => '0644',
-        owner   => 'jboss',
-        group   => 'jboss',
+        owner   => $owner,
+        group   => $group,
         content => template('lightblue/properties/moduleclient.xml.erb'),
         require => File[$module_dirs],
     }
 
-    if ',' in $ssl_ca_file_path or ',' in $ssl_ca_source {
+    if ($ssl_ca_file_path and ',' in $ssl_ca_file_path)
+            or ($ssl_ca_source and ',' in $ssl_ca_source) {
         fail('If using multiple CA certificates, specify them as a hash in the $ssl_ca_certificates parameter')
     }
 
     if $ssl_ca_certificates == undef {
         file { "${module_path}/${ssl_ca_file_path}":
             mode    => '0440',
-            owner   => 'jboss',
-            group   => 'jboss',
+            owner   => $owner,
+            group   => $group,
             links   => 'follow',
             source  => $ssl_ca_source,
             require => File[$module_dirs],
@@ -140,8 +156,8 @@ define lightblue::eap::client (
         $ssl_ca_cert_file_defaults = {
             'module_path'   => $module_path,
             'mode'          => '0440',
-            'owner'         => 'jboss',
-            'group'         => 'jboss',
+            'owner'         => $owner,
+            'group'         => $group,
             'links'         => 'follow',
         }
         create_resources(lightblue::eap::client_ca_cert_file, $ssl_ca_cert_files, $ssl_ca_cert_file_defaults)
@@ -151,8 +167,8 @@ define lightblue::eap::client (
         if $auth_cert_content {
             file { "${module_path}/${auth_cert_file_path}":
                 mode    => '0440',
-                owner   => 'jboss',
-                group   => 'jboss',
+                owner   => $owner,
+                group   => $group,
                 links   => 'follow',
                 content => $auth_cert_content,
                 require => File[$module_dirs],
@@ -160,8 +176,8 @@ define lightblue::eap::client (
         } elsif $auth_cert_source {
             file { "${module_path}/${auth_cert_file_path}":
                 mode    => '0440',
-                owner   => 'jboss',
-                group   => 'jboss',
+                owner   => $owner,
+                group   => $group,
                 links   => 'follow',
                 source  => $auth_cert_source,
                 require => File[$module_dirs],
@@ -172,8 +188,8 @@ define lightblue::eap::client (
     }
 
     lightblue::client::configure{ "${module_path}/lightblue-client.properties":
-        owner                    => 'jboss',
-        group                    => 'jboss',
+        owner                    => $owner,
+        group                    => $group,
         lbclient_metadata_uri    => $metadata_service_uri,
         lbclient_data_uri        => $data_service_uri,
         lbclient_use_cert_auth   => $use_cert_auth,
