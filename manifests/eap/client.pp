@@ -90,7 +90,7 @@ define lightblue::eap::client (
     $auth_cert_alias="lb-${name}",
     $ssl_ca_source=undef,
     $ssl_ca_file_path='cacert.pem',
-    $ssl_ca_certificates = hiera('lightblue::client_ca_sources'),
+    $ssl_ca_certificates = undef,
     $modules_home_path = '/usr/share/jbossas/modules',
     $owner = 'jboss',
     $group = 'jboss',
