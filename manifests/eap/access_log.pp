@@ -12,6 +12,10 @@ class lightblue::eap::access_log (
         ensure => absent,
     }
 
+    file { '/etc/logrotate.d/jboss-access-logs':
+        ensure => absent,
+    }
+
     # The next is just to flush out old logs prior to changing over to
     # log rotate can't use logrotate::tmpwatch because it checks atime
     # which gets reset on updatedb
