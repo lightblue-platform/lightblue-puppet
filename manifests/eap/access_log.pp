@@ -8,6 +8,9 @@ class lightblue::eap::access_log (
     lightblue::jcliff::config { 'web-access-log.conf':
         content => template('lightblue/web-access-log.conf.erb'),
     }
+    logrotate::file { 'jboss-access-logs':
+        ensure => absent,
+    }
 
     # The next is just to flush out old logs prior to changing over to
     # log rotate can't use logrotate::tmpwatch because it checks atime
