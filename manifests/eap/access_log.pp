@@ -8,9 +8,6 @@ class lightblue::eap::access_log (
     lightblue::jcliff::config { 'web-access-log.conf':
         content => template('lightblue/web-access-log.conf.erb'),
     }
-    logrotate::file { 'jboss-access-logs':
-        ensure => absent,
-    }
 
     file { '/etc/logrotate.d/jboss-access-logs':
         ensure => absent,
