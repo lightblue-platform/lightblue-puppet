@@ -1,17 +1,16 @@
 # Defines access log pattern for 'default-host' virtual-server
 class lightblue::eap::access_log (
     $pattern = '\%h \%l \%u \%t \\\u0034\%r\\\u0034 \%s \%b \\\u0034\%{Referer}i\\\u0034 \\\u0034\%{User-Agent}i\\\u0034 \%D \%S',
-    $rotate  = true,
+    $rotate  = 'true',
     $prefix  = 'access_log',
-    $resolve_hosts = false
+    $resolve_hosts = 'false',
 ) {
     lightblue::jcliff::config { 'web-access-log.conf':
         content => template('lightblue/web-access-log.conf.erb'),
     }
-    logrotate::file { 'jboss-access-logs':
-        ensure => absent,
-    }
 
+    # we were using an internal implementation for logrotate resource,
+    # one which does not support ensure => absent
     file { '/etc/logrotate.d/jboss-access-logs':
         ensure => absent,
     }
