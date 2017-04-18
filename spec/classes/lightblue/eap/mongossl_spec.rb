@@ -18,10 +18,10 @@ describe 'lightblue::eap::mongossl' do
           "file" => "/cacert"
       }
     end
-    
+
     it do
       #should contain_file("/cacert")
-      #should contain_file("/keystore/eap6trust.keystore")
+      #should contain_file("/keystore/cacerts")
     end
   end
 
