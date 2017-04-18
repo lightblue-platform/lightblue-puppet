@@ -29,7 +29,6 @@ define lightblue::eap::mongo_keystore_file ($file, $source) {
     java_ks { "${name}:${lightblue::java::java_home}/jre/lib/security/cacerts" :
         ensure       => latest,
         certificate  => $file,
-        private_key  => $file,
         password     => $lightblue::eap::mongossl::java_ks_password,
         trustcacerts => true,
         require      => [ File[$file]],
