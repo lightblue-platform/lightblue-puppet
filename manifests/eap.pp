@@ -31,6 +31,7 @@ class lightblue::eap (
     $java_Xms = '786m',
     $java_Xmx = '1572m',
     $expose_management_interface = false,
+    $heap_dump_on_oom = true,
 ) {
   include lightblue::yumrepo::jbeap
   include lightblue::yumrepo::jbeaptools
