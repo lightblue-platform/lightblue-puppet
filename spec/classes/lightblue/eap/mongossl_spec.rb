@@ -4,26 +4,24 @@ describe 'lightblue::eap::mongossl' do
 
   let(:hiera_config){ 'spec/fixtures/hiera/hiera.yaml' }
 
-  context 'no source' do
-    let :params do
+  let :facts do
+    {
+      :architecture => 'x86_64'
+    }
+  end
+
+  context 'defaults' do
+    let :certificates do
       {
-        :certificate_file => '/tmp/certfile',
-        :java_ks_password => 'password',
-        :certificate_content => 'CONTENT',
-        :certificate_source => ''
+          "name" => "cacert",
+          "source" => "puppet:///modules/certificates/cacert",
+          "file" => "/cacert"
       }
     end
 
     it do
-      should contain_file("/tmp/certfile") \
-        .with({
-            'ensure'  => 'file',
-            'owner'   => 'jboss',
-            'group'   => 'jboss',
-            'mode'    => '0600'
-          }
-        ) \
-        .with_content(/CONTENT/)
+      #should contain_file("/cacert")
+      #should contain_file("/keystore/cacerts")
     end
   end
 
