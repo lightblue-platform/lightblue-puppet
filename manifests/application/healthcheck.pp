@@ -55,24 +55,24 @@ class lightblue::application::healthcheck (
     }
 
     $ca_certificates_default = {
-        'module_path'   => $module_path,
-        'mode'          => '0440',
-        'owner'         => 'jboss',
-        'group'         => 'jboss',
-        'links'         => 'follow',
+        file_path     => $module_path,
+        mode          => '0440',
+        owner         => 'jboss',
+        group         => 'jboss',
+        links         => 'follow',
     }
 
-    create_resources(lightblue::eap::client_ca_cert_file, $ca_certificates, $ca_certificates_default)
+    create_resources(lightblue::client::cert_file, $ca_certificates, $ca_certificates_default)
 
     $client_defaults = {
-        'module_path'          => $module_path,
-        'data_service_uri'     => $data_service_uri,
-        'metadata_service_uri' => $metadata_service_uri,
-        'use_cert_auth'        => $use_cert_auth,
-        'ca_certificates'      => $ca_certificates,
+        file_path            => $module_path,
+        data_service_uri     => $data_service_uri,
+        metadata_service_uri => $metadata_service_uri,
+        use_cert_auth        => $use_cert_auth,
+        ca_certificates      => $ca_certificates,
     }
 
-    create_resources(lightblue::application::healthcheck_client, $client_certificates, $client_defaults)
+    create_resources(lightblue::client::client_cert, $client_certificates, $client_defaults)
 
     $clients_config_file_name = 'lightblue-clients.config'
     $clients_config_file_path = "${module_path}/${clients_config_file_name}"
