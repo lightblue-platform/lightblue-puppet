@@ -35,7 +35,8 @@ define lightblue::client::cert_file (
     $owner,
     $group,
     $mode = '0440',
-    $links = 'follow'
+    $links = 'follow',
+    $notify = undef,
 ) {
 
     file { "${file_path}/${file}":

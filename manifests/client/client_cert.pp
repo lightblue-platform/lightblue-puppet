@@ -41,7 +41,8 @@ define lightblue::client::client_cert (
     $owner,
     $group,
     $mode = '0440',
-    $links = 'follow'
+    $links = 'follow',
+    $notify = undef,
 ) {
 
     lightblue::client::cert_file{ "cert-${name}":

@@ -36,6 +36,7 @@
 # }
 #
 class lightblue::application::migrator (
+    $checker_name,
     $service_owner = 'root',
     $service_group = 'root',
     $migrator_version = 'latest',
@@ -50,7 +51,6 @@ class lightblue::application::migrator (
     $service_log_name = 'console.log',
     $hostname = '$(hostname)',
     $serviceJvmOptions = [],
-    $checker_name,
 
     #primary lightblue client to be used as migrator backend
     $primary_client_metadata_uri,
@@ -109,14 +109,14 @@ class lightblue::application::migrator (
       before  => Service[$migrator_service_name],
       require => File[$migrator_home_dir],
     }
-    
+
     $certificate_file_default = {
       file_path => $migrator_config_dir,
-      mode        => '0440',
-      owner       => $service_owner,
-      group       => $service_group,
-      links       => 'follow',
-      notify      => [Service[$migrator_service_name]],
+      mode      => '0440',
+      owner     => $service_owner,
+      group     => $service_group,
+      links     => 'follow',
+      notify    => [Service[$migrator_service_name]],
     }
 
     #configure primary lightblue instance
@@ -129,7 +129,7 @@ class lightblue::application::migrator (
       if(!$primary_client_certificates) {
         fail('At least 1 primary cert must be provided')
       }
-      
+
       create_resources(lightblue::client::cert_file, $primary_client_ca_certificates, $certificate_file_default)
 
       $client_defaults = {
