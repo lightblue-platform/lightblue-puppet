@@ -19,8 +19,6 @@
 # $hostname                          - Hostname to pass into consistency-checker. Defaults to $(hostname)
 # $serviceJvmOptions                 - JVM options to pass into the service. Defaults to {}. -X will be appended to keys.
 #
-# $primary_config_file               - (required) Lightblue Client configuration file for the Mongo backend used for scheduling jobs.
-#                                      Will also be used for source/destination configurations if they are not provided.
 # $primary_client_metadata_uri       - see lightblue::client::configure
 # $primary_client_data_uri           - see lightblue::client::configure
 # $primary_client_use_cert_auth      - see lightblue::client::configure
@@ -100,7 +98,7 @@ class lightblue::application::migrator (
       ensure => 'directory',
       owner  => $service_owner,
       group  => $service_group,
-      mode   => '0755',
+      mode   => '0440',
       before => Service[$migrator_service_name],
     } ->
     file { "${migrator_home_dir}/conf":
@@ -125,22 +123,27 @@ class lightblue::application::migrator (
       if(!$primary_client_ca_certificates) {
         fail('At least 1 primary ca must be provided')
       }
-      #ensure the primary client cert exists
-      if(!$primary_client_certificates) {
-        fail('At least 1 primary cert must be provided')
-      }
-
       create_resources(lightblue::client::cert_file, $primary_client_ca_certificates, $certificate_file_default)
-
-      $client_defaults = {
-        file_path            => $migrator_config_dir,
-        data_service_uri     => $primary_client_data_uri,
-        metadata_service_uri => $primary_client_metadata_uri,
-        use_cert_auth        => $primary_client_use_cert_auth,
-        ca_certificates      => $primary_client_ca_certificates,
-      }
-      create_resources(lightblue::client::certificate_file, $primary_client_certificates, union($certificate_file_default, $client_defaults))
     }
+
+    $client_defaults = {
+      file_path            => $migrator_config_dir,
+      data_service_uri     => $primary_client_data_uri,
+      metadata_service_uri => $primary_client_metadata_uri,
+      use_cert_auth        => $primary_client_use_cert_auth,
+      ca_certificates      => $primary_client_ca_certificates,
+    }
+
+    #ensure the primary client cert exists
+    #only 1 primary cert because the migrator java application only supports 1
+    if(!$primary_client_certificates) {
+      fail('1 primary cert must be provided')
+    }
+    elsif($primary_client_certificates.length() > 1) {
+      fail('Only 1 primary cert can be provided')
+    }
+    $client_certificate = union($certificate_file_default, $client_defaults)
+    create_resources(lightblue::client::certificate_file, $primary_client_certificates, $client_certificate)
 
     if($generate_log4j){
       class{ 'lightblue::application::migrator::log4j':
@@ -177,7 +180,7 @@ class lightblue::application::migrator (
       arguments           => {
         name     => $checker_name,
         hostname => $hostname,
-        config   => $primary_config_file,
+        config   => "${client_certificate[file_path]}/${client_certificate[name]}.properties",
       },
       jvmOptions          => union($log4j_jvm_options, $serviceJvmOptions),
     } ~>
