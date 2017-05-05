@@ -70,6 +70,10 @@ class lightblue::application::healthcheck (
         metadata_service_uri => $metadata_service_uri,
         use_cert_auth        => $use_cert_auth,
         ca_certificates      => $ca_certificates,
+        mode                 => '0440',
+        owner                => 'jboss',
+        group                => 'jboss',
+        links                => 'follow',
     }
 
     create_resources(lightblue::client::client_cert, $client_certificates, $client_defaults)
