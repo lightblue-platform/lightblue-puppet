@@ -29,8 +29,8 @@
 #   'ca_certificates        => {'cacert.pem' => {'source' => 'puppet:///path/to/your/cacert.pem', 'file' => 'cacert.pem'}},
 # }
 #
-define lightblue::application::healthcheck_client (
-    $module_path,
+define lightblue::client::client_cert (
+    $file_path,
     $data_service_uri ,
     $metadata_service_uri,
     $use_cert_auth,
@@ -38,21 +38,27 @@ define lightblue::application::healthcheck_client (
     $file,
     $password,
     $ca_certificates,
+    $owner,
+    $group,
+    $mode = '0440',
+    $links = 'follow',
+    $notify = undef,
 ) {
 
-    file { "${module_path}/${file}":
-        mode   => '0440',
-        owner  => 'jboss',
-        group  => 'jboss',
-        links  => 'follow',
-        source => $source,
+    lightblue::client::cert_file{ "cert-${name}":
+      file_path => $file_path,
+      file      => $file,
+      mode      => $mode,
+      owner     => $owner,
+      group     => $group,
+      links     => $links,
+      source    => $source,
+      notify    => $notify,
     }
 
-    $config_file_suffix = '.properties'
-
-    lightblue::client::configure{ "${module_path}/${name}${config_file_suffix}":
-        owner                    => 'jboss',
-        group                    => 'jboss',
+    lightblue::client::configure{ "${file_path}/${name}.properties":
+        owner                    => $owner,
+        group                    => $group,
         lbclient_metadata_uri    => $metadata_service_uri,
         lbclient_data_uri        => $data_service_uri,
         lbclient_use_cert_auth   => $use_cert_auth,
@@ -60,6 +66,7 @@ define lightblue::application::healthcheck_client (
         lbclient_cert_password   => $password,
         lbclient_cert_alias      => $name,
         lbclient_ca_certificates => $ca_certificates,
+        notify                   => $notify,
     }
 
 }
