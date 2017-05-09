@@ -108,7 +108,7 @@ class lightblue::application::migrator (
       require => File[$migrator_home_dir],
     }
 
-    $certificate_file_default = {
+    $certificate_file_defaults = {
       file_path => $migrator_config_dir,
       mode      => '0440',
       owner     => $service_owner,
@@ -123,7 +123,7 @@ class lightblue::application::migrator (
       if(!$primary_client_ca_certificates) {
         fail('At least 1 primary ca must be provided')
       }
-      create_resources(lightblue::client::cert_file, $primary_client_ca_certificates, $certificate_file_default)
+      create_resources(lightblue::client::cert_file, $primary_client_ca_certificates, $certificate_file_defaults)
     }
 
     $client_defaults = {
@@ -142,7 +142,7 @@ class lightblue::application::migrator (
     elsif(size($primary_client_certificates) > 1) {
       fail('Only 1 primary cert can be provided')
     }
-    $client_certificate = union($certificate_file_default, $client_defaults)
+    $client_certificate = merge($certificate_file_defaults, $client_defaults)
     create_resources(lightblue::client::certificate_file, $primary_client_certificates, $client_certificate)
 
     if($generate_log4j){
