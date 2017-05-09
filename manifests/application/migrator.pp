@@ -132,6 +132,7 @@ class lightblue::application::migrator (
       metadata_service_uri => $primary_client_metadata_uri,
       use_cert_auth        => $primary_client_use_cert_auth,
       ca_certificates      => $primary_client_ca_certificates,
+      name                 => 'primary-lightblue-client',
     }
 
     #ensure the primary client cert exists
