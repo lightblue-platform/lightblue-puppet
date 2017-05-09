@@ -139,7 +139,7 @@ class lightblue::application::migrator (
     if(!$primary_client_certificates) {
       fail('1 primary cert must be provided')
     }
-    elsif(size($primary_client_certificates) > 1) {
+    if(size($primary_client_certificates) > 1) {
       fail('Only 1 primary cert can be provided')
     }
     $client_certificate = union($certificate_file_default, $client_defaults)
