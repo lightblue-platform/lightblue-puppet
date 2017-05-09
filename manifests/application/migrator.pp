@@ -144,7 +144,7 @@ class lightblue::application::migrator (
       fail('Only 1 primary cert can be provided')
     }
     $client_certificate = merge($certificate_file_defaults, $client_defaults)
-    create_resources(lightblue::client::cert_file, $primary_client_certificates, $client_certificate)
+    create_resources(lightblue::client::client_cert, $primary_client_certificates, $client_certificate)
 
     if($generate_log4j){
       class{ 'lightblue::application::migrator::log4j':
