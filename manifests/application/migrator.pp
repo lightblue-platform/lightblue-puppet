@@ -145,7 +145,7 @@ class lightblue::application::migrator (
     #}
     $client_certificate = merge($certificate_file_defaults, $client_defaults)
     create_resources(lightblue::client::client_cert, $primary_client_certificates, $client_certificate)
-    $cert_details = keys(primary_client_certificates)
+    $cert_details = keys($primary_client_certificates[0])
 
     if($generate_log4j){
       class{ 'lightblue::application::migrator::log4j':
@@ -182,7 +182,7 @@ class lightblue::application::migrator (
       arguments           => {
         name     => $checker_name,
         hostname => $hostname,
-        config   => "${client_certificate[file_path]}/${cert_details[0][name]}.properties",
+        config   => "${client_certificate[file_path]}/${cert_details[name]}.properties",
       },
       jvmOptions          => union($log4j_jvm_options, $serviceJvmOptions),
     } ~>
