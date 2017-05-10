@@ -154,13 +154,13 @@ define lightblue::eap::client (
     } else {
         $ssl_ca_cert_files = $ssl_ca_certificates
         $ssl_ca_cert_file_defaults = {
-            file_path     => $module_path,
-            mode          => '0440',
-            owner         => $owner,
-            group         => $group,
-            links         => 'follow',
+            'module_path'   => $module_path,
+            'mode'          => '0440',
+            'owner'         => $owner,
+            'group'         => $group,
+            'links'         => 'follow',
         }
-        create_resources(lightblue::client::cert_file, $ssl_ca_cert_files, $ssl_ca_cert_file_defaults)
+        create_resources(lightblue::eap::client_ca_cert_file, $ssl_ca_cert_files, $ssl_ca_cert_file_defaults)
     }
 
     if $use_cert_auth {
