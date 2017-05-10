@@ -20,6 +20,8 @@
 # $lbclient_ca_certificates   - List of The destination file path inside the JBoss module to put the SSL
 #                               certificate authority file. Defaults to the values provided in the
 #                               $ssl_ca_file_path and $ssl_ca_source variables for backwards compatibility.
+# $base_file_path             - An optional file path prefix for $lbclient_ca_file_path and $lbclient_ca_certificates files.
+#                               Ignored if $lbclient_use_physical_file is false.
 #
 #
 # === Variables
@@ -44,6 +46,7 @@ define lightblue::client::configure (
     $lbclient_cert_alias = undef,
     $lbclient_use_physical_file = false,
     $lbclient_ca_certificates = undef,
+    $base_file_path = undef,
 ) {
 
     file { $title:
