@@ -140,6 +140,7 @@ class lightblue::application::migrator (
       ca_certificates      => $primary_client_ca_certificates,
       owner                => $service_owner,
       group                => $service_group,
+      use_physical_file    => true,
       notify               => [Service[$migrator_service_name]],
     }
 

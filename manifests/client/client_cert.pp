@@ -43,6 +43,7 @@ define lightblue::client::client_cert (
     $mode = '0440',
     $links = 'follow',
     $notify = undef,
+    $use_physical_file = false,
 ) {
 
     lightblue::client::cert_file{ "cert-${name}":
@@ -57,16 +58,17 @@ define lightblue::client::client_cert (
     }
 
     lightblue::client::configure{ "${file_path}/${name}.properties":
-        owner                    => $owner,
-        group                    => $group,
-        lbclient_metadata_uri    => $metadata_service_uri,
-        lbclient_data_uri        => $data_service_uri,
-        lbclient_use_cert_auth   => $use_cert_auth,
-        lbclient_cert_file_path  => $file,
-        lbclient_cert_password   => $password,
-        lbclient_cert_alias      => $name,
-        lbclient_ca_certificates => $ca_certificates,
-        notify                   => $notify,
+        owner                      => $owner,
+        group                      => $group,
+        lbclient_metadata_uri      => $metadata_service_uri,
+        lbclient_data_uri          => $data_service_uri,
+        lbclient_use_cert_auth     => $use_cert_auth,
+        lbclient_cert_file_path    => $use_physical_file ? {true => "${file_path}/${file}", default => $file},
+        lbclient_cert_password     => $password,
+        lbclient_cert_alias        => $name,
+        lbclient_ca_certificates   => $ca_certificates,
+        lbclient_use_physical_file => $use_physical_file,
+        notify                     => $notify,
     }
 
 }
