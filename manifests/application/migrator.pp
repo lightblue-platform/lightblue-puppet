@@ -51,11 +51,14 @@ class lightblue::application::migrator (
     $serviceJvmOptions = [],
 
     #primary lightblue client to be used as migrator backend
+    $primary_client_certificate_name,
+    $primary_client_certificate_file,
+    $primary_client_certificate_password,
+    $primary_client_certificate_source,
     $primary_client_metadata_uri,
     $primary_client_data_uri,
     $primary_client_use_cert_auth = false,
     $primary_client_ca_certificates = undef,
-    $primary_client_certificates = undef,
 ){
     require lightblue::yumrepo::lightblue
     require lightblue::java
@@ -126,26 +129,24 @@ class lightblue::application::migrator (
       create_resources(lightblue::client::cert_file, $primary_client_ca_certificates, $certificate_file_defaults)
     }
 
-    $client_defaults = {
+    #ensure the primary client cert exists
+    #only 1 primary cert because the migrator java application only supports 1
+    if(!$primary_client_certificate) {
+      fail('1 primary cert must be provided')
+    }
+    lightblue::client::client_cert { $primary_client_certificate_name:
       file_path            => $migrator_config_dir,
+      file                 => $primary_client_certificate_file,
+      password             => $primary_client_certificate_password,
+      source               => $primary_client_certificate_source,
       data_service_uri     => $primary_client_data_uri,
       metadata_service_uri => $primary_client_metadata_uri,
       use_cert_auth        => $primary_client_use_cert_auth,
       ca_certificates      => $primary_client_ca_certificates,
+      owner                => $service_owner,
+      group                => $service_group,
+      notify               => [Service[$migrator_service_name]],
     }
-
-    #ensure the primary client cert exists
-    #only 1 primary cert because the migrator java application only supports 1
-    if(!$primary_client_certificates) {
-      fail('1 primary cert must be provided')
-    }
-    # failing for size method, commenting out for now.
-    #elsif(size($primary_client_certificates) > 1) {
-    #  fail('Only 1 primary cert can be provided')
-    #}
-    $client_certificate = merge($certificate_file_defaults, $client_defaults)
-    create_resources(lightblue::client::client_cert, $primary_client_certificates, $client_certificate)
-    $cert_details = keys($primary_client_certificates[1])
 
     if($generate_log4j){
       class{ 'lightblue::application::migrator::log4j':
@@ -182,7 +183,7 @@ class lightblue::application::migrator (
       arguments           => {
         name     => $checker_name,
         hostname => $hostname,
-        config   => "${client_certificate[file_path]}/${cert_details[name]}.properties",
+        config   => "${migrator_config_dir}/${primary_client_certificate_name}.properties",
       },
       jvmOptions          => union($log4j_jvm_options, $serviceJvmOptions),
     } ~>
