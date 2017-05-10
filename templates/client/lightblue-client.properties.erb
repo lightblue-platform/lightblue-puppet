@@ -9,7 +9,7 @@ caFilePath=<% i = @lbclient_ca_certificates.length; @lbclient_ca_certificates.ke
 <% else -%>
 caFilePath=<% if(@lbclient_use_physical_file == true) %>file://<% if(@base_file_path) %><%= @base_file_path %>/<%end%><%end%><%= @lbclient_ca_file_path %>
 <% end -%>
-certFilePath=<% if(@lbclient_use_physical_file == true) %>file://<% if(@base_file_path) %>/<%= @base_file_path %><%end%><%end%><%= @lbclient_cert_file_path %>
+certFilePath=<% if(@lbclient_use_physical_file == true) %>file://<% if(@base_file_path) %><%= @base_file_path %>/<%end%><%end%><%= @lbclient_cert_file_path %>
 certPassword=<%= @lbclient_cert_password %>
 certAlias=<%= @lbclient_cert_alias %>
 <% end -%>
