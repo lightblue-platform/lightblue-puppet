@@ -129,11 +129,6 @@ class lightblue::application::migrator (
       create_resources(lightblue::client::cert_file, $primary_client_ca_certificates, $certificate_file_defaults)
     }
 
-    #ensure the primary client cert exists
-    #only 1 primary cert because the migrator java application only supports 1
-    if(!$primary_client_certificate) {
-      fail('1 primary cert must be provided')
-    }
     lightblue::client::client_cert { $primary_client_certificate_name:
       file_path            => $migrator_config_dir,
       file                 => $primary_client_certificate_file,
