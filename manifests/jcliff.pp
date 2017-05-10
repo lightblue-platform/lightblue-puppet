@@ -43,8 +43,14 @@ class lightblue::jcliff (
         $jcliff_log_dir_option = ''
     }
 
+    $jcliff_cmd = '/usr/bin/jcliff'
+    $cli_cmd = "${jboss_home}/bin/jboss-cli.sh"
+    $controller = "${management_host}:${management_port} ${jcliff_log_dir_option} ${config_dir}/*.conf";
+    $output = "${log_dir}/deployments.log ${config_dir}/*.deploy";
+    $connect = "\":read-attribute(name=server-state)\" | grep reload-required"
+
     exec { 'configure-eap6' :
-        command   => "/usr/bin/jcliff --cli=${jboss_home}/bin/jboss-cli.sh --controller=${management_host}:${management_port} ${jcliff_log_dir_option} ${config_dir}/*.conf",
+        command   => "${jcliff_cmd} --cli=${cli_cmd} --controller=${controller}",
         logoutput => true,
         timeout   => 0,
         onlyif    => "ls ${config_dir}/*.conf",
@@ -54,7 +60,7 @@ class lightblue::jcliff (
 
     if $deploy_apps {
       exec { 'deploy-apps' :
-          command   =>  "/usr/bin/jcliff --cli=${jboss_home}/bin/jboss-cli.sh -v --controller=${management_host}:${management_port} --output=${log_dir}/deployments.log ${config_dir}/*.deploy",
+          command   => "${jcliff_cmd} --cli=${cli_cmd} --controller=${controller} --output=${output}",
           logoutput => true,
           timeout   => 0,
           onlyif    => "ls ${config_dir}/*.deploy",
@@ -69,7 +75,7 @@ class lightblue::jcliff (
     }
 
     exec { 'reload-check' :
-        onlyif      => "${jboss_home}/bin/jboss-cli.sh --controller=${management_host}:${management_port} --connect \":read-attribute(name=server-state)\" | grep reload-required",
+        onlyif      => "${cli_cmd} --controller=${controller} --connect=${connect}",
         command     => 'service jbossas restart',
         user        => 'jboss',
         group       => 'jboss',

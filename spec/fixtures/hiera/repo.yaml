@@ -1,6 +1,6 @@
 ---
 lightblue::yumrepo::lightblue::baseurl: http://lightblue/repo/url
-lightblue::eap::module::mongo_noCertValidation: true
+lightblue::eap::module::mongo_no_cert_validation: true
 lightblue::eap::module::mongo_auth_mechanism: MONGODB_CR_MECHANISM
 lightblue::eap::module::mongo_auth_source: admin
 lightblue::eap::module::mongo_auth_username: lightblue

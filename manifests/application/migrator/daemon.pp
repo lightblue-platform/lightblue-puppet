@@ -39,6 +39,11 @@
 #  --jobversion=1.0.0
 #
 class lightblue::application::migrator::daemon (
+    $service_name,
+    $jar_path,
+    $main_class,
+    $service_out_logfile,
+    $service_err_logfile,
     $jsvc_version = 'latest',
     $owner = 'root',
     $group = 'root',
@@ -46,12 +51,7 @@ class lightblue::application::migrator::daemon (
     $java_home = undef,
     $lib_dir = undef,
     $arguments = {},
-    $jvmOptions = [],
-    $service_name,
-    $jar_path,
-    $mainClass,
-    $service_out_logfile,
-    $service_err_logfile,
+    $jvm_options = [],
 ) {
     case $::osfamily {
         'RedHat', 'Linux': {
@@ -70,8 +70,7 @@ class lightblue::application::migrator::daemon (
     package { $jsvc_package_name:
         ensure => $jsvc_version,
         notify => [Service[$service_name]],
-    } ->
-    file { "/etc/init.d/${service_name}":
+    } -> file { "/etc/init.d/${service_name}":
         ensure  => 'file',
         content => template('lightblue/application/migrator/lightblue-migrator-daemon.sh.erb'),
         mode    => '0744',

@@ -9,7 +9,7 @@ describe 'lightblue::eap::module::datasources' do
       let :params do
         {
           :directory => '/tmp',
-          :mongo_noCertValidation => true,
+          :mongo_no_cert_validation => true,
           :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
           :mongo_auth_source => 'admin',
           :mongo_auth_username => 'lightblue',
@@ -32,18 +32,18 @@ describe 'lightblue::eap::module::datasources' do
 
     end
 
-    describe 'metadata writeConcern' do
+    describe 'metadata write_concern' do
 
       let :params do
         {
           :directory => '/tmp',
-          :mongo_noCertValidation => true,
+          :mongo_no_cert_validation => true,
           :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
           :mongo_auth_source => 'admin',
           :mongo_auth_username => 'lightblue',
           :mongo_auth_password => 'nothing',
           :mongo_ssl => false,
-          :mongo_metadata_writeConcern => 'majority'
+          :mongo_metadata_write_concern => 'majority'
         }
       end
 
@@ -61,19 +61,19 @@ describe 'lightblue::eap::module::datasources' do
 
     end
 
-    describe 'metadata maxResultSetSize' do
+    describe 'metadata max_result_set_size' do
 
       let :params do
         {
           :directory => '/tmp',
-          :mongo_noCertValidation => true,
+          :mongo_no_cert_validation => true,
           :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
           :mongo_auth_source => 'admin',
           :mongo_auth_username => 'lightblue',
           :mongo_auth_password => 'nothing',
           :mongo_ssl => false,
-          :mongo_maxResultSetSize => 999,
-          :mongo_metadata_writeConcern => 'majority'
+          :mongo_max_result_set_size => 999,
+          :mongo_metadata_write_concern => 'majority'
         }
       end
 
@@ -91,18 +91,18 @@ describe 'lightblue::eap::module::datasources' do
 
     end
 
-    describe 'data writeConcern' do
+    describe 'data write_concern' do
 
       let :params do
         {
           :directory => '/tmp',
-          :mongo_noCertValidation => true,
+          :mongo_no_cert_validation => true,
           :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
           :mongo_auth_source => 'admin',
           :mongo_auth_username => 'lightblue',
           :mongo_auth_password => 'nothing',
           :mongo_ssl => false,
-          :mongo_data_writeConcern => 'majority'
+          :mongo_data_write_concern => 'majority'
         }
       end
 
@@ -120,18 +120,18 @@ describe 'lightblue::eap::module::datasources' do
 
     end
 
-    describe 'data maxQueryTimeMS' do
+    describe 'data max_query_time_ms' do
 
       let :params do
         {
           :directory => '/tmp',
-          :mongo_noCertValidation => true,
+          :mongo_no_cert_validation => true,
           :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
           :mongo_auth_source => 'admin',
           :mongo_auth_username => 'lightblue',
           :mongo_auth_password => 'nothing',
           :mongo_ssl => false,
-          :mongo_data_maxQueryTimeMS => 50000
+          :mongo_data_max_query_time_ms => 50000
         }
       end
 
@@ -144,24 +144,24 @@ describe 'lightblue::eap::module::datasources' do
               'mode'    => '0644'
             }
           ) \
-          .with_content(/"maxQueryTimeMS": "50000"/) 
+          .with_content(/"max_query_time_ms": "50000"/) 
       end
 
     end
 
-    describe 'metadata and data writeConcern' do
+    describe 'metadata and data write_concern' do
 
       let :params do
         {
           :directory => '/tmp',
-          :mongo_noCertValidation => true,
+          :mongo_no_cert_validation => true,
           :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
           :mongo_auth_source => 'admin',
           :mongo_auth_username => 'lightblue',
           :mongo_auth_password => 'nothing',
           :mongo_ssl => false,
-          :mongo_metadata_writeConcern => 'majority',
-          :mongo_data_writeConcern => 'fsynced'
+          :mongo_metadata_write_concern => 'majority',
+          :mongo_data_write_concern => 'fsynced'
         }
       end
 
@@ -186,7 +186,7 @@ describe 'lightblue::eap::module::datasources' do
       let :params do
         {
           :directory => '/tmp',
-          :mongo_noCertValidation => true,
+          :mongo_no_cert_validation => true,
           :mongo_auth_mechanism => 'MONGODB_CR_MECHANISM',
           :mongo_auth_source => 'admin',
           :mongo_auth_username => 'lightblue',

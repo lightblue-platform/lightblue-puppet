@@ -1,3 +1,4 @@
+#class for defining jboss eap yum repo
 class lightblue::yumrepo::jbeap (
     $baseurl,
     $descr='JBEAP repo',

@@ -15,8 +15,6 @@
 # include lightblue::application::metadatamgmt
 #
 class lightblue::application::metadatamgmt (
-    $package_name = 'lightblue-metadata-mgmt',
-    $package_ensure = latest,
     $mgmt_app_data_service_uri,
     $mgmt_app_metadata_service_uri,
     $mgmt_app_use_cert_auth,
@@ -25,6 +23,8 @@ class lightblue::application::metadatamgmt (
     $mgmt_app_cert_alias,
     $client_ca_source,
     $client_cert_source,
+    $package_name = 'lightblue-metadata-mgmt',
+    $package_ensure = latest,
     $ca_certificates = undef,
 )
 inherits lightblue::application {

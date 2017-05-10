@@ -1,3 +1,4 @@
+#class for defining jboss eap tools yum repo
 class lightblue::yumrepo::jbeaptools (
     $baseurl,
     $descr='JBEAP-TOOLS repo',

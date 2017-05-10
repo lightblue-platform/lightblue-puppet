@@ -15,8 +15,8 @@
 <% if mongo_ssl -%>
      "ssl" : <%=mongo_ssl%>,
 <% end -%>
-<% if mongo_noCertValidation -%>
-     "noCertValidation" : <%=mongo_noCertValidation%>,
+<% if mongo_no_cert_validation -%>
+     "noCertValidation" : <%=mongo_no_cert_validation%>,
 <% end -%>
      "database" : "metadata",
 <% if defined? @mongo_auth_mechanism -%>
@@ -53,26 +53,26 @@
      ],
 <% end -%>
      "driverOptions": {
-     <% if defined? @mongo_metadata_writeConcern -%>
-        "writeConcern": "<%=@mongo_metadata_writeConcern%>",
+     <% if defined? @mongo_metadata_write_concern -%>
+        "writeConcern": "<%=@mongo_metadata_write_concern%>",
      <% end %>
-     <% if defined? @mongo_metadata_readPreference -%>
-        "readPreference": "<%=@mongo_metadata_readPreference%>"
+     <% if defined? @mongo_metadata_read_preference -%>
+        "readPreference": "<%=@mongo_metadata_read_preference%>"
      <% end -%>
      }
    },
    "mongodata" : {
      "type" : "com.redhat.lightblue.mongo.config.MongoConfiguration",
      "metadataDataStoreParser" : "com.redhat.lightblue.mongo.metadata.MongoDataStoreParser",
-     "maxResultSetSize" : <%=mongo_maxResultSetSize%>,
+     "maxResultSetSize" : <%=mongo_max_result_set_size%>,
 <% if mongo_connectionsPerHost -%>
-     "connectionsPerHost": <%=mongo_connectionsPerHost%>,
+     "connectionsPerHost": <%=mongo_connections_per_host%>,
 <% end -%>
 <% if mongo_ssl -%>
      "ssl" : <%=mongo_ssl%>,
 <% end -%>
-<% if mongo_noCertValidation -%>
-     "noCertValidation" : <%=mongo_noCertValidation%>,
+<% if mongo_no_cert_validation -%>
+     "noCertValidation" : <%=mongo_no_cert_validation%>,
 <% end -%>
      "database" : "data",
 <% if defined? @mongo_auth_mechanism -%>
@@ -109,16 +109,16 @@
      ],
 <% end -%>
      "driverOptions": {
-     <% if defined? @mongo_data_writeConcern -%>
-        "writeConcern": "<%=@mongo_data_writeConcern%>",
+     <% if defined? @mongo_data_write_concern -%>
+        "writeConcern": "<%=@mongo_data_write_concern%>",
      <% end %>
-     <% if defined? @mongo_data_readPreference -%>
-        "readPreference": "<%=@mongo_data_readPreference%>",
+     <% if defined? @mongo_data_read_preference -%>
+        "readPreference": "<%=@mongo_data_read_preference%>",
      <% end -%>
-     <% if defined? @mongo_data_maxQueryTimeMS -%>
-        "maxQueryTimeMS": "<%=@mongo_data_maxQueryTimeMS%>",
+     <% if defined? @mongo_data_max_query_time_ms-%>
+        "maxQueryTimeMS": "<%=@mongo_data_max_query_time_ms%>",
      <% end %>
-        "maxResultSetSize" : <%=mongo_maxResultSetSize%>
+        "maxResultSetSize" : <%=mongo_max_result_set_size%>
      }
    }
 

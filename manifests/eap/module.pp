@@ -105,17 +105,17 @@ class lightblue::eap::module (
     $mongo_auth_password,
     $mongo_auth_source,
     $hystrix_command_default_execution_isolation_strategy = 'THREAD',
-    $hystrix_command_default_execution_isolation_thread_timeoutInMilliseconds = 60000,
-    $hystrix_command_default_circuitBreaker_enabled = false,
-    $hystrix_command_mongodb_execution_isolation_timeoutInMilliseconds = 50000,
-    $hystrix_threadpool_mongodb_coreSize = 30,
+    $hystrix_command_default_execution_isolation_thread_timeout_in_milliseconds = 60000,
+    $hystrix_command_default_circuit_breaker_enabled = false,
+    $hystrix_command_mongodb_execution_isolation_timeout_in_milliseconds = 50000,
+    $hystrix_threadpool_mongodb_core_size = 30,
     $hystrix_execution_timeout_enabled = undef,
     $mongo_servers_cfg = undef,
     $mongo_ssl = true,
-    $mongo_maxResultSetSize = 15000,
-    $mongo_noCertValidation = false,
-    $mongo_metadata_readPreference = 'primary',
-    $mongo_data_readPreference = 'primary',
+    $mongo_max_result_set_size = 15000,
+    $mongo_no_cert_validation = false,
+    $mongo_metadata_read_preference = 'primary',
+    $mongo_data_read_preference = 'primary',
     $ldap_config = undef,
     $rdbms_servers_cfg = undef,
     $hook_configuration_parsers = '',
@@ -145,19 +145,19 @@ class lightblue::eap::module (
 
     # class to deploy datasources.json
     class {'lightblue::eap::module::datasources':
-        directory                     => $directory,
-        mongo_auth_mechanism          => $mongo_auth_mechanism,
-        mongo_auth_username           => $mongo_auth_username,
-        mongo_auth_password           => $mongo_auth_password,
-        mongo_auth_source             => $mongo_auth_source,
-        mongo_metadata_readPreference => $mongo_metadata_readPreference,
-        mongo_data_readPreference     => $mongo_data_readPreference,
-        mongo_servers_cfg             => $mongo_servers_cfg,
-        mongo_maxResultSetSize        => $mongo_maxResultSetSize,
-        mongo_ssl                     => $mongo_ssl,
-        mongo_noCertValidation        => $mongo_noCertValidation,
-        ldap_config                   => $ldap_config,
-        rdbms_servers_cfg             => $rdbms_servers_cfg,
+        directory                      => $directory,
+        mongo_auth_mechanism           => $mongo_auth_mechanism,
+        mongo_auth_username            => $mongo_auth_username,
+        mongo_auth_password            => $mongo_auth_password,
+        mongo_auth_source              => $mongo_auth_source,
+        mongo_metadata_read_preference => $mongo_metadata_read_preference,
+        mongo_data_read_preference     => $mongo_data_read_preference,
+        mongo_servers_cfg              => $mongo_servers_cfg,
+        mongo_max_result_set_size      => $mongo_max_result_set_size,
+        mongo_ssl                      => $mongo_ssl,
+        mongo_no_cert_validation       => $mongo_no_cert_validation,
+        ldap_config                    => $ldap_config,
+        rdbms_servers_cfg              => $rdbms_servers_cfg,
     }
 
     # class to deploy lightblue-metadata.json
@@ -220,7 +220,7 @@ class lightblue::eap::module (
         require => File[$directory],
     }
 
-    if !$mongo_noCertValidation {
+    if !$mongo_no_cert_validation {
         # deploy truststore and mongossl
         include lightblue::eap::truststore
         include lightblue::eap::mongossl

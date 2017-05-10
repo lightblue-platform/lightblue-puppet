@@ -17,7 +17,7 @@ describe 'lightblue::application::migrator::daemon' do
         :service_out_logfile => 'out.log',
         :service_err_logfile => 'err.log',
         :jar_path => '/path/to/jar',
-        :mainClass => 'Main.class'
+        :main_class => 'Main.class'
       }
     end
 
@@ -42,7 +42,7 @@ describe 'lightblue::application::migrator::daemon' do
         :service_out_logfile => 'out.log',
         :service_err_logfile => 'err.log',
         :jar_path => '/path/to/jar',
-        :mainClass => 'Main.class'
+        :main_class => 'Main.class'
       }
     end
 
@@ -69,7 +69,7 @@ describe 'lightblue::application::migrator::daemon' do
         :service_out_logfile => 'out.log',
         :service_err_logfile => 'err.log',
         :jar_path => '/path/to/jar',
-        :mainClass => 'Main.class'
+        :main_class => 'Main.class'
       }
     end
     
@@ -104,7 +104,7 @@ describe 'lightblue::application::migrator::daemon' do
           :service_out_logfile => log_out,
           :service_err_logfile => log_err,
           :jar_path => path_to_jar,
-          :mainClass => main_class
+          :main_class => main_class
         }
       end
       
@@ -139,13 +139,13 @@ describe 'lightblue::application::migrator::daemon' do
           :service_out_logfile => 'out.log',
           :service_err_logfile => 'err.log',
           :jar_path => '/path/to/jar',
-          :mainClass => 'Main.class',
+          :main_class => 'Main.class',
           :owner => owner,
           :group => group,
           :jsvc_exec => jsvc_exec,
           :java_home => java_home,
           :lib_dir => lib_dir,
-          :jvmOptions => ['Xmx128m','Xms128m'],
+          :jvm_options => ['Xmx128m','Xms128m'],
           :arguments => {'key' => 'value' , 'anotherkey' => 'anothervalue'}
         }
       end

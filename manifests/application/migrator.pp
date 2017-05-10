@@ -35,6 +35,13 @@
 #
 class lightblue::application::migrator (
     $checker_name,
+    #primary lightblue client to be used as migrator backend
+    $primary_client_certificate_name,
+    $primary_client_certificate_file,
+    $primary_client_certificate_password,
+    $primary_client_certificate_source,
+    $primary_client_metadata_uri,
+    $primary_client_data_uri,
     $service_owner = 'root',
     $service_group = 'root',
     $migrator_version = 'latest',
@@ -48,15 +55,7 @@ class lightblue::application::migrator (
     $jar_path = '/usr/share/lightblue-migrator/lightblue-migrator-*.jar',
     $service_log_name = 'console.log',
     $hostname = '$(hostname)',
-    $serviceJvmOptions = [],
-
-    #primary lightblue client to be used as migrator backend
-    $primary_client_certificate_name,
-    $primary_client_certificate_file,
-    $primary_client_certificate_password,
-    $primary_client_certificate_source,
-    $primary_client_metadata_uri,
-    $primary_client_data_uri,
+    $service_jvm_options = [],
     $primary_client_use_cert_auth = false,
     $primary_client_ca_certificates = undef,
 ){
@@ -82,14 +81,12 @@ class lightblue::application::migrator (
       group  => $service_group,
       mode   => '0755',
       before => Service[$migrator_service_name],
-    } ->
-    file { $service_log_path:
+    } -> file { $service_log_path:
       ensure => 'file',
       owner  => $service_owner,
       group  => $service_group,
       mode   => '0644',
-    } ->
-    file { "${migrator_home_dir}/log":
+    } -> file { "${migrator_home_dir}/log":
       ensure  => 'link',
       target  => $migrator_log_dir,
       before  => Service[$migrator_service_name],
@@ -103,8 +100,7 @@ class lightblue::application::migrator (
       group  => $service_group,
       mode   => '0440',
       before => Service[$migrator_service_name],
-    } ->
-    file { "${migrator_home_dir}/conf":
+    } -> file { "${migrator_home_dir}/conf":
       ensure  => 'link',
       target  => $migrator_config_dir,
       before  => Service[$migrator_service_name],
@@ -161,12 +157,10 @@ class lightblue::application::migrator (
     package {'lightblue-migrator-consistency-checker':
       #old package for the migrator, it should be uninstalled.
       ensure => 'absent'
-    } ->
-    package { $migrator_package_name:
+    } -> package { $migrator_package_name:
       ensure => $migrator_version,
       notify => [Service[$migrator_service_name]],
-    } ->
-    class { 'lightblue::application::migrator::daemon':
+    } -> class { 'lightblue::application::migrator::daemon':
       jsvc_version        => $jsvc_version,
       owner               => $service_owner,
       group               => $service_group,
@@ -175,15 +169,14 @@ class lightblue::application::migrator (
       service_err_logfile => $service_log_path,
       java_home           => $java_home,
       jar_path            => $jar_path,
-      mainClass           => 'com.redhat.lightblue.migrator.Main',
+      main_class          => 'com.redhat.lightblue.migrator.Main',
       arguments           => {
         name     => $checker_name,
         hostname => $hostname,
         config   => "${migrator_config_dir}/${primary_client_certificate_name}.properties",
       },
-      jvmOptions          => union($log4j_jvm_options, $serviceJvmOptions),
-    } ~>
-    service { $migrator_service_name:
+      jvm_options         => union($log4j_jvm_options, $service_jvm_options),
+    } ~> service { $migrator_service_name:
       ensure     => running,
       enable     => true,
       hasrestart => true,

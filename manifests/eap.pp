@@ -28,8 +28,8 @@ class lightblue::eap (
     $config_dir = '/etc/redhat/lightblue',
     $package_name = 'jbossas-standalone',
     $package_ensure = latest,
-    $java_Xms = '786m',
-    $java_Xmx = '1572m',
+    $java_xms = '786m',
+    $java_xmx = '1572m',
     $expose_management_interface = false,
     $heap_dump_on_oom = true,
 ) {

@@ -1,3 +1,4 @@
+#class for defining lightblue repo
 class lightblue::yumrepo::lightblue (
     $baseurl,
     $descr='lightblue repo',

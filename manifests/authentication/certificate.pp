@@ -71,18 +71,18 @@ class lightblue::authentication::certificate (
     $ldap_search_base,
     $ldap_username,
     $ldap_password,
-    $ldap_use_tls=false,
     $ldap_pool_size,
     $environment,
     $keystore_password,
     $keystore_url,
     $truststore_password,
     $truststore_url,
-    $connectionTimeoutMS=3000,
-    $responseTimeoutMS=3000,
+    $ldap_use_tls=false,
+    $connection_timeout_ms=3000,
+    $response_timeout_ms=3000,
     $debug=false,
-    $keepAlive=true,
-    $poolMaxConnectionAgeMS=15000,
+    $keep_alive=true,
+    $pool_max_connection_age_ms=15000,
 ) {
     include lightblue::eap
 

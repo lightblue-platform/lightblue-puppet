@@ -15,7 +15,7 @@ JAVA_HOME_DIR=<%= java_home %>
 LIBS=<%= lib_dir %>
 <% end -%>
 
-MAIN_CLASS=<%= mainClass %>
+MAIN_CLASS=<%= main_class %>
 PID=/var/run/<%= service_name %>.pid
 
 LOG_OUT=<%= service_out_logfile %>
@@ -45,8 +45,8 @@ do_exec()
   jsvcCommand << "-errfile $LOG_ERR"
   jsvcCommand << "-pidfile $PID"
   
-  if @jvmOptions
-    @jvmOptions.each do |param|
+  if @jvm_options
+    @jvm_options.each do |param|
       jsvcCommand << "-#{param}"
     end
   end

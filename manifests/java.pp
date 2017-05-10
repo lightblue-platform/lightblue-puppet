@@ -44,57 +44,39 @@ class lightblue::java ($java_version = '1.8.0', $java_distribution = 'openjdk', 
     ensure => $java_package_version,
     name   => "java-${java_version}-${java_distribution}",
     alias  => 'java',
-  }
-  ->
-  package { 'java-devel':
+  } -> package { 'java-devel':
     ensure => $java_package_version,
     name   => "java-${java_version}-${java_distribution}-devel",
     alias  => 'java-devel',
-  }
-  ->
-  file { '/etc/profile.d/java-env.sh':
+  } -> file { '/etc/profile.d/java-env.sh':
     mode    => '0755',
     content => inline_template('export JAVA_HOME=<%= java_home %>'),
-  }
-
-  ->
-#set alternatives to auto in all cases, just too messy to deal with otherwise
-  exec { "configure jre_${java_version}":
+  } -> exec { "configure jre_${java_version}": #set alternatives to auto in all cases, just too messy to deal with otherwise
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --auto jre_${java_version}",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless  => "test /usr/sbin/alternatives --display jre_${java_version} | grep 'status is auto'",
-  }
-  ->
-  exec { "configure jre_${java_distribution}":
+  } -> exec { "configure jre_${java_distribution}":
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --auto jre_${java_distribution}",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless  => "test /usr/sbin/alternatives --display jre_${java_distribution} | grep 'status is auto'",
-  }
-  ->
-  exec { "configure java_sdk_${java_version}":
+  } -> exec { "configure java_sdk_${java_version}":
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --auto java_sdk_${java_version}",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless  => "test /usr/sbin/alternatives --display java_sdk_${java_version} | grep 'status is auto'",
-  }
-  ->
-  exec { "configure java_sdk_${java_distribution}":
+  } -> exec { "configure java_sdk_${java_distribution}":
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => "/usr/sbin/alternatives --auto java_sdk_${java_distribution}",
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
     unless  => "test /usr/sbin/alternatives --display java_sdk_${java_distribution} | grep 'status is auto'",
-  }
-  ->
-  exec { 'configure java':
+  } -> exec { 'configure java':
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => '/usr/sbin/alternatives --auto java',
     require => [File['/etc/profile.d/java-env.sh'],Package['java']],
     unless  => "test /usr/sbin/alternatives --display java | grep 'status is auto'",
-  }
-  ->
-  exec { 'configure javac':
+  } -> exec { 'configure javac':
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] ,
     command => '/usr/sbin/alternatives --auto javac',
     require => [File['/etc/profile.d/java-env.sh'],Package['java-devel']],
