@@ -63,7 +63,7 @@ define lightblue::client::client_cert (
         lbclient_metadata_uri      => $metadata_service_uri,
         lbclient_data_uri          => $data_service_uri,
         lbclient_use_cert_auth     => $use_cert_auth,
-        lbclient_cert_file_path    => $file,
+        lbclient_cert_file_path    => $use_physical_file ? {true => "${file_path}/${file}", default => $file},
         lbclient_cert_password     => $password,
         lbclient_cert_alias        => $name,
         lbclient_ca_certificates   => $ca_certificates,
