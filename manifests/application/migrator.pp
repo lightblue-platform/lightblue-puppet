@@ -140,9 +140,10 @@ class lightblue::application::migrator (
     if(!$primary_client_certificates) {
       fail('1 primary cert must be provided')
     }
-    elsif(size($primary_client_certificates) > 1) {
-      fail('Only 1 primary cert can be provided')
-    }
+    # failing for size method, commenting out for now.
+    #elsif(size($primary_client_certificates) > 1) {
+    #  fail('Only 1 primary cert can be provided')
+    #}
     $client_certificate = merge($certificate_file_defaults, $client_defaults)
     create_resources(lightblue::client::client_cert, $primary_client_certificates, $client_certificate)
 
