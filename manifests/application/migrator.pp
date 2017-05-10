@@ -145,7 +145,7 @@ class lightblue::application::migrator (
     #}
     $client_certificate = merge($certificate_file_defaults, $client_defaults)
     create_resources(lightblue::client::client_cert, $primary_client_certificates, $client_certificate)
-    $cert_details = keys($primary_client_certificates[0])
+    $cert_details = keys($primary_client_certificates[1])
 
     if($generate_log4j){
       class{ 'lightblue::application::migrator::log4j':
