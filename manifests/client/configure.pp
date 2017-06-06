@@ -49,8 +49,6 @@ define lightblue::client::configure (
     $lbclient_mongo_read_preference = undef,
     $lbclient_mongo_write_concern = undef,
     $base_file_path = undef,
-    $lbclient_mongo_read_preference = undef,
-    $lbclient_mongo_write_concern = undef,
 ) {
 
     file { $title:
