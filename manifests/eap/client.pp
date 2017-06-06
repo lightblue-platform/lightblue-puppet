@@ -49,6 +49,10 @@
 #   If this is defined, the values for $ssl_ca_file_path and $ssl_ca_source will
 #   be ignored
 #
+# [*mongo_write_concern*]
+#
+# [*mongo_read_preference*]
+#
 # === Variables
 #
 # None
@@ -91,6 +95,8 @@ define lightblue::eap::client (
     $ssl_ca_source=undef,
     $ssl_ca_file_path='cacert.pem',
     $ssl_ca_certificates = undef,
+    $mongo_write_concern = undef,
+    $mongo_read_preference = undef,
     $modules_home_path = '/usr/share/jbossas/modules',
     $owner = 'jboss',
     $group = 'jboss',
@@ -188,16 +194,18 @@ define lightblue::eap::client (
     }
 
     lightblue::client::configure{ "${module_path}/lightblue-client.properties":
-        owner                    => $owner,
-        group                    => $group,
-        lbclient_metadata_uri    => $metadata_service_uri,
-        lbclient_data_uri        => $data_service_uri,
-        lbclient_use_cert_auth   => $use_cert_auth,
-        lbclient_ca_file_path    => $ssl_ca_file_path,
-        lbclient_cert_file_path  => $auth_cert_file_path,
-        lbclient_cert_password   => $auth_cert_password,
-        lbclient_cert_alias      => $auth_cert_alias,
-        lbclient_ca_certificates => $ssl_ca_cert_files,
-        require                  => File[$module_dirs],
+        owner                          => $owner,
+        group                          => $group,
+        lbclient_metadata_uri          => $metadata_service_uri,
+        lbclient_data_uri              => $data_service_uri,
+        lbclient_use_cert_auth         => $use_cert_auth,
+        lbclient_ca_file_path          => $ssl_ca_file_path,
+        lbclient_cert_file_path        => $auth_cert_file_path,
+        lbclient_cert_password         => $auth_cert_password,
+        lbclient_cert_alias            => $auth_cert_alias,
+        lbclient_ca_certificates       => $ssl_ca_cert_files,
+        lbclient_mongo_write_concern   => $mongo_write_concern,
+        lbclient_mongo_read_preference => $mongo_read_preference,
+        require                        => File[$module_dirs],
     }
 }
