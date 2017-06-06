@@ -13,3 +13,9 @@ certFilePath=<% if(@lbclient_use_physical_file == true) %>file://<% if(@base_fil
 certPassword=<%= @lbclient_cert_password %>
 certAlias=<%= @lbclient_cert_alias %>
 <% end -%>
+<% if(@lbclient_mongo_write_concern) -%>
+execution.mongo.writeConcern=<%= @lbclient_mongo_write_concern %>
+<% end -%>
+<% if(@lbclient_mongo_read_preference) -%>
+execution.mongo.readPreference=<%= @lbclient_mongo_read_preference %>
+<% end -%>
