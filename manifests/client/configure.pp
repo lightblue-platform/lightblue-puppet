@@ -47,6 +47,8 @@ define lightblue::client::configure (
     $lbclient_use_physical_file = false,
     $lbclient_ca_certificates = undef,
     $base_file_path = undef,
+    $lbclient_mongo_read_preference = undef,
+    $lbclient_mongo_write_concern = undef,
 ) {
 
     file { $title:
