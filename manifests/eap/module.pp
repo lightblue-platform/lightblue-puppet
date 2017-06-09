@@ -126,6 +126,7 @@ class lightblue::eap::module (
     $metadata_cors_config=undef,
     $locking = undef,
     $plugins = undef,
+    $memoryIndexThreshold = undef,
 )
 {
     include lightblue::eap
