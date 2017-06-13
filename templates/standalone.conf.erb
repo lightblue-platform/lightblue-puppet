@@ -116,9 +116,9 @@ if [ "x$JAVA_OPTS" = "x" ]; then
   JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"
 <%- end -%>
 
-<% if @stopwatch_enabled == true -%>
+<%- if @stopwatch_enabled == true -%>
   JAVA_OPTS="$JAVA_OPTS -Dstopwatch.enabled=true -Dstopwatch.globalWarnThresholdMS=<%= @stopwatch_globalWarnThresholdMS %> -Dstopwatch.globalWarnSizeThresholdB=<%= @stopwatch_globalWarnSizeThresholdB %>"
-<% end -%>
+<%- end -%>
 
 fi
 
