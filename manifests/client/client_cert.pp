@@ -44,6 +44,8 @@ define lightblue::client::client_cert (
     $links = 'follow',
     $notify = undef,
     $use_physical_file = false,
+    $mongo_write_concern = undef,
+    $mongo_read_preference = undef,
 ) {
 
     lightblue::client::cert_file{ "cert-${name}":
@@ -58,18 +60,20 @@ define lightblue::client::client_cert (
     }
 
     lightblue::client::configure{ "${file_path}/${name}.properties":
-        owner                      => $owner,
-        group                      => $group,
-        lbclient_metadata_uri      => $metadata_service_uri,
-        lbclient_data_uri          => $data_service_uri,
-        lbclient_use_cert_auth     => $use_cert_auth,
-        lbclient_cert_file_path    => $file,
-        lbclient_cert_password     => $password,
-        lbclient_cert_alias        => $name,
-        lbclient_ca_certificates   => $ca_certificates,
-        lbclient_use_physical_file => $use_physical_file,
-        base_file_path             => $file_path,
-        notify                     => $notify,
+        owner                          => $owner,
+        group                          => $group,
+        lbclient_metadata_uri          => $metadata_service_uri,
+        lbclient_data_uri              => $data_service_uri,
+        lbclient_use_cert_auth         => $use_cert_auth,
+        lbclient_cert_file_path        => $file,
+        lbclient_cert_password         => $password,
+        lbclient_cert_alias            => $name,
+        lbclient_ca_certificates       => $ca_certificates,
+        lbclient_use_physical_file     => $use_physical_file,
+        base_file_path                 => $file_path,
+        notify                         => $notify,
+        lbclient_mongo_write_concern   => $mongo_write_concern,
+        lbclient_mongo_read_preference => $mongo_read_preference,
     }
 
 }
