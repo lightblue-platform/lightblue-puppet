@@ -115,6 +115,11 @@ if [ "x$JAVA_OPTS" = "x" ]; then
 <%- if @remote_debugging == true and @eap6repo == 'JBEAP-610' -%>
   JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"
 <%- end -%>
+
+<%- if @stopwatch_enabled == true -%>
+  JAVA_OPTS="$JAVA_OPTS -Dstopwatch.enabled=true -Dstopwatch.globalWarnThresholdMS=<%= @stopwatch_globalWarnThresholdMS %> -Dstopwatch.globalWarnSizeThresholdB=<%= @stopwatch_globalWarnSizeThresholdB %>"
+<%- end -%>
+
 fi
 
 <%- if classes.include?('tracelytics::java') -%>
