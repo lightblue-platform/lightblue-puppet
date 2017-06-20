@@ -33,7 +33,7 @@ class lightblue::eap (
     $expose_management_interface = false,
     $heap_dump_on_oom = true,
     $stopwatch_enabled = false,
-    $stopwatch_globalWarnThresholdMS = -1,
+    $stopwatch_globalWarnThresholdMS = 5000,
     $stopwatch_globalWarnSizeThresholdB = -1,
 ) {
   include lightblue::yumrepo::jbeap
