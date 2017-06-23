@@ -1,4 +1,7 @@
 {
+<% if @memoryIndexThreshold && @memoryIndexThreshold != '' -%>
+   "memoryIndexThreshold": <%= @memoryIndexThreshold %>,
+<% end -%>
    "controllers" : [
       {
         "backend" : "mongo",
