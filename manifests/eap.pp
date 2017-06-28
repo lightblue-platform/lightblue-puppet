@@ -32,6 +32,9 @@ class lightblue::eap (
     $java_Xmx = '1572m',
     $expose_management_interface = false,
     $heap_dump_on_oom = true,
+    $stopwatch_enabled = false,
+    $stopwatch_globalWarnThresholdMS = 5000,
+    $stopwatch_globalWarnSizeThresholdB = -1,
 ) {
   include lightblue::yumrepo::jbeap
   include lightblue::yumrepo::jbeaptools
