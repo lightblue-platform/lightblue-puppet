@@ -96,6 +96,16 @@ class lightblue::authentication::certificate (
         require => Package[$lightblue::eap::package_name],
     }
 
+    # create ldap-healthcheck-config.json file required to initialize RolesProvider
+    file { "${directory}/ldap-healthcheck-config.json":
+        ensure  => 'file',
+        mode    => '0644',
+        owner   => 'jboss',
+        group   => 'jboss',
+        content => template('lightblue/properties/ldap-healthcheck-config.json.erb'),
+        require => File[$directory],
+    }
+
     lightblue::jcliff::config { 'lightblue-security-domain-cert.conf':
         content => template('lightblue/lightblue-security-domain-cert.conf.erb'),
         require => File["${config_dir}/roles.properties"],
