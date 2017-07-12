@@ -85,6 +85,7 @@ class lightblue::authentication::certificate (
     $poolMaxConnectionAgeMS=15000,
 ) {
     include lightblue::eap
+    $module_directory = '/usr/share/jbossas/modules/com/redhat/lightblue/main'
 
     # create empty roles.properties file required for login module to work
     file {"${config_dir}/roles.properties":
@@ -97,13 +98,13 @@ class lightblue::authentication::certificate (
     }
 
     # create ldap-healthcheck-config.json file required to initialize RolesProvider
-    file { "${directory}/ldap-healthcheck-config.json":
+    file { "${module_directory}/ldap-healthcheck-config.json":
         ensure  => 'file',
         mode    => '0644',
         owner   => 'jboss',
         group   => 'jboss',
         content => template('lightblue/properties/ldap-healthcheck-config.json.erb'),
-        require => File[$directory],
+        require => File[$module_directory],
     }
 
     lightblue::jcliff::config { 'lightblue-security-domain-cert.conf':

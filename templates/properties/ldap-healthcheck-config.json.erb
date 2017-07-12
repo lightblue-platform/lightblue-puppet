@@ -1,19 +1,19 @@
 {
    "ldap-config" : {
-<% if ldap_server -%>
-     "server" : <%=ldap_server%>,
+<% if defined? @ldap_server -%>
+     "server" : "<%=@ldap_server%>",
 <% end -%>
 <% if ldap_port -%>
      "port" : <%=ldap_port%>,
 <% end -%>
-<% if ldap_serach_base -%>
-     "serach_base" : <%=ldap_serach_base%>,
+<% if defined? @ldap_serach_base -%>
+     "serach_base" : "<%=@ldap_serach_base%>",
 <% end -%>
-<% if ldap_username -%>
-     "username" : <%=ldap_username%>,
+<% if defined? @ldap_username -%>
+     "username" : "<%=@ldap_username%>",
 <% end -%>
-<% if ldap_password -%>
-     "password" : <%=ldap_password%>,
+<% if defined? @ldap_password -%>
+     "password" : "<%=@ldap_password%>",
 <% end -%>
 <% if ldap_pool_size -%>
      "pool_size" : <%=ldap_pool_size%>,
@@ -21,17 +21,17 @@
 <% if ldap_use_tls -%>
      "use_tls" : <%=ldap_use_tls%>,
 <% end -%>
-<% if truststore_url -%>
-     "truststore" : <%=truststore_url%>,
+<% if defined? @truststore_url -%>
+     "truststore" : "<%=@truststore_url%>",
 <% end -%>
-<% if truststore_password -%>
-     "truststore_password" : <%=truststore_password%>,
+<% if defined? @truststore_password -%>
+     "truststore_password" : "<%=@truststore_password%>",
 <% end -%>
-<% if connectionTimeoutMS -%>
-     "connectionTimeoutMS" : <%=connectionTimeoutMS%>,
+<% if defined? @connectionTimeoutMS -%>
+     "connectionTimeoutMS" : "<%=@connectionTimeoutMS%>",
 <% end -%>
-<% if responseTimeoutMS -%>
-     "responseTimeoutMS" : <%=responseTimeoutMS%>,
+<% if defined? @responseTimeoutMS -%>
+     "responseTimeoutMS" : "<%=@responseTimeoutMS%>",
 <% end -%>
 <% if debug -%>
      "debug" : <%=debug%>,
@@ -39,8 +39,9 @@
 <% if keepAlive -%>
      "keepAlive" : <%=keepAlive%>,
 <% end -%>
-<% if poolMaxConnectionAgeMS -%>
-     "poolMaxConnectionAgeMS" : <%=poolMaxConnectionAgeMS%>,
+<% if defined? @poolMaxConnectionAgeMS -%>
+     "poolMaxConnectionAgeMS" : "<%=@poolMaxConnectionAgeMS%>",
 <% end -%>
+     "documentation" : "This is LDAP configuration to initialize RolesProvider."
   }
 }
