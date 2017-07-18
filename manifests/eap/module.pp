@@ -127,6 +127,8 @@ class lightblue::eap::module (
     $locking = undef,
     $plugins = undef,
     $memoryIndexThreshold = undef,
+    $maxResultSetSizeB = undef,
+    $warnResultSetSizeB = undef,
 )
 {
     include lightblue::eap
