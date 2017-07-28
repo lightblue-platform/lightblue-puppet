@@ -3,13 +3,15 @@
 <% if @memoryIndexThreshold && @memoryIndexThreshold != '' -%>
    "memoryIndexThreshold": <%= @memoryIndexThreshold %>,
 <% end -%>
-<% if @maxResultSetSizeB && @maxResultSetSizeB != '' -%>
-   "maxResultSetSizeB": <%= @maxResultSetSizeB %>,
+<% if @maxResultSetSizeForReadsB && @maxResultSetSizeForReadsB != '' -%>
+   "maxResultSetSizeForReadsB": <%= @maxResultSetSizeForReadsB %>,
+<% end -%>
+<% if @maxResultSetSizeForWritesB && @maxResultSetSizeForWritesB != '' -%>
+   "maxResultSetSizeForWritesB": <%= @maxResultSetSizeForWritesB %>,
 <% end -%>
 <% if @warnResultSetSizeB && @warnResultSetSizeB != '' -%>
    "warnResultSetSizeB": <%= @warnResultSetSizeB %>,
 <% end -%>
-
    "controllers" : [
       {
         "backend" : "mongo",
