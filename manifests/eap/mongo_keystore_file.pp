@@ -25,6 +25,8 @@ define lightblue::eap::mongo_keystore_file ($file, $source) {
         source => $source,
     }
 
+    $cacerts_path = hiera('lightblue::eap::mongossl::cacerts_path', "${lightblue::java::java_home}/jre/lib/security/cacerts")
+
     #This will create the keystore at the target location
     java_ks { "${name}:${lightblue::java::java_home}/jre/lib/security/cacerts" :
         ensure       => latest,
