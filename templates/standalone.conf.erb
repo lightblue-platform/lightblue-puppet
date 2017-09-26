@@ -154,6 +154,11 @@ JAVA_OPTS="$JAVA_OPTS -Djdk.tls.ephemeralDHKeySize=2048"
    JAVA_OPTS="$JAVA_OPTS <%= @jvm_args %>"
 <%- end -%>
 
+<%- if @expose_jboss_web_mbean -%>
+  JAVA_OPTS="$JAVA_OPTS -Dorg.apache.tomcat.util.ENABLE_MODELER=true"
+<%- end -%>
+
+
 if [[ -d /usr/share/jbossas/bin/standalone.conf.d ]] ; then
     for opt in `find /usr/share/jbossas/bin/standalone.conf.d -type f` ; do
         source $opt
