@@ -12,7 +12,7 @@
 # $lbclient_ca_file_path      - ca file path. Required only if $lbclient_use_cert_auth == true.
 # $lbclient_cert_file_path    - cert file path. Required only if $lbclient_use_cert_auth == true.
 # $lbclient_cert_password     - cert password. Required only if $lbclient_use_cert_auth == true.
-# $lbclient_cert_alias        - cert alias. Required only if $lbclient_use_cert_auth == true.
+# $lbclient_cert_alias        - cert alias. Used only if $lbclient_use_cert_auth == true.
 # $lbclient_use_physical_file - It is generally assumed that the cert and ca files will bundled in the application binary,
 #                               however toggling to true provides the ability for the files to be physically located
 #                               on the file system.

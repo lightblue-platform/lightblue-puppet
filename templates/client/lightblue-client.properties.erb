@@ -11,7 +11,7 @@ caFilePath=<% if(@lbclient_use_physical_file == true) %>file://<% if(@base_file_
 <% end -%>
 certFilePath=<% if(@lbclient_use_physical_file == true) %>file://<% if(@base_file_path) %><%= @base_file_path %>/<%end%><%end%><%= @lbclient_cert_file_path %>
 certPassword=<%= @lbclient_cert_password %>
-certAlias=<%= @lbclient_cert_alias %>
+<% if(defined?(@lbclient_cert_alias)) %>certAlias=<%= @lbclient_cert_alias %><%end%>
 <% end -%>
 <% if @lbclient_mongo_write_concern and @lbclient_mongo_write_concern!='' -%>
 execution.mongo.writeConcern=<%= @lbclient_mongo_write_concern %>
