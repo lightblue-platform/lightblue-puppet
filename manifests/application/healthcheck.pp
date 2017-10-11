@@ -90,9 +90,6 @@ class lightblue::application::healthcheck (
 
     $client_cert_keys = keys($client_certificates)
 
-    # This is just there to make sure the last key in the array gets .properties\n appended, kinda hacky but works
-    $client_cert_keys[size($client_cert_keys)]=''
-
     concat::fragment { $clients_config_file_path:
         target  => $clients_config_file_path,
         content => join($client_cert_keys, ".properties\n"),

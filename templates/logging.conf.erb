@@ -8,7 +8,7 @@
                "relative-to" => "jboss.server.log.dir",
                "path" => "server.log",
             },
-           "formatter" => "<%= logging_format %>"
+           "formatter" => "<%= @logging_format %>"
        }
     },
     "periodic-rotating-file-handler" => {
@@ -22,16 +22,16 @@
    },
     "logger" => {
        "com.redhat" => {
-         "level" => "<%= lightblue_log_level %>"
+         "level" => "<%= @lightblue_log_level %>"
        },
        "com.redhat.lightblue.crud.mongo.slowresults" => {
-         "level" => "<%= slow_query_log_level %>"
+         "level" => "<%= @slow_query_log_level %>"
        }
    },
     "root-logger" => {
        "ROOT" => {
          "handlers" => [ "rh_file_handler" ],
-         "level" => "<%= root_log_level %>"
+         "level" => "<%= @root_log_level %>"
        }
     }
   }
