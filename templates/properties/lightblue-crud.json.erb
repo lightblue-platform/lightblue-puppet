@@ -30,8 +30,8 @@
         }
       }
       
-      <% if additional_backend_controllers != '' && additional_backend_controllers.kind_of?(Array) -%>   
-        <% additional_backend_controllers.each do |controller| -%>
+      <% if @additional_backend_controllers != '' && @additional_backend_controllers.kind_of?(Array) -%>
+        <% @additional_backend_controllers.each do |controller| -%>
         ,   
         {
           "backend" : "<%=controller['backend']%>",

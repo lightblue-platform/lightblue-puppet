@@ -1,24 +1,24 @@
 {
   "web" => {
     "connector" => {
-       "<%=connector_name%>" => {
+       "<%=@connector_name%>" => {
 
 <% if @ssl && @ssl != '' %>
-	"configuration" => { "<%=ssl%>" => { 
+	"configuration" => { "<%=@ssl%>" => {
 	  <% if @password && @password != '' %>
-	     "password" => "<%=password%>",
+	     "password" => "<%=@password%>",
 	  <% end -%>
 	   <% if @certificate_key_file && @certificate_key_file != '' %>
-	     "certificate-key-file" => "<%=certificate_key_file%>",
+	     "certificate-key-file" => "<%=@certificate_key_file%>",
 	  <% end -%>
 	   <% if @key_alias && @key_alias != '' %>
-	     "key-alias" => "<%=key_alias%>",
+	     "key-alias" => "<%=@key_alias%>",
 	  <% end -%>
 	  <% if @ca_certificate_file && @ca_certificate_file != '' %>
-	     "ca-certificate-file" => "<%=ca_certificate_file%>",
+	     "ca-certificate-file" => "<%=@ca_certificate_file%>",
 	  <% end -%>
 	  <% if @ca_certificate_password && @ca_certificate_password != '' %>
-	     "ca-certificate-password" => "<%=ca_certificate_password%>",
+	     "ca-certificate-password" => "<%=@ca_certificate_password%>",
 	  <% end -%>
 	     "verify-client" => "want",
 	}},
@@ -26,47 +26,47 @@
 <% end -%>
 
 <% if @enable_lookups && @enable_lookups != '' %>
-                "enable-lookups" => "<%=enable_lookups%>",
+                "enable-lookups" => "<%=@enable_lookups%>",
 <% end -%>
 <% if enabled %>
                 "enabled" => true,
 <% end -%>
 <% if @executor && @executor != '' %>
-                "executor" => "<%=executor%>",
+                "executor" => "<%=@executor%>",
 <% end -%>
 <% if @max_connections && @max_connections != '' %>
-                "max-connections" => <%=max_connections%>,
+                "max-connections" => <%=@max_connections%>,
 <% end -%>
 <% if @max_post_size && @max_post_size != '' %>
-                "max-post-size" => <%=max_post_size%>,
+                "max-post-size" => <%=@max_post_size%>,
 <% end -%>
 <% if @max_save_post_size && @max_save_post_size != '' %>
-                "max-save-post-size" => <%=max_save_post_size%>,
+                "max-save-post-size" => <%=@max_save_post_size%>,
 <% end -%>
 <% if @protocol && @protocol != '' %>
-                "protocol" => "<%=protocol%>",
+                "protocol" => "<%=@protocol%>",
 <% end -%>
 <% if @proxy_name && @proxy_name != '' %>
-                "proxy-name" => "<%=proxy_name%>",
+                "proxy-name" => "<%=@proxy_name%>",
 <% end -%>
 <% if @proxy_port && @proxy_port != '' %>
-                "proxy-port" => <%=proxy_port%>,
+                "proxy-port" => <%=@proxy_port%>,
 <% end -%>
 <% if @redirect_port && @redirect_port != '' %>
-                "redirect-port" => <%=redirect_port%>,
+                "redirect-port" => <%=@redirect_port%>,
 <% end -%>
 <% if @scheme && @scheme != '' %>
-                "scheme" => "<%=scheme%>",
+                "scheme" => "<%=@scheme%>",
 <% end -%>
 <% if secure %>
                 "secure" => true,
 <% end -%>
 <% if @socket_binding && @socket_binding != '' %>
-                "socket-binding" => "<%=socket_binding%>",
+                "socket-binding" => "<%=@socket_binding%>",
 <% end -%>
 
 <% if @virtual_server && @virtual_server != '' %>
-                "virtual-server" => "<%=virtual_server%>",
+                "virtual-server" => "<%=@virtual_server%>",
 <% end -%>
 
        }

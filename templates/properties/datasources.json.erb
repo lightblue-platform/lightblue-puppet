@@ -12,11 +12,11 @@
      ],
      "type" : "com.redhat.lightblue.mongo.config.MongoConfiguration",
      "metadataDataStoreParser" : "com.redhat.lightblue.mongo.metadata.MongoDataStoreParser",
-<% if mongo_ssl -%>
-     "ssl" : <%=mongo_ssl%>,
+<% if @mongo_ssl -%>
+     "ssl" : <%=@mongo_ssl%>,
 <% end -%>
 <% if mongo_noCertValidation -%>
-     "noCertValidation" : <%=mongo_noCertValidation%>,
+     "noCertValidation" : <%=@mongo_noCertValidation%>,
 <% end -%>
      "database" : "metadata",
 <% if defined? @mongo_auth_mechanism -%>
@@ -33,11 +33,11 @@
 <% end %>
      },
 <% end %>
-<% if mongo_servers_cfg.kind_of?(Array) -%>
+<% if @mongo_servers_cfg.kind_of?(Array) -%>
      "servers" : [
         <%
         i = mongo_servers_cfg.length
-        mongo_servers_cfg.each do |server|
+        @mongo_servers_cfg.each do |server|
         -%>
         {
            "host" : "<%=server['host']%>",
@@ -64,12 +64,12 @@
    "mongodata" : {
      "type" : "com.redhat.lightblue.mongo.config.MongoConfiguration",
      "metadataDataStoreParser" : "com.redhat.lightblue.mongo.metadata.MongoDataStoreParser",
-     "maxResultSetSize" : <%=mongo_maxResultSetSize%>,
-<% if mongo_connectionsPerHost -%>
-     "connectionsPerHost": <%=mongo_connectionsPerHost%>,
+     "maxResultSetSize" : <%=@mongo_maxResultSetSize%>,
+<% if @mongo_connectionsPerHost -%>
+     "connectionsPerHost": <%=@mongo_connectionsPerHost%>,
 <% end -%>
-<% if mongo_ssl -%>
-     "ssl" : <%=mongo_ssl%>,
+<% if @mongo_ssl -%>
+     "ssl" : <%=@mongo_ssl%>,
 <% end -%>
 <% if mongo_noCertValidation -%>
      "noCertValidation" : <%=mongo_noCertValidation%>,
@@ -122,11 +122,11 @@
      }
    }
 
-<% if ldap_config.kind_of?(Array) -%>
+<% if @ldap_config.kind_of?(Array) -%>
    ,
    <%
-   a = ldap_config.length
-   ldap_config.each do |ldap|
+   a = @ldap_config.length
+   @ldap_config.each do |ldap|
    -%>
    "<%=ldap['datasourceName']%>": {
       "type": "com.redhat.lightblue.config.ldap.LdapDataSourceConfiguration",
@@ -159,7 +159,7 @@
    -%>
 <% end -%>
 
-<% if rdbms_servers_cfg.kind_of?(Array) -%>   
+<% if @rdbms_servers_cfg.kind_of?(Array) -%>
    ,
     "rdbms" : {
         "type" : "com.redhat.lightblue.config.rdbms.RDBMSDataSourceConfiguration",
@@ -171,8 +171,8 @@
         rdbms_servers_cfg.each do |connection|
         -%>
         {
-          "datasourceName" : "<%=connection['datasourceName']%>",
-          "JNDI" : "<%=connection['JNDI']%>"
+          "datasourceName" : "<%=@connection['datasourceName']%>",
+          "JNDI" : "<%=@connection['JNDI']%>"
         }
         <% if i > 1 then -%>
         ,

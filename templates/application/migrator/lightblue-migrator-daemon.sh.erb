@@ -7,19 +7,19 @@
 #This file is managed by Puppet, any changes will be overridden.
 
 # Setup variables
-JSVC_EXEC=<%= jsvc_exec %>
+JSVC_EXEC=<%= @jsvc_exec %>
 <% if @java_home -%>
-JAVA_HOME_DIR=<%= java_home %>
+JAVA_HOME_DIR=<%= @java_home %>
 <% end -%>
 <% if @lib_dir -%>
-LIBS=<%= lib_dir %>
+LIBS=<%= @lib_dir %>
 <% end -%>
 
-MAIN_CLASS=<%= mainClass %>
-PID=/var/run/<%= service_name %>.pid
+MAIN_CLASS=<%= @mainClass %>
+PID=/var/run/<%= @service_name %>.pid
 
-LOG_OUT=<%= service_out_logfile %>
-LOG_ERR=<%= service_err_logfile %>
+LOG_OUT=<%= @service_out_logfile %>
+LOG_ERR=<%= @service_err_logfile %>
 
 do_exec()
 {
@@ -31,7 +31,7 @@ do_exec()
 <% end -%>
     
     #Using a for loop in order to support wildcard characters.
-    for f in <%= jar_path %>
+    for f in <%= @jar_path %>
     do
         CLASS_PATH=${CLASS_PATH}:${f}
     done
@@ -59,7 +59,7 @@ do_exec()
     end
   end
 -%>
-    <%= jsvcCommand.join " \\\n        " %>
+    <%= @jsvcCommand.join " \\\n        " %>
 }
 
 do_start()
