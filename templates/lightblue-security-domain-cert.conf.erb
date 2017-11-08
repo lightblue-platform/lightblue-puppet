@@ -39,11 +39,11 @@
              "client-auth" => true,
              "keystore" => {
                         "password" => "<%= @keystore_password %>",
-                        "url" => "file://<%= @keystore_url %>"
+                        "url" => expression "file://<%= @keystore_url %>"
                     },
              "truststore" => {
                         "password" => "<%= @truststore_password %>",
-                        "url" => "file://<%= @truststore_url %>"
+                        "url" => expression "file://<%= @truststore_url %>"
                     }
             }
          }
