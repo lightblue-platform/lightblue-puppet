@@ -6,11 +6,11 @@
         "The remainder of the file is parsed by the implementation class"
     ],
     "type": "com.redhat.lightblue.mongo.config.MongoMetadataConfiguration",
-<% if hook_configuration_parsers != '' && hook_configuration_parsers.kind_of?(Array) -%>
+<% if @hook_configuration_parsers != '' && @hook_configuration_parsers.kind_of?(Array) -%>
     "hookConfigurationParsers": [
     <%
-      i = hook_configuration_parsers.length
-      hook_configuration_parsers.each do |parser|
+      i = @hook_configuration_parsers.length
+      @hook_configuration_parsers.each do |parser|
     -%>
         "<%=parser%>"
     <% if i > 1 then -%>
@@ -22,23 +22,23 @@
     <% end -%>
     ],
 <% end -%>
-<% if metadata_roles != '' && metadata_roles.kind_of?(Hash) -%>
+<% if @metadata_roles != '' && @metadata_roles.kind_of?(Hash) -%>
     "roleMap": {
     <% 
-      k = metadata_roles.keys.length
-      metadata_roles.keys.each do |role| 
+      k = @metadata_roles.keys.length
+      @metadata_roles.keys.each do |role|
     -%>
-      <% if metadata_roles[role].kind_of?(Array) -%>
+      <% if @metadata_roles[role].kind_of?(Array) -%>
         "<%= role %>": [<% 
-            r = metadata_roles[role].length
-            metadata_roles[role].each do |value|
+            r = @metadata_roles[role].length
+            @metadata_roles[role].each do |value|
             -%>"<%= value %>"<% 
             if r > 1 then -%>, <%
             end 
             r = r - 1
           end -%>]
       <% else -%>
-        "<%= role %>": ["<%= metadata_roles[role] %>"]
+        "<%= role %>": ["<%= @metadata_roles[role] %>"]
       <% end -%>
       <% if k > 1 then -%>
         ,
@@ -49,11 +49,11 @@
     <% end -%>
     },
 <% end -%>
-<% if backend_parsers != '' && backend_parsers.kind_of?(Array) -%>
+<% if @backend_parsers != '' && @backend_parsers.kind_of?(Array) -%>
     "backendParsers" : [
         <%
-        j = backend_parsers.length
-        backend_parsers.each do |backend_parser|
+        j = @backend_parsers.length
+        @backend_parsers.each do |backend_parser|
         -%>
         {
        "name": "<%=backend_parser['name']%>",
@@ -69,11 +69,11 @@
         <% end -%>
      ],
 <% end -%>
-<% if property_parsers != '' && property_parsers.kind_of?(Array) -%>
+<% if @property_parsers != '' && @property_parsers.kind_of?(Array) -%>
     "propertyParsers" : [
         <%
-        k = property_parsers.length
-        property_parsers.each do |property_parser|
+        k = @property_parsers.length
+        @property_parsers.each do |property_parser|
         -%>
         {
        "name": "<%=property_parser['name']%>",

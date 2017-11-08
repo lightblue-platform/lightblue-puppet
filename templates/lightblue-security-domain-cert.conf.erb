@@ -14,16 +14,16 @@
                   "verifier" => "org.jboss.security.auth.certs.AnyCertVerifier",
                   "rolesProperties" => "deleted",
                   "authRoleName" => "authenticated",
-                  "ldapServer" => "<%= ldap_server %>",
-                  "port" => "<%= ldap_port %>",
-                  "searchBase" => "<%= ldap_search_base %>",
-                  "bindDn" => "<%= ldap_username %>",
-                  "bindPassword" => "<%= ldap_password %>",
-                  "useSSL" => "<%= ldap_use_tls %>",
-                  "poolSize" => "<%= ldap_pool_size %>",
-                  "trustStore" => expression "<%= truststore_url %>",
-                  "trustStorePassword" => "<%= truststore_password %>",
-                  "environment" => "<%= environment %>",
+                  "ldapServer" => "<%= @ldap_server %>",
+                  "port" => "<%= @ldap_port %>",
+                  "searchBase" => "<%= @ldap_search_base %>",
+                  "bindDn" => "<%= @ldap_username %>",
+                  "bindPassword" => "<%= @ldap_password %>",
+                  "useSSL" => "<%= @ldap_use_tls %>",
+                  "poolSize" => "<%= @ldap_pool_size %>",
+                  "trustStore" => "<%= @truststore_url %>",
+                  "trustStorePassword" => "<%= @truststore_password %>",
+                  "environment" => "<%= @environment %>",
                   "debug" => "<%= @debug %>",
                   "keepAlive" => "<%= @keepAlive %>",
                   "connectionTimeoutMS" => "<%= @connectionTimeoutMS %>",
@@ -38,12 +38,12 @@
           "classic" => {
              "client-auth" => true,
              "keystore" => {
-                        "password" => "<%= keystore_password %>",
-                        "url" => expression "file://<%= keystore_url %>"
+                        "password" => "<%= @keystore_password %>",
+                        "url" => "file://<%= @keystore_url %>"
                     },
              "truststore" => {
-                        "password" => "<%= truststore_password %>",
-                        "url" => expression "file://<%= truststore_url %>"
+                        "password" => "<%= @truststore_password %>",
+                        "url" => "file://<%= @truststore_url %>"
                     }
             }
          }
