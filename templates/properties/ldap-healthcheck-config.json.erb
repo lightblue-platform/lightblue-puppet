@@ -3,8 +3,8 @@
 <% if defined? @ldap_server -%>
      "server" : "<%=@ldap_server%>",
 <% end -%>
-<% if ldap_port -%>
-     "port" : <%=ldap_port%>,
+<% if @ldap_port -%>
+     "port" : <%=@ldap_port%>,
 <% end -%>
 <% if defined? @ldap_search_base -%>
      "search_base" : "<%=@ldap_search_base%>",
@@ -15,11 +15,11 @@
 <% if defined? @ldap_password -%>
      "password" : "<%=@ldap_password%>",
 <% end -%>
-<% if ldap_pool_size -%>
-     "pool_size" : <%=ldap_pool_size%>,
+<% if @ldap_pool_size -%>
+     "pool_size" : <%=@ldap_pool_size%>,
 <% end -%>
-<% if ldap_use_tls -%>
-     "use_tls" : <%=ldap_use_tls%>,
+<% if @ldap_use_tls -%>
+     "use_tls" : <%=@ldap_use_tls%>,
 <% end -%>
 <% if defined? @truststore_url -%>
      "truststore" : "<%=@truststore_url%>",
@@ -33,11 +33,11 @@
 <% if defined? @responseTimeoutMS -%>
      "responseTimeoutMS" : "<%=@responseTimeoutMS%>",
 <% end -%>
-<% if debug -%>
-     "debug" : <%=debug%>,
+<% if @debug -%>
+     "debug" : <%=@debug%>,
 <% end -%>
-<% if keepAlive -%>
-     "keepAlive" : <%=keepAlive%>,
+<% if @keepAlive -%>
+     "keepAlive" : <%=@keepAlive%>,
 <% end -%>
 <% if defined? @poolMaxConnectionAgeMS -%>
      "poolMaxConnectionAgeMS" : "<%=@poolMaxConnectionAgeMS%>",
