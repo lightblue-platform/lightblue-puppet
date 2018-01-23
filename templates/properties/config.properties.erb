@@ -6,7 +6,7 @@ hystrix.command.default.execution.isolation.semaphore.maxConcurrentRequests=1000
 hystrix.command.default.fallback.enabled=false
 # disable the circuit breaker, we deal with the errors
 hystrix.command.default.circuitBreaker.enabled=false
-<% if hystrix_execution_timeout_enabled -%>
+<% if @hystrix_execution_timeout_enabled -%>
 hystrix.command.default.execution.timeout.enabled=<%=@hystrix_execution_timeout_enabled%>
 <% end -%>
 

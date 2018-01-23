@@ -28,7 +28,7 @@
 <% if @enable_lookups && @enable_lookups != '' %>
                 "enable-lookups" => "<%=@enable_lookups%>",
 <% end -%>
-<% if enabled %>
+<% if @enabled %>
                 "enabled" => true,
 <% end -%>
 <% if @executor && @executor != '' %>
@@ -58,7 +58,7 @@
 <% if @scheme && @scheme != '' %>
                 "scheme" => "<%=@scheme%>",
 <% end -%>
-<% if secure %>
+<% if @secure %>
                 "secure" => true,
 <% end -%>
 <% if @socket_binding && @socket_binding != '' %>
