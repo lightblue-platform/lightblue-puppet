@@ -18,12 +18,12 @@
         "extensions": {
 	        <% unless @locking.nil? -%>
 	        "locking": [
-	        		<% locking.each_with_index do |locks, locks_index| -%>
+	        		<% @locking.each_with_index do |locks, locks_index| -%>
 	        		{
 					<% locks.keys.sort.each_with_index do |key, lock_index| -%>
 					"<%= key %>": "<%= locks[key] %>"<%= ',' if lock_index < (locks.size - 1) %>
 	        			<% end -%>
-	        		}<%= ',' if locks_index < (locking.size - 1) %>
+	        		}<%= ',' if locks_index < (@locking.size - 1) %>
 	        		<% end -%>
 	        	]
 	        <% end -%>
@@ -39,12 +39,12 @@
           "extensions": {
 	        <% unless @controller['locking'].nil? -%>
 	        "locking": [
-	        		<% locking.each_with_index do |locks, locks_index| -%>
+	        		<% @locking.each_with_index do |locks, locks_index| -%>
 	        		{
 					<% locks.keys.sort.each_with_index do |key, lock_index| -%>
 					"<%= key %>": "<%= locks[key] %>"<%= ',' if lock_index < (locks.size - 1) %>
 	        			<% end -%>
-	        		}<%= ',' if locks_index < (locking.size - 1) %>
+	        		}<%= ',' if locks_index < (@locking.size - 1) %>
 	        		<% end -%>
 	        	]
 	        <% end -%>

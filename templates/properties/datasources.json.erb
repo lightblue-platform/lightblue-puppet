@@ -15,7 +15,7 @@
 <% if @mongo_ssl -%>
      "ssl" : <%=@mongo_ssl%>,
 <% end -%>
-<% if mongo_noCertValidation -%>
+<% if @mongo_noCertValidation -%>
      "noCertValidation" : <%=@mongo_noCertValidation%>,
 <% end -%>
      "database" : "metadata",
@@ -36,7 +36,7 @@
 <% if @mongo_servers_cfg.kind_of?(Array) -%>
      "servers" : [
         <%
-        i = mongo_servers_cfg.length
+        i = @mongo_servers_cfg.length
         @mongo_servers_cfg.each do |server|
         -%>
         {
@@ -89,11 +89,11 @@
 <% end %>
      },
 <% end %>
-<% if mongo_servers_cfg.kind_of?(Array) -%>
+<% if @mongo_servers_cfg.kind_of?(Array) -%>
      "servers" : [
         <%
-        i = mongo_servers_cfg.length
-        mongo_servers_cfg.each do |server|
+        i = @mongo_servers_cfg.length
+        @mongo_servers_cfg.each do |server|
         -%>
         {
            "host" : "<%=server['host']%>",
@@ -118,7 +118,7 @@
      <% if defined? @mongo_data_maxQueryTimeMS -%>
         "maxQueryTimeMS": "<%=@mongo_data_maxQueryTimeMS%>",
      <% end %>
-        "maxResultSetSize" : <%=mongo_maxResultSetSize%>
+        "maxResultSetSize" : <%=@mongo_maxResultSetSize%>
      }
    }
 
