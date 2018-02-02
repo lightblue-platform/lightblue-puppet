@@ -71,8 +71,8 @@
 <% if @mongo_ssl -%>
      "ssl" : <%=@mongo_ssl%>,
 <% end -%>
-<% if mongo_noCertValidation -%>
-     "noCertValidation" : <%=mongo_noCertValidation%>,
+<% if @mongo_noCertValidation -%>
+     "noCertValidation" : <%=@mongo_noCertValidation%>,
 <% end -%>
      "database" : "data",
 <% if defined? @mongo_auth_mechanism -%>
