@@ -31,7 +31,7 @@ class lightblue::service::plugin::statsd ($prefix = undef, $hostname = undef, $p
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      content => inline_template("${warning}\n\n<% if(!@prefix.nil?) -%>export STATSD_PREFIX=${prefix}\n<% end -%>export STATSD_HOSTNAME=${hostname}\nexport STATSD_PORT=${port}\n")
+      content => inline_template("${warning}\n\n<% if(!@prefix.nil?) -%>export STATSD_PREFIX=${@prefix}\n<% end -%>export STATSD_HOSTNAME=${@hostname}\nexport STATSD_PORT=${@port}\n")
     }
   }
   else{
