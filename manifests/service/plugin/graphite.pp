@@ -31,7 +31,7 @@ class lightblue::service::plugin::graphite ($prefix = undef, $hostname = undef, 
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      content => inline_template("${warning}\n\n<% if(!@prefix.nil?) -%>export GRAPHITE_PREFIX=${prefix}\n<% end -%>export GRAPHITE_HOSTNAME=${hostname}\nexport GRAPHITE_PORT=${port}\n")
+      content => inline_template("<%= @warning %>\n\n<% if(!@prefix.nil?) -%>export GRAPHITE_PREFIX=<%= @prefix %>\n<% end -%>export GRAPHITE_HOSTNAME=<%= @hostname %>\nexport GRAPHITE_PORT=<%= @port %>\n")
     }
   }
   else{
