@@ -128,7 +128,7 @@ if [ "x$JAVA_OPTS" = "x" ]; then
 
 fi
 
-<%- if @classes.include?('tracelytics::java') -%>
+<%- if classes.include?('tracelytics::java') -%>
 # AppNeta PoC
   JAVA_OPTS="$JAVA_OPTS -javaagent:/usr/local/tracelytics/tracelyticsagent.jar"
 <%- end -%>
