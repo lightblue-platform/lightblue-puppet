@@ -72,7 +72,7 @@ if [ "x$JAVA_OPTS" = "x" ]; then
 <%- if @g1_gc -%>
    JAVA_OPTS="$JAVA_OPTS -XX:+UseG1GC"
  <%- if @g1_gc_max_pause_millis -%>
-   JAVA_OPTS="$JAVA_OPTS -XX:MaxGCPauseMillis=<%= @g1_gc_max_pause_millis %>
+   JAVA_OPTS="$JAVA_OPTS -XX:MaxGCPauseMillis=<%= @g1_gc_max_pause_millis %>"
  <%- end -%>
 <%- elsif @concurrent_garbage_collection != false -%>
 
