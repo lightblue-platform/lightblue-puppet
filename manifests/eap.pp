@@ -36,6 +36,8 @@ class lightblue::eap (
     $stopwatch_globalWarnThresholdMS = 5000,
     $stopwatch_globalWarnSizeThresholdB = -1,
     $expose_jboss_web_mbean = 'false'
+    $g1_gc = false,
+    $g1_gc_max_pause_millis = undef,
 ) {
   include lightblue::yumrepo::jbeap
   include lightblue::yumrepo::jbeaptools

@@ -69,7 +69,13 @@ if [ "x$JAVA_OPTS" = "x" ]; then
 <%- if @jboss_java_opts_MaxPermSize -%>
    JAVA_OPTS="$JAVA_OPTS -XX:MaxPermSize=<%= @jboss_java_opts_MaxPermSize %>"
 <%- end -%>
-<%- if @concurrent_garbage_collection != false -%>
+<%- if @g1_gc -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:+UseG1GC"
+ <%- if @g1_gc_max_pause_millis -%>
+   JAVA_OPTS="$JAVA_OPTS -XX:MaxGCPauseMillis=<%= @g1_gc_max_pause_millis %>
+ <%- end -%>
+<%- elsif @concurrent_garbage_collection != false -%>
+
 <%- if @class_unloading != false or @perm_gen_sweeping != false -%>
    JAVA_OPTS="$JAVA_OPTS -XX:+CMSClassUnloadingEnabled"
 <%- end -%>
@@ -122,7 +128,7 @@ if [ "x$JAVA_OPTS" = "x" ]; then
 
 fi
 
-<%- if classes.include?('tracelytics::java') -%>
+<%- if @classes.include?('tracelytics::java') -%>
 # AppNeta PoC
   JAVA_OPTS="$JAVA_OPTS -javaagent:/usr/local/tracelytics/tracelyticsagent.jar"
 <%- end -%>
