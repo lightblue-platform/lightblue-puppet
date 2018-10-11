@@ -129,6 +129,7 @@ class lightblue::eap::module (
     $memoryIndexThreshold = undef,
     $maxResultSetSizeForReadsB = undef,
     $maxResultSetSizeForWritesB = undef,
+    $maxExecutionContextSizeForCompositeFindB = undef,
     $warnResultSetSizeB = undef,
 )
 {

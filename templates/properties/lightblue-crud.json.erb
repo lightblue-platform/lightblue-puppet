@@ -11,6 +11,9 @@
 <% if @warnResultSetSizeB && @warnResultSetSizeB != '' -%>
    "warnResultSetSizeB": <%= @warnResultSetSizeB %>,
 <% end -%>
+<% if @maxExecutionContextSizeForCompositeFindB && @maxExecutionContextSizeForCompositeFindB != '' -%>
+   "maxExecutionContextSizeForCompositeFindB": <%= @maxExecutionContextSizeForCompositeFindB %>,
+<% end -%>
    "controllers" : [
       {
         "backend" : "mongo",
