@@ -17,7 +17,7 @@ class lightblue::eap::access_log (
                     'missingok',
                     'notifempty',
                     'create 0664 jboss jboss',
-                    'rotate 60'],
+                    'rotate 7'],
     }
 
     # The next is just to flush out old logs prior to changing over to
