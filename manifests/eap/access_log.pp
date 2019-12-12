@@ -1,7 +1,7 @@
 # Defines access log pattern for 'default-host' virtual-server
 class lightblue::eap::access_log (
     $pattern = '\%h \%l \%u \%t \\\u0034\%r\\\u0034 \%s \%b \\\u0034\%{Referer}i\\\u0034 \\\u0034\%{User-Agent}i\\\u0034 \%D \%S',
-    $rotate  = 'true',
+    $rotate  = 'false',
     $prefix  = 'access_log',
     $resolve_hosts = 'false',
 ) {
@@ -9,10 +9,15 @@ class lightblue::eap::access_log (
         content => template('lightblue/web-access-log.conf.erb'),
     }
 
-    # we were using an internal implementation for logrotate resource,
-    # one which does not support ensure => absent
-    file { '/etc/logrotate.d/jboss-access-logs':
-        ensure => absent,
+    logrotate::file { 'jboss-access-logs':
+        log     => '/var/log/jbossas/standalone/default-host/access_log*',
+        options => ['compress',
+                    'copytruncate',
+                    'daily',
+                    'missingok',
+                    'notifempty',
+                    'create 0664 jboss jboss',
+                    'rotate 60'],
     }
 
     # The next is just to flush out old logs prior to changing over to
